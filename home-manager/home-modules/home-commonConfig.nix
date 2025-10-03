@@ -40,7 +40,6 @@
     ext4magic #Recover / undelete files from ext3 or ext4 partitions
     extundelete #Utility that can recover deleted files from an ext3 or ext4 partition
     fish #Fish terminal
-    formiko # reStructured Text editor and live previewer
     # freetube #An Open Source YouTube app for privacy
     # fuzzel # Wayland launcher
     gh #Github CLI tool 
@@ -111,6 +110,9 @@
     xournalpp  # Handwriting note-taking application
     evince  # Document viewer for PDF files
     
+    # C compiler for treesitter and other tools
+    gcc  # GNU Compiler Collection
+    
    ]);
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
@@ -141,7 +143,7 @@
     };
     helix = {
       enable = true;
-      defaultEditor = true;
+      # defaultEditor = true;
       settings = {
         # theme = "tokyonight";
         editor = {
@@ -182,10 +184,61 @@
     };
     nixvim = {
       enable = true;
+      defaultEditor = true;
       waylandSupport = true;
+      opts = {
+        # Tab and indentation settings
+        tabstop = 2;
+        shiftwidth = 2;
+        expandtab = true;
+        smartindent = true;
+        autoindent = true;
+        # Line numbers
+        number = true;
+        relativenumber = true;
+        # Other useful settings
+        wrap = false;
+        cursorline = true;
+      };
       plugins = {
         chatgpt.enable = true;
         orgmode.enable = true;
+        which-key.enable = true;
+        telescope.enable = true;
+        treesitter = {
+          enable = true;
+          settings = { 
+            indent.enable = true;
+            ensure_installed = [ "lua" "nix" "python" "json" "yaml" "markdown" "bash" "javascript" "html" "css" ];
+          };
+        };
+        treesitter-textobjects.enable = true;
+        lsp = {
+          enable = true;
+          servers = {
+            lua_ls.enable = true;
+            pyright.enable = true;
+            jsonls.enable = true;
+            nil_ls.enable = true;
+            bashls.enable = true;
+            ts_ls.enable = true;
+          };
+        };
+        luasnip.enable = true;
+        comment.enable = true;
+        nvim-autopairs.enable = true;
+        nvim-surround.enable = true;
+        # indent-blankline.enable = true;
+        gitsigns.enable = true;
+        diffview.enable = true;
+        lualine.enable = true;
+        bufferline.enable = true;
+        dressing.enable = true;
+        oil.enable = true;
+        flash.enable = true;
+        multicursors.enable = true;
+        web-devicons.enable = true;
+        yanky.enable = true;
       };
     };
     nnn = {
@@ -247,7 +300,9 @@
             { run = "kate \"$@\""; desc = "Kate"; }
             { run = "lapce \"$@\""; desc = "Lapce"; }
             { run = "ghostwriter \"$@\""; desc = "Ghostwriter"; }
-            { run = "formiko \"$@\""; desc = "Formiko"; }
+            { run = "kitty -e hx \"$@\""; desc = "Helix"; }
+            { run = "kitty -e nvim \"$@\""; desc = "Neovim"; }
+            { run = "emacs \"$@\""; desc = "Emacs"; }
             { run = "retext \"$@\""; desc = "ReText"; }
             { run = "okular \"$@\""; desc = "Okular"; }
             { run = "apostrophe \"$@\""; desc = "Apostrophe"; }

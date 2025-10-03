@@ -30,11 +30,11 @@ APP_MAP["Zed Editor"]="zeditor"
 APP_MAP["Kate"]="kate"
 APP_MAP["Lapce"]="lapce"
 APP_MAP["Ghostwriter"]="ghostwriter"
-APP_MAP["Helix"]="helix"
+APP_MAP["Helix"]="hx"
 APP_MAP["Micro"]="micro"
 APP_MAP["Neovim"]="nvim"
+APP_MAP["Emacs"]="emacs"
 APP_MAP["Gedit"]="gedit"
-APP_MAP["Formiko"]="formiko"
 APP_MAP["ReText"]="retext"
 APP_MAP["Apostrophe"]="apostrophe"
 APP_MAP["Gwenview"]="gwenview"
@@ -78,7 +78,7 @@ case "$MIME_TYPE" in
     text/*|text/x-*|application/json|application/xml|text/yaml|text/x-toml|text/x-nix|text/x-shellscript)
         # Text/Code files
         echo "📝 Text & Code Editors" >&2
-        apps=("Visual Studio Code" "Cursor" "Zed Editor" "Kate" "Lapce" "Ghostwriter" "Formiko" "ReText" "Apostrophe" "OnlyOffice" "Helix" "Micro" "Neovim" "Gedit")
+        apps=("Visual Studio Code" "Cursor" "Zed Editor" "Kate" "Lapce" "Ghostwriter" "Neovim" "Emacs" "ReText" "Apostrophe" "OnlyOffice" "Helix" "Micro" "Gedit")
         for app in "${apps[@]}"; do
             if command -v "${APP_MAP["$app"]}" >/dev/null 2>&1; then
                 APP_LIST="$APP_LIST
@@ -258,10 +258,42 @@ else
     exit 1
 fi
 
+# Function to launch terminal-based editors in a terminal emulator
+launch_in_terminal() {
+    local editor="$1"
+    local file="$2"
+    
+    # Check for available terminal emulators in order of preference
+    if command -v kitty >/dev/null 2>&1; then
+        exec kitty -e "$editor" "$file"
+    elif command -v alacritty >/dev/null 2>&1; then
+        exec alacritty -e "$editor" "$file"
+    elif command -v foot >/dev/null 2>&1; then
+        exec foot -e "$editor" "$file"
+    elif command -v gnome-terminal >/dev/null 2>&1; then
+        exec gnome-terminal -- "$editor" "$file"
+    elif command -v xterm >/dev/null 2>&1; then
+        exec xterm -e "$editor" "$file"
+    else
+        # Fallback: try to launch directly (may not work for terminal editors)
+        exec "$editor" "$file"
+    fi
+}
+
 # Open the file with the selected application
 if [ -n "$SELECTED" ]; then
     echo "Opening '$FILE' with $SELECTED" >&2
-    exec "$SELECTED" "$FILE"
+    
+    # Check if it's a terminal-based editor that needs special handling
+    case "$SELECTED" in
+        "hx"|"nvim"|"micro"|"emacs")
+            launch_in_terminal "$SELECTED" "$FILE"
+            ;;
+        *)
+            # For GUI applications, launch directly
+            exec "$SELECTED" "$FILE"
+            ;;
+    esac
 else
     echo "No application selected" >&2
     exit 1

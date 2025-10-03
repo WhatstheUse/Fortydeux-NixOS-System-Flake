@@ -65,8 +65,8 @@
     ];
     sessionVariables = {
       # EDITOR = "emacs";
-      VISUAL = "hx";
-      EDITOR = "hx";
+      # VISUAL = "hx";
+      # EDITOR = "hx";
     };
     shellAliases = {
       ls = "lsd -lh --group-directories-first --color always --icon always";
