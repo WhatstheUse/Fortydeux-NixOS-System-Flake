@@ -143,7 +143,7 @@
     };
     helix = {
       enable = true;
-      # defaultEditor = true;
+      defaultEditor = true;
       settings = {
         # theme = "tokyonight";
         editor = {
@@ -184,7 +184,8 @@
     };
     nixvim = {
       enable = true;
-      defaultEditor = true;
+      enableMan = false;
+      # defaultEditor = true;
       waylandSupport = true;
       opts = {
         # Tab and indentation settings
