@@ -184,7 +184,7 @@
     };
     nixvim = {
       enable = true;
-      enableMan = false;
+      # enableMan = false;
       # defaultEditor = true;
       waylandSupport = true;
       opts = {
