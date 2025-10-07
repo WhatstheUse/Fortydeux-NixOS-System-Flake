@@ -232,7 +232,7 @@
     
     # Audio/Video
     pavucontrol
-    pamixer
+    # pamixer
     
     # Hyprland specific
     hyprlock

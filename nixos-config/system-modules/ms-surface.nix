@@ -5,9 +5,13 @@
 
   imports = [
 	  #MS-Surface-specific modules:
-	  inputs.nixos-hardware.nixosModules.microsoft-surface-pro-intel
+	  # inputs.nixos-hardware.nixosModules.microsoft-surface-pro-intel
+	  inputs.nixos-hardware.nixosModules.microsoft-surface-common
     inputs.home-manager.nixosModules.home-manager 
   ];
+  
+  # Kernel version for MS Surface kernel
+  hardware.microsoft-surface.kernelVersion = "stable";  
 
   # Surface-specific cachix substituter
   nix.settings = {
@@ -21,16 +25,15 @@
     ];
   };
 
-  # Kernel version for MS Surface kernel
-  hardware.microsoft-surface.kernelVersion = "stable";  
-
   # Surface Laptop Support
   environment.systemPackages = [
     pkgs.libwacom-surface
     # Both below are enabled in surface-pro-intel module
     # pkgs.iptsd
-    # pkgs.surface-control
+    pkgs.surface-control
   ];
+  # Enabled by default in microsoft-surface-pro-intel module
+  services.iptsd.enable = true;
 
   # Enable better power management
   # services.tlp.enable = true;
