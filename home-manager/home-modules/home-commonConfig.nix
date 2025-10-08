@@ -25,6 +25,16 @@
   # The home.packages option allows you to install Nix packages into your
   # environment.
   nixpkgs.config.allowUnfree = true;
+  
+  # Override packages to fix CMake compatibility issues
+  nixpkgs.overlays = [
+    (final: prev: {
+      ctranslate2 = prev.ctranslate2.overrideAttrs (oldAttrs: {
+        nativeBuildInputs = (oldAttrs.nativeBuildInputs or []) ++ [ final.cmake ];
+        cmakeFlags = (oldAttrs.cmakeFlags or []) ++ [ "-DCMAKE_POLICY_VERSION_MINIMUM=3.5" ];
+      });
+    })
+  ];
 
   home.packages = (with pkgs; [
     # # Adds the 'hello' command to your environment. It prints a friendly
@@ -258,7 +268,11 @@
         ueberzug
         chafa
         viu
-        catimg
+        # catimg  # Disabled due to CMake compatibility issues
+        (catimg.overrideAttrs (oldAttrs: {
+          nativeBuildInputs = (oldAttrs.nativeBuildInputs or []) ++ [ cmake ];
+          cmakeFlags = (oldAttrs.cmakeFlags or []) ++ [ "-DCMAKE_POLICY_VERSION_MINIMUM=3.5" ];
+        }))
         timg
         glow
         lowdown

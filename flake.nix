@@ -8,7 +8,7 @@
     determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/0.1";
     # nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.2505"; # 25.05 from Flakehub - more stable Rust/kernel combo
     nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.1.0"; # Unstable from Flakehub
-  	# nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable"; # Unstable from NixOS
+	  # nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable"; # Unstable from NixOS
     # Stable nixpkgs for Rust compatibility with MS Surface kernel
     # stable-nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.2505"; # 25.05 from Flakehub
     # home-manager.url = "https://flakehub.com/f/nix-community/home-manager/0.1";
