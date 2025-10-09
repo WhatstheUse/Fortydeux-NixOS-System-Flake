@@ -45,45 +45,69 @@
       '';
     };
     extraCss = ''
-      #  window {
-      #     background-color: transparent;
-      #   }
+      window {
+        background: transparent;
+      }
 
-        #search {
-          background: ${config.lib.stylix.colors.base00}CC;  # 80% opacity
-          border: 2px solid ${config.lib.stylix.colors.base01}CC;
-          border-radius: 12px;
-          margin: 1em;
-          padding: 0.5em;
+      box.main {
+        padding: 5px;
+        margin: 10px;
+        border-radius: 10px;
+        border: 1px solid @theme_selected_bg_color;
+        background-color: @theme_bg_color;
+        # box-shadow: 0 0 5px black;
+      }
+
+      text {
+        min-height: 30px;
+        padding: 5px;
+        border-radius: 5px;
+      }
+
+      .matches {
+        background-color: rgba(0, 0, 0, 0);
+        border-radius: 10px;
+      }
+
+      box.plugin:first-child {
+        margin-top: 5px;
+      }
+
+      box.plugin.info {
+        min-width: 200px;
+      }
+
+      list.plugin {
+        background-color: rgba(0, 0, 0, 0);
+      }
+
+      label.match.description {
+        font-size: 10px;
+      }
+
+      label.plugin.info {
+        font-size: 14px;
+      }
+
+      .match {
+        background: transparent;
+      }
+
+      .match:selected {
+        border-left: 4px solid @theme_selected_bg_color;
+        background: transparent;
+        animation: fade 0.1s linear;
+      }
+
+      @keyframes fade {
+        0% {
+          opacity: 0;
         }
 
-        #entries {
-          background: ${config.lib.stylix.colors.base00};    # opaque
-          border: 2px solid ${config.lib.stylix.colors.base01};
-          border-radius: 12px;
-          margin: 1em;
-          margin-top: -1.5em;
+        100% {
+          opacity: 1;
         }
-
-        entry {
-          color: ${config.lib.stylix.colors.base05};
-          font-size: 16pt;
-          padding: 0.5em 1em;
-        }
-
-        list {
-          background: transparent;
-        }
-
-        .row {
-          background: transparent;
-          padding: 0.5em 1em;
-        }
-
-        .row:selected {
-          background: ${config.lib.stylix.colors.base01};
-          border-radius: 8px;
-        }
+      }     
     '';
   };
 }
