@@ -34,13 +34,14 @@
         cmakeFlags = (oldAttrs.cmakeFlags or []) ++ [ "-DCMAKE_POLICY_VERSION_MINIMUM=3.5" ];
       });
     })
+    
   ];
 
   home.packages = (with pkgs; [
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
     # hello
-    apostrophe # Distraction-free Markdown editor for GNU/Linux
+    # apostrophe # Distraction-free Markdown editor for GNU/Linux
     # anytype #P2P note-taking tool
     cachix #Command-line client for Nix binary cache hosting https://cachix.org
     # cheese # Cheesy camera app
