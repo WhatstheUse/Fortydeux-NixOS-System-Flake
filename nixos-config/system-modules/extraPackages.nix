@@ -34,7 +34,9 @@ pkgs,
     kdePackages.discover # KDE and Plasma resources management GUI
     foot # A fast, lightweight and minimalistic Wayland terminal emulator
     fish # Smart and user-friendly command line shell
-    gnome-calculator # Gnome GUI calculator
+    # gnome-calculator # Gnome GUI calculator
+    kdePackages.kcalc # KDE Calculator
+    qalculate-qt # QT-based Desktop Calculator
     gnome-calendar # Gnome GUI calendar
     kdePackages.partitionmanager # Manage the disk devices, partitions and file systems on your computer
     kitty-themes # Themes for the kitty terminal emulator
