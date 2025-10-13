@@ -96,16 +96,17 @@
     "base16-fish": {
       "flake": false,
       "locked": {
-        "lastModified": 1622559957,
-        "narHash": "sha256-PebymhVYbL8trDVVXxCvZgc0S5VxI7I1Hv4RMSquTpA=",
+        "lastModified": 1754405784,
+        "narHash": "sha256-l9xHIy+85FN+bEo6yquq2IjD1rSg9fjfjpyGP1W8YXo=",
         "owner": "tomyun",
         "repo": "base16-fish",
-        "rev": "2f6dd973a9075dabccd26f1cded09508180bf5fe",
+        "rev": "23ae20a0093dca0d7b39d76ba2401af0ccf9c561",
         "type": "github"
       },
       "original": {
         "owner": "tomyun",
         "repo": "base16-fish",
+        "rev": "23ae20a0093dca0d7b39d76ba2401af0ccf9c561",
         "type": "github"
       }
     },
@@ -610,11 +611,11 @@
         "xdph": "xdph"
       },
       "locked": {
-        "lastModified": 1760227591,
-        "narHash": "sha256-zqyzWqTRgNV8inISkZCvAxJLZbjIzcD9mnPabFCtYPU=",
+        "lastModified": 1760336853,
+        "narHash": "sha256-WypDi304H7oJQ0b4Efrj5Xwm21lUsahtP/CrnJUqkqM=",
         "owner": "hyprwm",
         "repo": "Hyprland",
-        "rev": "ed936430216e7aa5f6f53d22eff713f8e9ed69ac",
+        "rev": "6582f42db85bd6e7216d6e77c839f03933974da4",
         "type": "github"
       },
       "original": {
@@ -1149,11 +1150,11 @@
         "systems": "systems_4"
       },
       "locked": {
-        "lastModified": 1760306940,
-        "narHash": "sha256-zPXIgedQutizI40G4Z9OEp7U2fzAbtlAGF99ZFkilcM=",
+        "lastModified": 1760341136,
+        "narHash": "sha256-Lbsk6yGW4UYWtNEJC0PJBLHQJvXhFX7ViA0PKzOdHXA=",
         "owner": "nix-community",
         "repo": "nixvim",
-        "rev": "a830246ed986bccfd9ba1c1cc19ba27556ffff03",
+        "rev": "d5f23804b46f5077fe9c75a119fa87b68b778c0f",
         "type": "github"
       },
       "original": {
@@ -1291,12 +1292,12 @@
         "tinted-zed": "tinted-zed"
       },
       "locked": {
-        "lastModified": 1760261849,
-        "narHash": "sha256-P0u31LhxDfzVmP/rpfPCHbUj92r4pyAEd9FW8/GdZHU=",
-        "rev": "83e0cbfa4a93b1dda28518df0e5df6dbc957c2c8",
-        "revCount": 1215,
+        "lastModified": 1760350849,
+        "narHash": "sha256-JqcM5Pkm5q1c9D5zpINJsN1yCB4Vq1cL12ZuFyo32T4=",
+        "rev": "7b4957d716f4fb615bf0e37d3b23c112579b1408",
+        "revCount": 1216,
         "type": "tarball",
-        "url": "https://api.flakehub.com/f/pinned/danth/stylix/0.1.1215%2Brev-83e0cbfa4a93b1dda28518df0e5df6dbc957c2c8/0199d7c9-33d4-75d5-80fd-c404cfd6df9c/source.tar.gz"
+        "url": "https://api.flakehub.com/f/pinned/danth/stylix/0.1.1216%2Brev-7b4957d716f4fb615bf0e37d3b23c112579b1408/0199dd17-1c39-7eac-b0af-3e8f5d03115e/source.tar.gz"
       },
       "original": {
         "type": "tarball",
