@@ -43,6 +43,11 @@
     interactiveShellInit = ''
       set fish_greeting
       
+      # Source API keys if secrets file exists
+      if test -f ~/.env.secrets
+        source ~/.env.secrets
+      end
+      
       function y
         set tmp (mktemp -t "yazi-cwd.XXXXXX")
         yazi $argv --cwd-file="$tmp"

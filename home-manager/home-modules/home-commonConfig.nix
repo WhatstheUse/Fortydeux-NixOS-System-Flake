@@ -6,6 +6,7 @@
     ./screenshot-tools.nix
     ./ai-tools.nix
     inputs.nixvim.homeModules.nixvim
+    # inputs.sops-nix.homeManagerModules.sops
   ];
 
   # Home Manager needs a bit of information about you and the paths it should
@@ -128,7 +129,8 @@
     gcc  # GNU Compiler Collection
     
     # Secrets management
-    sops  # Secrets OPerationS - encrypted secrets management
+    # sops  # Secrets OPerationS - encrypted secrets management
+    
     
    ]);
     # # It is sometimes useful to fine-tune packages, for example, by applying
@@ -204,6 +206,11 @@
       # enableMan = false;
       # defaultEditor = true;
       waylandSupport = true;
+      # Tree-sitter dependencies for :TSInstallFromGrammar
+      extraPackages = with pkgs; [
+        tree-sitter  # Tree-sitter parser generator
+        nodejs      # Node.js for tree-sitter grammar compilation
+      ];
       opts = {
         # Tab and indentation settings
         tabstop = 2;
@@ -217,6 +224,9 @@
         # Other useful settings
         wrap = false;
         cursorline = true;
+        # Timeout settings for better plugin compatibility
+        timeoutlen = 1000;
+        updatetime = 300;
       };
       plugins = {
         avante = {
@@ -225,7 +235,13 @@
         codecompanion = {
           enable = true;
         };
-        orgmode.enable = true;
+        orgmode = {
+          enable = true;
+          settings = {
+            org_agenda_files = [ "~/org/*.org" ];
+            org_default_notes_file = "~/org/notes.org";
+          };
+        };
         which-key.enable = true;
         telescope.enable = true;
         treesitter = {
@@ -253,7 +269,13 @@
         nvim-surround.enable = true;
         # indent-blankline.enable = true;
         gitsigns.enable = true;
-        diffview.enable = true;
+        diffview = {
+          enable = true;
+          settings = {
+            # Remove hg_cmd since it's not available and not needed
+            # hg_cmd = "hg";  # Commented out to avoid warning
+          };
+        };
         lualine.enable = true;
         bufferline.enable = true;
         dressing.enable = true;
@@ -616,6 +638,12 @@
     # NNN_FCOLORS = "$BLK$CHR$DIR$EXE$REG$HARDLINK$SYMLINK$MISSING$ORPHAN$FIFO$SOCK$OTHER";
     NNN_TRASH = 1;
     NNN_FIFO = "/tmp/nnn.fifo";
+    
+    # API Keys for Neovim plugins (overridden by ~/.env.secrets if it exists)
+    AVANTE_ANTHROPIC_API_KEY = "";
+    AVANTE_OPENAI_API_KEY = "";
+    ANTHROPIC_API_KEY = "";
+    OPENAI_API_KEY = "";
   };
   # Home Manager can also manage your environment variables through
   # 'home.sessionVariables'. If you don't want to manage your shell through Home
