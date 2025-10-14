@@ -55,6 +55,11 @@
     anyrun.url = "github:anyrun-org/anyrun";
     #MusNix
     musnix.url = "github:musnix/musnix";
+    # SOPS secrets management
+    # sops-nix = {
+    #   url = "github:Mic92/sops-nix";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
   };
   
   outputs = { self, nixpkgs, home-manager, ... }@inputs: 

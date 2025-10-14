@@ -94,6 +94,8 @@
     # shotcut #Open-source cross-platform video editor
     signal-desktop-bin #Signal electron desktop client
     # simplex-chat-desktop #SimpleX Chat Desktop Client
+    spotify-player #Spotify music client
+    ncspot #Spotify music client
     # spotify #Spotify music client - Requires non-free packages enabled
     super-productivity # To Do List / Time Tracker with Jira Integration
  #   teams #Microsoft Teams application - not yet available for Linux
@@ -124,6 +126,9 @@
     
     # C compiler for treesitter and other tools
     gcc  # GNU Compiler Collection
+    
+    # Secrets management
+    sops  # Secrets OPerationS - encrypted secrets management
     
    ]);
     # # It is sometimes useful to fine-tune packages, for example, by applying
@@ -214,7 +219,12 @@
         cursorline = true;
       };
       plugins = {
-        chatgpt.enable = true;
+        avante = {
+          enable = true;
+        };
+        codecompanion = {
+          enable = true;
+        };
         orgmode.enable = true;
         which-key.enable = true;
         telescope.enable = true;

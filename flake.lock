@@ -611,11 +611,11 @@
         "xdph": "xdph"
       },
       "locked": {
-        "lastModified": 1760336853,
-        "narHash": "sha256-WypDi304H7oJQ0b4Efrj5Xwm21lUsahtP/CrnJUqkqM=",
+        "lastModified": 1760445562,
+        "narHash": "sha256-jUlpBzdvP+eLxy3iGSy/ey7hJ4Phx3TsAMq1kxCKvtA=",
         "owner": "hyprwm",
         "repo": "Hyprland",
-        "rev": "6582f42db85bd6e7216d6e77c839f03933974da4",
+        "rev": "ee5d05f0fc03e65f50364f5b9f4315065f9f49c2",
         "type": "github"
       },
       "original": {
@@ -641,11 +641,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1760143196,
-        "narHash": "sha256-UPKU7QXmJ8vJO59bGzT0UFhvncWb14odLJXzcvSu73U=",
+        "lastModified": 1760355871,
+        "narHash": "sha256-ro1k2IVrCKatVa8F2K1+0W4mnnwM/8ppN0zRtjtavhQ=",
         "owner": "hyprwm",
         "repo": "hyprland-plugins",
-        "rev": "f6dd103dfb12f8939bf8049ee35a2b3eb7564dc3",
+        "rev": "25a5d1327e61916d2a012db4bf184a81f70fe8c6",
         "type": "github"
       },
       "original": {
@@ -922,11 +922,11 @@
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1759395653,
-        "narHash": "sha256-sv9J1z6CrTPf9lRJLyCN90fZVdQz7LFeX7pIlInH8BQ=",
+        "lastModified": 1760426302,
+        "narHash": "sha256-HEeX0wTT2DTRAgADnOmcyk7k/J8KlFosBpFp0yIVfm0=",
         "owner": "YaLTeR",
         "repo": "niri",
-        "rev": "ba6e5e082a79901dc89b0d49c5da1b769d652aec",
+        "rev": "87dc96fa69738b5d57562a0a556efa7def138539",
         "type": "github"
       },
       "original": {
@@ -1098,12 +1098,12 @@
     },
     "nixpkgs_7": {
       "locked": {
-        "lastModified": 1760038930,
-        "narHash": "sha256-Oncbh0UmHjSlxO7ErQDM3KM0A5/Znfofj2BSzlHLeVw=",
-        "rev": "0b4defa2584313f3b781240b29d61f6f9f7e0df3",
-        "revCount": 875086,
+        "lastModified": 1760284886,
+        "narHash": "sha256-TK9Kr0BYBQ/1P5kAsnNQhmWWKgmZXwUQr4ZMjCzWf2c=",
+        "rev": "cf3f5c4def3c7b5f1fc012b3d839575dbe552d43",
+        "revCount": 876718,
         "type": "tarball",
-        "url": "https://api.flakehub.com/f/pinned/NixOS/nixpkgs/0.1.875086%2Brev-0b4defa2584313f3b781240b29d61f6f9f7e0df3/0199cf28-750d-7e76-a353-f9aa40a29a13/source.tar.gz"
+        "url": "https://api.flakehub.com/f/pinned/NixOS/nixpkgs/0.1.876718%2Brev-cf3f5c4def3c7b5f1fc012b3d839575dbe552d43/0199de8d-d5c2-77df-9350-8f2ad375caae/source.tar.gz"
       },
       "original": {
         "type": "tarball",
@@ -1150,11 +1150,11 @@
         "systems": "systems_4"
       },
       "locked": {
-        "lastModified": 1760341136,
-        "narHash": "sha256-Lbsk6yGW4UYWtNEJC0PJBLHQJvXhFX7ViA0PKzOdHXA=",
+        "lastModified": 1760353389,
+        "narHash": "sha256-/NLkyQww0DEkGqC6drAUK5MEFhhygibv8tyNGpWzR3E=",
         "owner": "nix-community",
         "repo": "nixvim",
-        "rev": "d5f23804b46f5077fe9c75a119fa87b68b778c0f",
+        "rev": "69d72bb82d7ba1904df47cf092ce1d4c88448001",
         "type": "github"
       },
       "original": {
