@@ -234,6 +234,68 @@
         };
         codecompanion = {
           enable = true;
+          settings = {
+            # Configure adapters using the new http structure
+            adapters = {
+              http = {
+                anthropic = {
+                  __raw = ''
+                    function()
+                      return require("codecompanion.adapters").extend("anthropic", {
+                        env = {
+                          api_key = "ANTHROPIC_API_KEY",
+                        },
+                      })
+                    end
+                  '';
+                };
+                openai = {
+                  __raw = ''
+                    function()
+                      return require("codecompanion.adapters").extend("openai", {
+                        env = {
+                          api_key = "OPENAI_API_KEY",
+                        },
+                      })
+                    end
+                  '';
+                };
+              };
+            };
+            # Set strategies to use specific adapters
+            strategies = {
+              chat = {
+                adapter = "anthropic";
+              };
+              inline = {
+                adapter = "anthropic";
+              };
+            };
+            # Enable debug logging and other options
+            opts = {
+              log_level = "DEBUG";
+              send_code = true;
+              use_default_actions = true;
+              use_default_prompts = true;
+            };
+            # Configure display settings for better autocomplete
+            display = {
+              action_palette = {
+                provider = "default";
+                opts = {
+                  show_default_prompt_library = true;
+                };
+              };
+              chat = {
+                window = {
+                  layout = "vertical";
+                  opts = {
+                    breakindent = true;
+                  };
+                };
+              };
+            };
+          };
         };
         orgmode = {
           enable = true;
@@ -261,6 +323,23 @@
             nil_ls.enable = true;
             bashls.enable = true;
             ts_ls.enable = true;
+          };
+        };
+        # Enable nvim-cmp for CodeCompanion autocomplete
+        cmp = {
+          enable = true;
+          settings = {
+            sources = [
+              { name = "nvim_lsp"; }
+              { name = "luasnip"; }
+              { name = "buffer"; }
+              { name = "path"; }
+            ];
+            mapping = {
+              "<CR>" = "cmp.mapping.confirm({ select = true })";
+              "<Tab>" = "cmp.mapping.select_next_item()";
+              "<S-Tab>" = "cmp.mapping.select_prev_item()";
+            };
           };
         };
         luasnip.enable = true;
