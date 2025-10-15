@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, inputs,... }:
 
 {
   # Bash Shell
@@ -56,12 +56,14 @@
         end
         rm -f -- "$tmp"
       end
+      
     '';
   };
-  # Atuin shell history
+  # Atuin shell history - using flake input for latest version
   programs.atuin = {
     enable = true;
     enableZshIntegration = true;
+    package = inputs.atuin.packages.${pkgs.system}.default;
   };
   # Session variables and shell aliases
   home = {

@@ -53,6 +53,11 @@
       # inputs.nixpkgs.follows = "nixpkgs";
     };
     anyrun.url = "github:anyrun-org/anyrun";
+    # Atuin shell history
+    atuin = {
+      url = "github:ellie/atuin";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     #MusNix
     musnix.url = "github:musnix/musnix";
     # SOPS secrets management
@@ -62,7 +67,7 @@
     # };
   };
   
-  outputs = { self, nixpkgs, home-manager, ... }@inputs: 
+  outputs = { self, nixpkgs, home-manager, atuin, ... }@inputs: 
     let
       username = "fortydeux";  # Change this to your username
       lib = nixpkgs.lib;
