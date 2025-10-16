@@ -164,20 +164,4 @@
       mimeType = [ "application/x-terminal-emulator" ];
     };
   };
-  # Ensure XDG desktop portal is properly configured
-  systemd.user.services.configure-url-handlers = {
-    Unit = {
-      Description = "Configure URL handlers for VS Code and Cursor";
-      After = "graphical-session-pre.target";
-      PartOf = "graphical-session.target";
-    };
-    Install = {
-      WantedBy = ["graphical-session.target"];
-    };
-    Service = {
-      Type = "oneshot";
-      ExecStart = "${./register-url-handlers.sh}";
-      RemainAfterExit = true;
-    };
-  };
 }

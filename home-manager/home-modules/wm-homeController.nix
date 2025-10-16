@@ -1,29 +1,8 @@
 { config, pkgs, ... }:
 
 {
-  imports = [
-    ./compositor-configs/hyprland-config.nix
-    ./compositor-configs/niri-config.nix
-    ./compositor-configs/wayfire-config.nix
-    ./compositor-configs/sway-config.nix
-    ./compositor-configs/river-config.nix
-  ];
-
-  # Enable the compositor modules
-  programs.wayfire = {
-    enable = true;
-    enableStylix = true;
-  };
-
-  programs.sway = {
-    enable = true;
-    enableStylix = true;
-  };
-
-  programs.river = {
-    enable = true;
-    enableStylix = true;
-  };
+  # Common window manager functionality
+  # Individual compositor configs are imported in host-specific files
 
   home.packages = (with pkgs; [
     # kdePackages.yakuake #Drop-down terminal

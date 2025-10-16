@@ -1,40 +1,57 @@
-{
-  config,
-  pkgs,
-  inputs,
-  ...
-}:
+{ config, lib, pkgs, inputs, ... }:
 
-# let
-#   system = pkgs.stdenv.hostPlatform.system;
-# in
+let
+  cfg = config.programs.hyprland;
+  inherit (lib) mkEnableOption mkIf mkOption types;
+in
 {
-  imports =
-    [
-      ./waybar-config.nix
-      ./hypridle-config.nix
-      # ./hyprlock-config.nix
-      # inputs.hyprshell.homeModules.hyprshell
-    ];
-  services.hyprpaper = {
-    enable = true;
+  options.programs.hyprland = {
+    enable = mkEnableOption "Hyprland window manager";
+    
+    enableStylix = mkEnableOption "Enable Stylix theming integration for Hyprland";
+    
+    extraConfig = mkOption {
+      type = types.lines;
+      default = "";
+      description = "Extra configuration to append to hyprland config";
+    };
   };
-  home.packages = with pkgs; [
-    # inputs.hyprland-qtutils.packages.${pkgs.system}.default
-    iio-hyprland # Hyprland tablet layout listener/changer
-    wvkbd # On-screen virtual keyboard for wlroots
-    # Add hyprscrolling plugin to system packages
-    # hyprlandPlugins.hyprscrolling
-    # hyprlandPlugins.hyprexpo
-    # hyprlandPlugins.hyprgrass
-    # hyprshell
+
+  imports = [
+    ./waybar-config.nix
+    ./hypridle-config.nix
+    # ./hyprlock-config.nix
+    # inputs.hyprshell.homeModules.hyprshell
   ];
-  xdg.portal = {
-    enable = true;
-    # extraPortals = [ pkgs.xdg-desktop-portal-hyprland ]; 
-  };
-  wayland.windowManager.hyprland = {
-    enable = true;
+
+  config = mkIf cfg.enable {
+    
+    services.hyprpaper = {
+      enable = true;
+      settings = mkIf cfg.enableStylix {
+        preload = [ config.stylix.image ];
+        wallpaper = [ ",${config.stylix.image}" ];
+      };
+    };
+    
+    home.packages = with pkgs; [
+      # inputs.hyprland-qtutils.packages.${pkgs.system}.default
+      iio-hyprland # Hyprland tablet layout listener/changer
+      wvkbd # On-screen virtual keyboard for wlroots
+      # Add hyprscrolling plugin to system packages
+      # hyprlandPlugins.hyprscrolling
+      # hyprlandPlugins.hyprexpo
+      # hyprlandPlugins.hyprgrass
+      # hyprshell
+    ];
+    
+    xdg.portal = {
+      enable = true;
+      # extraPortals = [ pkgs.xdg-desktop-portal-hyprland ]; 
+    };
+    
+    wayland.windowManager.hyprland = {
+      enable = true;
     # systemd.enable = false;
     package = pkgs.hyprland;
     # package = inputs.hyprland.packages.${pkgs.system}.default;
@@ -56,19 +73,19 @@
     ];
     settings = {
       "$mainMod" = "SUPER";
-      "$activeBorderColor1" = "rgba(da0c81cc)";
-      "$activeBorderColor2" = "rgba(940b92cc)";
-      "$inactiveBorderColor" = "rgba(00000099)";
-      "$swaylock" = "swaylock --screenshots --clock --indicator --indicator-radius 100 --indicator-thickness 7 --effect-blur 7x5 --effect-vignette 0.5:0.5 --ring-color bb00cc --key-hl-color 880033 --line-color 00000000 --inside-color 00000088 --separator-color 00000000 --grace 2 --fade-in 0.2";
+      "$activeBorderColor1" = "${if cfg.enableStylix then config.lib.stylix.colors.base0D else "rgba(da0c81cc)"}";
+      "$activeBorderColor2" = "${if cfg.enableStylix then config.lib.stylix.colors.base0B else "rgba(940b92cc)"}";
+      "$inactiveBorderColor" = "${if cfg.enableStylix then config.lib.stylix.colors.base01 else "rgba(00000099)"}";
+      "$swaylock" = "swaylock --screenshots --clock --indicator --indicator-radius 100 --indicator-thickness 7 --effect-blur 7x5 --effect-vignette 0.5:0.5 --ring-color ${if cfg.enableStylix then config.lib.stylix.colors.base0D else "bb00cc"} --key-hl-color ${if cfg.enableStylix then config.lib.stylix.colors.base08 else "880033"} --line-color 00000000 --inside-color ${if cfg.enableStylix then config.lib.stylix.colors.base00 else "000000"}88 --separator-color 00000000 --grace 2 --fade-in 0.2";
       "$waybar" = "waybar -c $HOME/.config/hypr/waybar/config -s $HOME/.config/hypr/waybar/style.css";
-      "$fuzzel" = "fuzzel -w 80 -b 181818ef -t ccccccff";
+      "$fuzzel" = "fuzzel -w 80 -b ${if cfg.enableStylix then config.lib.stylix.colors.base00 else "181818"}ef -t ${if cfg.enableStylix then config.lib.stylix.colors.base05 else "cccccc"}ff";
       "$wofi" = "wofi -S drun -GIm -w 3 -W 100% -H 96%";
       "$hypridle" = "hypridle";
       "$hyprlock" = "hyprlock";
       # "source" = "$HOME/.config/hypr/device-specific.conf";
       exec-once = [
         "dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY"
-        "hyprctl setcursor phinger-cursors 32"
+        "hyprctl setcursor ${if cfg.enableStylix then config.stylix.cursor.name else "phinger-cursors"} ${if cfg.enableStylix then toString config.stylix.cursor.size else "32"}"
         # "emacs --daemon"
         "foot -s"
         # "waybar"  # Removed - now handled by systemd integration
@@ -316,7 +333,7 @@
         hyprexpo = {
           columns = 3;
           gap_size = 5;
-          bg_col = "rgb(111111)";
+          bg_col = "${if cfg.enableStylix then config.lib.stylix.colors.base00 else "rgb(111111)"}";
           workspace_method = "center current"; # [center/first] [workspace] e.g. first 1 or center m+1
 
           enable_gesture = true; # laptop touchpad
@@ -381,9 +398,9 @@
       env=KDE_SESSION_VERSION,6
       env=QT_QPA_PLATFORMTHEME,kde
       env=SSH_AUTH_SOCK,/run/user/1000/kwallet6.socket
-      # env=HYPRCURSOR_THEME,phinger-cursors-light
-      # env=GTK_THEME,Dracula
-      env=HYPRCURSOR_SIZE,32
+      ${if cfg.enableStylix then "env=HYPRCURSOR_THEME,${config.stylix.cursor.name}" else "# env=HYPRCURSOR_THEME,phinger-cursors-light"}
+      ${if cfg.enableStylix then "env=GTK_THEME,${config.stylix.gtk.theme.name}" else "# env=GTK_THEME,Dracula"}
+      env=HYPRCURSOR_SIZE,${if cfg.enableStylix then toString config.stylix.cursor.size else "32"}
       # env=QT_QPA_PLATFORMTHEME,qt6ct
       env = XDG_MENU_PREFIX,plasma-
 
@@ -624,5 +641,6 @@
       
       # End Hyprscrolling
     '';
+  };
   };
 }
