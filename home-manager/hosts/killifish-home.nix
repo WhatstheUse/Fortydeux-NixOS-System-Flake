@@ -19,14 +19,24 @@
     # ../home-modules/screen-recording.nix
     
     # Compositor and Desktop Environment configurations - Enable/disable as needed
-    # ../home-modules/compositor-configs/hyprland-config.nix
-    # ../home-modules/compositor-configs/niri-config.nix
-    # ../home-modules/compositor-configs/wayfire-config.nix
-    # ../home-modules/compositor-configs/sway-config.nix
-    # ../home-modules/compositor-configs/river-config.nix
+    ../home-modules/compositor-configs/hyprland-config.nix
+    ../home-modules/compositor-configs/niri-config.nix
+    ../home-modules/compositor-configs/wayfire-config.nix
+    ../home-modules/compositor-configs/sway-config.nix
+    ../home-modules/compositor-configs/river-config.nix
     
     # Device-specific
     ../home-modules/compositor-configs/highdpi-hyprland.nix
   ];
+
+  sessionProfiles = {
+    plasma.enable = true;
+    cosmic.enable = false;
+    hyprland.enable = true;
+    niri.enable = true;
+    sway.enable = true;
+    river.enable = true;
+    wayfire.enable = true;
+  };
 
 }

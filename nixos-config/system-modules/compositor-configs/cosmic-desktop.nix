@@ -1,7 +1,11 @@
 # cosmic-desktop.nix
-{ inputs, config, pkgs, ... }:
+{ config, lib, ... }:
 
+let
+  cfg = config.sessionProfiles.cosmic;
+in
 {
-  # Enables COSMIC desktop
-  services.desktopManager.cosmic.enable = true;
+  config = lib.mkIf cfg.enable {
+    services.desktopManager.cosmic.enable = true;
+  };
 }

@@ -2,6 +2,7 @@
 
 let
   cfg = config.programs.hyprland;
+  sessionEnabled = config.sessionProfiles.hyprland.enable or false;
   inherit (lib) mkEnableOption mkIf mkOption types;
 in
 {
@@ -24,7 +25,7 @@ in
     # inputs.hyprshell.homeModules.hyprshell
   ];
 
-  config = mkIf cfg.enable {
+  config = mkIf (cfg.enable && sessionEnabled) {
     
     services.hyprpaper = {
       enable = true;
@@ -44,12 +45,6 @@ in
       # hyprlandPlugins.hyprgrass
       # hyprshell
     ];
-    
-    xdg.portal = {
-      enable = true;
-      # extraPortals = [ pkgs.xdg-desktop-portal-hyprland ]; 
-    };
-    
     wayland.windowManager.hyprland = {
       enable = true;
     # systemd.enable = false;
@@ -399,7 +394,7 @@ in
       env=QT_QPA_PLATFORMTHEME,kde
       env=SSH_AUTH_SOCK,/run/user/1000/kwallet6.socket
       ${if cfg.enableStylix then "env=HYPRCURSOR_THEME,${config.stylix.cursor.name}" else "# env=HYPRCURSOR_THEME,phinger-cursors-light"}
-      ${if cfg.enableStylix then "env=GTK_THEME,${config.stylix.gtk.theme.name}" else "# env=GTK_THEME,Dracula"}
+      ${if (cfg.enableStylix && (config.stylix.gtk.theme or null) != null) then "env=GTK_THEME,${config.stylix.gtk.theme.name}" else "# env=GTK_THEME,Dracula"}
       env=HYPRCURSOR_SIZE,${if cfg.enableStylix then toString config.stylix.cursor.size else "32"}
       # env=QT_QPA_PLATFORMTHEME,qt6ct
       env = XDG_MENU_PREFIX,plasma-

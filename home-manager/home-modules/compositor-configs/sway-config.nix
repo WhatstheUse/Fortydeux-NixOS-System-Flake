@@ -2,6 +2,7 @@
 
 let
   cfg = config.programs.sway;
+  sessionEnabled = config.sessionProfiles.sway.enable or false;
   inherit (lib) mkEnableOption mkIf mkOption types;
 in
 {
@@ -17,7 +18,7 @@ in
     };
   };
 
-  config = mkIf cfg.enable {
+  config = mkIf (cfg.enable && sessionEnabled) {
     # Note: We're not using wayland.windowManager.sway module to avoid conflicts
     # Instead, we're using home.file to create the config directly
     # and managing packages separately

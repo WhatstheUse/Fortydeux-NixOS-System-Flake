@@ -1,8 +1,16 @@
-{ config, pkgs, ... }: 
+{ config, pkgs, lib, ... }:
 
+let
+  sessionCfg = config.sessionProfiles or { };
+  swaylockConsumers =
+    (sessionCfg.sway.enable or false)
+    || (sessionCfg.niri.enable or false)
+    || (sessionCfg.river.enable or false)
+    || (sessionCfg.wayfire.enable or false);
+in
 { # Security.nix
 
- # Security
+  # Security
   security.sudo.enable = true;
   security.sudo.wheelNeedsPassword = true;
   security.doas.enable = false;
@@ -16,7 +24,7 @@
       ];
     };
   };
-  security.pam.services.swaylock = {};
+  security.pam.services.swaylock = lib.mkIf swaylockConsumers {};
 
   # Services - Mullvad VPN
   services.mullvad-vpn = {

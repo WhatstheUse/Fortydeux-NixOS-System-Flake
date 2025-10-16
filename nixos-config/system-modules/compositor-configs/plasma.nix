@@ -1,16 +1,17 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
-{ # Plasma.nix
+let
+  cfg = config.sessionProfiles.plasma;
+in
+{
+  config = lib.mkIf cfg.enable {
+    services.desktopManager.plasma6.enable = true;
+    
+    # Enable Xorg session
+    # services.xserver.enable = true;
 
-  # Enable KDE Plasma
-  services.desktopManager.plasma6.enable = true;
-  xdg.portal.extraPortals = [ pkgs.kdePackages.xdg-desktop-portal-kde ];
-
-  # Enable Xorg session
-  # services.xserver.enable = true;
- 
-  environment.systemPackages = with pkgs; [
-    kdePackages.filelight
-  #   xorg.xinit
-  ];
+    environment.systemPackages = with pkgs; [
+      kdePackages.filelight
+    ];
+  };
 }

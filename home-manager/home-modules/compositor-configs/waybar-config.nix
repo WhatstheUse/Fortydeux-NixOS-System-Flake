@@ -1,8 +1,12 @@
 { config, lib, pkgs, ... }:
 
+let
+  sessionEnabled = config.sessionProfiles.hyprland.enable or false;
+in
 {
-  programs.waybar = {
-    enable = true;
+  config = lib.mkIf sessionEnabled {
+    programs.waybar = {
+      enable = true;
     systemd = {
       enable = true;
       target = "hyprland-session.target";
@@ -356,5 +360,6 @@
        }
       
     '';
+    };
   };
 }

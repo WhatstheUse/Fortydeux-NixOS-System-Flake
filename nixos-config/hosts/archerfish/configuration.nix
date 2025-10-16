@@ -22,12 +22,12 @@
     
     # Compositor and Desktop Environment configurations - Enable/disable as needed
     ../../system-modules/compositor-configs/plasma.nix
-    # ../../system-modules/compositor-configs/cosmic-desktop.nix
-    # ../../system-modules/compositor-configs/hyprland-config.nix
-    # ../../system-modules/compositor-configs/sway-config.nix
-    # ../../system-modules/compositor-configs/river-config.nix
-    # ../../system-modules/compositor-configs/wayfire-config.nix
-    # ../../system-modules/compositor-configs/niri-config.nix
+    ../../system-modules/compositor-configs/cosmic-desktop.nix
+    ../../system-modules/compositor-configs/hyprland-config.nix
+    ../../system-modules/compositor-configs/sway-config.nix
+    ../../system-modules/compositor-configs/river-config.nix
+    ../../system-modules/compositor-configs/wayfire-config.nix
+    ../../system-modules/compositor-configs/niri-config.nix
     
     # Home-manager
     inputs.home-manager.nixosModules.home-manager
@@ -62,4 +62,14 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.systemd-boot.configurationLimit = 8;
+
+  sessionProfiles = {
+    plasma.enable = true;
+    cosmic.enable = false;
+    hyprland.enable = true;
+    niri.enable = true;
+    sway.enable = true;
+    river.enable = true;
+    wayfire.enable = true;
+  };
 }

@@ -2,6 +2,7 @@
 
 let
   cfg = config.programs.river;
+  sessionEnabled = config.sessionProfiles.river.enable or false;
   inherit (lib) mkEnableOption mkIf mkOption types;
 in
 {
@@ -17,7 +18,7 @@ in
     };
   };
 
-  config = mkIf cfg.enable {
+  config = mkIf (cfg.enable && sessionEnabled) {
 
     wayland.windowManager.river = {
       enable = true;

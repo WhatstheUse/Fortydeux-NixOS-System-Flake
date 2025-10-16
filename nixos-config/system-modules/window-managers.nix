@@ -1,32 +1,29 @@
-{ config, pkgs, inputs, lib, ... }: 
+{ config, pkgs, inputs, lib, ... }:
 
-{ # window-managers.nix - Common Wayland infrastructure and packages
+let
+  inherit (lib)
+    mkEnableOption
+    mkOption
+    mkMerge
+    mkDefault
+    types
+    optional
+    optionalAttrs
+    unique;
 
-  # UWSM - Universal Wayland Session Manager
-  # Only enable for compositors that work well with UWSM
-  programs.uwsm = {
-    enable = true;
-    waylandCompositors = {
-      hyprland = {
-        prettyName = "Hyprland";
-        comment = "Hyprland compositor managed by UWSM";
-        binPath = "/run/current-system/sw/bin/Hyprland";
-      };
-      # Note: Sway and Niri seem to have issues with UWSM, keeping them as direct launches
-    };
-  };
+  cfg = config.sessionProfiles;
+  portalCfg = cfg.portal;
 
-  # XDG Desktop Portal - Common configuration
-  xdg.portal = {
-    enable = true;
-    
-    # Common portal configuration
-    config = {
-      common = {
-        default = [ "gtk" ];
-        "org.freedesktop.impl.portal.Secret" = [ "gnome-keyring" ];
-      };
-      
+  portalBaseFragments =
+    [
+      {
+        common = {
+          default = [ "gtk" ];
+          "org.freedesktop.impl.portal.Secret" = [ "gnome-keyring" ];
+        };
+      }
+    ]
+    ++ optional cfg.plasma.enable {
       plasma = {
         default = [ "kde" "gtk" ];
         "org.freedesktop.impl.portal.FileChooser" = [ "kde" ];
@@ -36,117 +33,142 @@
         "org.freedesktop.impl.portal.Screenshot" = [ "kde" ];
       };
     };
-    
-    # Portal packages - common to all compositors
-    wlr.enable = true;
-    extraPortals = with pkgs; [
-      xdg-desktop-portal-wlr
-      xdg-desktop-portal-gtk
-      xdg-desktop-portal-gnome
-      kdePackages.xdg-desktop-portal-kde
-    ];
-    xdgOpenUsePortal = true;
-  };
 
-  # Environment Variables - Optimized for all compositors
-  environment = {
-    sessionVariables = {
-      # Wayland compatibility
-      NIXOS_OZONE_WL = "1";
-      
-      # Cursor configuration
-      XCURSOR_SIZE = "32";
-      XCURSOR_THEME = "phinger-cursors-light";
-      
-      # Qt/KDE configuration
-      KDE_SESSION_VERSION = "6";
-      KDE_FULL_SESSION = "true";
-    };
-    
-    variables = {
-      NIXOS_OZONE_WL = "1";
-      QT_QPA_PLATFORMTHEME = "kde";
-    };
-  };
-
-  # Enable dconf for proper settings management
-  programs.dconf.enable = true;
-
-  # System packages - Common Wayland infrastructure and utilities
-  environment.systemPackages = with pkgs; [
-    # Core Wayland utilities
-    wl-clipboard
-    wlr-randr
-    wlroots
-    xdg-utils
-    
-    # Portal and integration packages
+  basePortalPackages = with pkgs; [
     xdg-desktop-portal
-    xdg-desktop-portal-wlr
     xdg-desktop-portal-gtk
     xdg-desktop-portal-gnome
     kdePackages.xdg-desktop-portal-kde
-    gnome-keyring
-    
-    # Icon and theme support - System-wide installation for all apps
-    kdePackages.breeze-icons
-    adwaita-icon-theme
-    hicolor-icon-theme
-    papirus-icon-theme
-    gnome-icon-theme
-    gdk-pixbuf
-    librsvg
-    gtk3
-    gtk4
-    
-    # Icon theme tools
-    gtk3.dev  # Provides gtk-update-icon-cache
-    shared-mime-info  # MIME type support
-    
-    # Application launchers (common options)
-    wofi
-    rofi
-    bemenu
-    
-    # Notifications (common options)
-    mako
-    dunst
-    libnotify
-    
-    # Media and utilities (common across compositors)
-    grim
-    slurp
-    brightnessctl
-    playerctl
-    
-    # Screen locking and idle management (used by multiple compositors)
-    swayidle
-    swaylock-effects
-    
-    # Audio/Video
-    pavucontrol
-    
-    # Terminal and file management
-    xfce.thunar
-    xfce.thunar-archive-plugin
-    xfce.thunar-volman
-    xfce.xfce4-terminal
-    
-    # Network management
-    networkmanagerapplet
-    
-    # System monitoring
-    lm_sensors
-    
-    # Additional utilities
-    kanshi
-    wdisplays
-    wlogout
-    wlsunset
-    yambar
-    fastfetch
-    
-    # Cursor theme
-    phinger-cursors
   ];
+
+  anyWlr =
+    cfg.hyprland.enable
+    || cfg.river.enable
+    || cfg.sway.enable
+    || cfg.wayfire.enable;
+in
+{
+  options.sessionProfiles = {
+    plasma.enable =
+      mkEnableOption "KDE Plasma desktop environment" // { default = true; };
+    cosmic.enable = mkEnableOption "COSMIC desktop environment";
+    hyprland.enable = mkEnableOption "Hyprland compositor";
+    niri.enable = mkEnableOption "Niri compositor";
+    sway.enable = mkEnableOption "Sway compositor";
+    river.enable = mkEnableOption "River compositor";
+    wayfire.enable = mkEnableOption "Wayfire compositor";
+
+    portal.configFragments = mkOption {
+      type = types.listOf types.attrs;
+      default = [ ];
+      description = "Portal configuration fragments contributed by session modules.";
+    };
+
+    portal.extraPortals = mkOption {
+      type = types.listOf types.package;
+      default = [ ];
+      description = "Additional xdg-desktop-portal implementations contributed by session modules.";
+    };
+
+    sessionPackages = mkOption {
+      type = types.listOf types.package;
+      default = [ ];
+      description = "Display manager session packages contributed by session modules.";
+    };
+  };
+
+  config = {
+    # UWSM - Universal Wayland Session Manager
+    programs.uwsm = {
+      enable = true;
+      waylandCompositors = optionalAttrs cfg.hyprland.enable {
+        hyprland = {
+          prettyName = "Hyprland";
+          comment = "Hyprland compositor managed by UWSM";
+          binPath = "/run/current-system/sw/bin/Hyprland";
+        };
+      };
+    };
+
+    # XDG Desktop Portal - Common configuration with compositor contributions
+    xdg.portal = {
+      enable = true;
+      config = mkMerge (portalBaseFragments ++ portalCfg.configFragments);
+      extraPortals = unique (basePortalPackages ++ portalCfg.extraPortals);
+      wlr.enable = mkDefault anyWlr;
+      xdgOpenUsePortal = true;
+    };
+
+    # Register session packages with the display manager
+    services.displayManager.sessionPackages = unique cfg.sessionPackages;
+
+    # Environment Variables - Optimized for all compositors
+    environment = {
+      sessionVariables = {
+        NIXOS_OZONE_WL = "1";
+        XCURSOR_SIZE = "32";
+        XCURSOR_THEME = "phinger-cursors-light";
+        KDE_SESSION_VERSION = "6";
+        KDE_FULL_SESSION = "true";
+      };
+
+      variables = {
+        NIXOS_OZONE_WL = "1";
+        QT_QPA_PLATFORMTHEME = "kde";
+      };
+    };
+
+    # Enable dconf for proper settings management
+    programs.dconf.enable = true;
+
+    # System packages - Common Wayland infrastructure and utilities
+    environment.systemPackages = with pkgs; [
+      wl-clipboard
+      wlr-randr
+      wlroots
+      xdg-utils
+      xdg-desktop-portal
+      xdg-desktop-portal-gtk
+      xdg-desktop-portal-gnome
+      kdePackages.xdg-desktop-portal-kde
+      gnome-keyring
+      kdePackages.breeze-icons
+      adwaita-icon-theme
+      hicolor-icon-theme
+      papirus-icon-theme
+      gnome-icon-theme
+      gdk-pixbuf
+      librsvg
+      gtk3
+      gtk4
+      gtk3.dev
+      shared-mime-info
+      wofi
+      rofi
+      bemenu
+      mako
+      dunst
+      libnotify
+      grim
+      slurp
+      brightnessctl
+      playerctl
+      swayidle
+      swaylock-effects
+      pavucontrol
+      xfce.thunar
+      xfce.thunar-archive-plugin
+      xfce.thunar-volman
+      xfce.xfce4-terminal
+      networkmanagerapplet
+      lm_sensors
+      kanshi
+      wdisplays
+      wlogout
+      wlsunset
+      yambar
+      fastfetch
+      phinger-cursors
+    ];
+  };
 }

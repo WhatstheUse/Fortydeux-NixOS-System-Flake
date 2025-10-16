@@ -1,38 +1,38 @@
-{ config, pkgs, inputs, lib, ... }:
+{ config, pkgs, lib, ... }:
 
+let
+  cfg = config.sessionProfiles.river;
+in
 {
-  # River compositor configuration
-  programs.river-classic = {
-    enable = true;
-  };
+  config = lib.mkIf cfg.enable {
+    programs.river-classic.enable = true;
 
-  # River-specific system packages
-  environment.systemPackages = with pkgs; [
-    # River core packages
-    river-classic
-    
-    # River-specific utilities
-    i3bar-river
-    i3status-rust
-  ];
+    environment.systemPackages = with pkgs; [
+      river-classic
+      i3bar-river
+      i3status-rust
+    ];
 
-  # XDG Desktop Portal configuration for River
-  xdg.portal = {
-    enable = true;
-    config = {
-      river = {
-        default = [ "wlr" "gtk" ];
-        "org.freedesktop.impl.portal.FileChooser" = [ "kde" ];
-        "org.freedesktop.impl.portal.OpenURI" = [ "kde" ];
-        "org.freedesktop.impl.portal.Secret" = [ "gnome-keyring" ];
-        "org.freedesktop.impl.portal.ScreenCast" = [ "wlr" ];
-        "org.freedesktop.impl.portal.Screenshot" = [ "wlr" ];
-      };
+    sessionProfiles.portal = {
+      configFragments = [
+        {
+          river = {
+            default = [ "wlr" "gtk" ];
+            "org.freedesktop.impl.portal.FileChooser" = [ "kde" ];
+            "org.freedesktop.impl.portal.OpenURI" = [ "kde" ];
+            "org.freedesktop.impl.portal.Secret" = [ "gnome-keyring" ];
+            "org.freedesktop.impl.portal.ScreenCast" = [ "wlr" ];
+            "org.freedesktop.impl.portal.Screenshot" = [ "wlr" ];
+          };
+        }
+      ];
+      extraPortals = [
+        pkgs.xdg-desktop-portal-wlr
+      ];
     };
-    extraPortals = with pkgs; [
-      xdg-desktop-portal-wlr
-      xdg-desktop-portal-gtk
-      xdg-desktop-portal-gnome
+
+    sessionProfiles.sessionPackages = [
+      pkgs.river-classic
     ];
   };
 }

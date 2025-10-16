@@ -2,10 +2,14 @@
   config,
   pkgs,
   inputs,
+  lib,
   ...
 }:
 
-{
+let
+  sessionEnabled = config.sessionProfiles.niri.enable or false;
+in
+lib.mkIf sessionEnabled {
   programs = {
     niriswitcher = {
       enable = true;
