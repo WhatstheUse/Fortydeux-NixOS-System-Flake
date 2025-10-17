@@ -74,6 +74,8 @@
       # EDITOR = "emacs";
       # VISUAL = "hx";
       # EDITOR = "hx";
+      BROWSER = "firefox";
+      DEFAULT_BROWSER = "firefox";
     };
     shellAliases = {
       ls = "lsd -lh --group-directories-first --color always --icon always";

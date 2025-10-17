@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   # Enhanced MIME type configuration to fix app chooser issues
@@ -164,4 +164,8 @@
       mimeType = [ "application/x-terminal-emulator" ];
     };
   };
+
+  home.activation.setDefaultBrowser = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    ${pkgs.xdg-utils}/bin/xdg-settings set default-web-browser firefox.desktop >/dev/null 2>&1 || true
+  '';
 }

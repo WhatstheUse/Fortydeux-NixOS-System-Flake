@@ -21,8 +21,8 @@ in
         {
           niri = {
             default = [ "gnome" "gtk" ];
-            "org.freedesktop.impl.portal.FileChooser" = [ "kde" ];
-            "org.freedesktop.impl.portal.OpenURI" = [ "kde" ];
+            "org.freedesktop.impl.portal.FileChooser" = [ "gtk" ];
+            "org.freedesktop.impl.portal.OpenURI" = [ "gtk" ];
             "org.freedesktop.impl.portal.Secret" = [ "gnome-keyring" ];
             "org.freedesktop.impl.portal.ScreenCast" = [ "gnome" ];
             "org.freedesktop.impl.portal.Screenshot" = [ "gnome" ];

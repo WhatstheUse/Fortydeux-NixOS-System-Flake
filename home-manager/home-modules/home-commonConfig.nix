@@ -1,4 +1,4 @@
-{ config, pkgs, username, inputs, ... }:
+{ config, pkgs, username, inputs, lib, ... }:
 
 {
   imports = [
@@ -37,7 +37,19 @@
   #   })    
   # ];
 
-  home.packages = (with pkgs; [
+  home.packages =
+    let
+      signalDesktopWithKwallet =
+        pkgs.symlinkJoin {
+          name = "signal-desktop-bin";
+          paths = [ pkgs.signal-desktop-bin ];
+          buildInputs = [ pkgs.makeWrapper ];
+          postBuild = ''
+            wrapProgram $out/bin/signal-desktop \
+              --add-flags "--password-store=kwallet6"
+          '';
+        };
+    in (with pkgs; [
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
     # hello
@@ -93,7 +105,7 @@
     rustscan #Nmap scanner written in Rust
     satty #Modern Screenshot Annotation tool
     # shotcut #Open-source cross-platform video editor
-    signal-desktop-bin #Signal electron desktop client
+    # signal-desktop-bin # original package replaced by wrapped version below
     # simplex-chat-desktop #SimpleX Chat Desktop Client
     spotify-player #Spotify music client
     ncspot #Spotify music client
@@ -132,7 +144,7 @@
     # sops  # Secrets OPerationS - encrypted secrets management
     
     
-   ]);
+  ]) ++ [ signalDesktopWithKwallet ];
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
     # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
@@ -692,7 +704,7 @@
   };
 
   services = {
-    caffeine.enable = true;
+    caffeine.enable = lib.mkForce false;
     
   #   walker = {
   #     enable = true;
@@ -710,6 +722,30 @@
   #         timeout = 0;
   #       };
   #   };
+  };
+
+  systemd.user.services."caffeine-ng" =
+    let
+      caffeineLauncher = pkgs.writeShellScript "launch-caffeine-ng" ''
+        if [[ ${"$"}{XDG_CURRENT_DESKTOP:-} == *KDE* ]]; then
+          exec ${pkgs.caffeine-ng}/bin/caffeine
+        else
+          exit 0
+        fi
+      '';
+    in {
+    Unit = {
+      Description = "Caffeine-ng (conditional launch)";
+      PartOf = [ "graphical-session.target" ];
+      After = [ "graphical-session.target" ];
+    };
+    Service = {
+      ExecStart = caffeineLauncher;
+      Restart = "on-failure";
+    };
+    Install = {
+      WantedBy = [ "graphical-session.target" ];
+    };
   };
   
   home.sessionVariables = {

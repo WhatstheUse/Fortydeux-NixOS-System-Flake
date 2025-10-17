@@ -18,8 +18,8 @@ in
         {
           river = {
             default = [ "wlr" "gtk" ];
-            "org.freedesktop.impl.portal.FileChooser" = [ "kde" ];
-            "org.freedesktop.impl.portal.OpenURI" = [ "kde" ];
+            "org.freedesktop.impl.portal.FileChooser" = [ "gtk" ];
+            "org.freedesktop.impl.portal.OpenURI" = [ "gtk" ];
             "org.freedesktop.impl.portal.Secret" = [ "gnome-keyring" ];
             "org.freedesktop.impl.portal.ScreenCast" = [ "wlr" ];
             "org.freedesktop.impl.portal.Screenshot" = [ "wlr" ];

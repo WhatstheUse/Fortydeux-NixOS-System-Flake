@@ -66,14 +66,28 @@ in
       pkgs.hyprlandPlugins.hyprscrolling
       # inputs.hyprland-plugins.packages.${pkgs.system}.hyprscrolling
     ];
-    settings = {
+    settings = let
+      stylixColors = lib.attrByPath [ "lib" "stylix" "colors" ] {} config;
+      stylixGtkTheme = lib.attrByPath [ "stylix" "gtk" "theme" "name" ] null config;
+      stylixColor = color: "0xff${color}";
+      stylixColorOr = name: fallback:
+        if cfg.enableStylix then
+          let value = stylixColors.${name} or null;
+          in if value == null then fallback else stylixColor value
+        else fallback;
+      stylixHexOr = name: fallback:
+        if cfg.enableStylix then
+          let value = stylixColors.${name} or null;
+          in if value == null then fallback else value
+        else fallback;
+    in {
       "$mainMod" = "SUPER";
-      "$activeBorderColor1" = "${if cfg.enableStylix then config.lib.stylix.colors.base0D else "rgba(da0c81cc)"}";
-      "$activeBorderColor2" = "${if cfg.enableStylix then config.lib.stylix.colors.base0B else "rgba(940b92cc)"}";
-      "$inactiveBorderColor" = "${if cfg.enableStylix then config.lib.stylix.colors.base01 else "rgba(00000099)"}";
-      "$swaylock" = "swaylock --screenshots --clock --indicator --indicator-radius 100 --indicator-thickness 7 --effect-blur 7x5 --effect-vignette 0.5:0.5 --ring-color ${if cfg.enableStylix then config.lib.stylix.colors.base0D else "bb00cc"} --key-hl-color ${if cfg.enableStylix then config.lib.stylix.colors.base08 else "880033"} --line-color 00000000 --inside-color ${if cfg.enableStylix then config.lib.stylix.colors.base00 else "000000"}88 --separator-color 00000000 --grace 2 --fade-in 0.2";
+      "$activeBorderColor1" = "${stylixColorOr "base0D" "rgba(da0c81cc)"}";
+      "$activeBorderColor2" = "${stylixColorOr "base0B" "rgba(940b92cc)"}";
+      "$inactiveBorderColor" = "${stylixColorOr "base01" "rgba(00000099)"}";
+      "$swaylock" = "swaylock --screenshots --clock --indicator --indicator-radius 100 --indicator-thickness 7 --effect-blur 7x5 --effect-vignette 0.5:0.5 --ring-color ${stylixHexOr "base0D" "bb00cc"} --key-hl-color ${stylixHexOr "base08" "880033"} --line-color 00000000 --inside-color ${stylixHexOr "base00" "000000"}88 --separator-color 00000000 --grace 2 --fade-in 0.2";
       "$waybar" = "waybar -c $HOME/.config/hypr/waybar/config -s $HOME/.config/hypr/waybar/style.css";
-      "$fuzzel" = "fuzzel -w 80 -b ${if cfg.enableStylix then config.lib.stylix.colors.base00 else "181818"}ef -t ${if cfg.enableStylix then config.lib.stylix.colors.base05 else "cccccc"}ff";
+      "$fuzzel" = "fuzzel -w 80 -b ${stylixHexOr "base00" "181818"}ef -t ${stylixHexOr "base05" "cccccc"}ff";
       "$wofi" = "wofi -S drun -GIm -w 3 -W 100% -H 96%";
       "$hypridle" = "hypridle";
       "$hyprlock" = "hyprlock";
@@ -91,8 +105,8 @@ in
         "pcloud"
         "wlsunset -l 40.6 -L -75.4 -t 2300 -T 6500"
         # Add this line to start KWallet daemon
-        "kwalletd6" 
-        "ked6"
+        "kwalletd6"
+        "kded6"
         "$hypridle"
       ];
       input = {
@@ -328,7 +342,7 @@ in
         hyprexpo = {
           columns = 3;
           gap_size = 5;
-          bg_col = "${if cfg.enableStylix then config.lib.stylix.colors.base00 else "rgb(111111)"}";
+          bg_col = "${stylixColorOr "base00" "0xff111111"}";
           workspace_method = "center current"; # [center/first] [workspace] e.g. first 1 or center m+1
 
           enable_gesture = true; # laptop touchpad
@@ -373,7 +387,9 @@ in
          # };
       };
     };
-    extraConfig = ''
+    extraConfig = let
+      stylixGtkTheme = lib.attrByPath [ "stylix" "gtk" "theme" "name" ] null config;
+    in ''
       # Environment Variables for the Hyprland session:
       # ----------------------------------------------
       env=XDG_CURRENT_DESKTOP,Hyprland
@@ -394,7 +410,7 @@ in
       env=QT_QPA_PLATFORMTHEME,kde
       env=SSH_AUTH_SOCK,/run/user/1000/kwallet6.socket
       ${if cfg.enableStylix then "env=HYPRCURSOR_THEME,${config.stylix.cursor.name}" else "# env=HYPRCURSOR_THEME,phinger-cursors-light"}
-      ${if (cfg.enableStylix && (config.stylix.gtk.theme or null) != null) then "env=GTK_THEME,${config.stylix.gtk.theme.name}" else "# env=GTK_THEME,Dracula"}
+      ${if (cfg.enableStylix && stylixGtkTheme != null) then "env=GTK_THEME,${stylixGtkTheme}" else "# env=GTK_THEME,Dracula"}
       env=HYPRCURSOR_SIZE,${if cfg.enableStylix then toString config.stylix.cursor.size else "32"}
       # env=QT_QPA_PLATFORMTHEME,qt6ct
       env = XDG_MENU_PREFIX,plasma-
