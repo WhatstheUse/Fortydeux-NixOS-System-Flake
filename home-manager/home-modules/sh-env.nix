@@ -89,6 +89,7 @@
       st = "git status -s";
       kncaudio = "cd ~/pCloudDrive/KNC-Audio";
       teach = "cd ~/pCloudDrive/Shared-TobAnni/T-KNCS-Teaching";
+      teachy = "cd ~/pCloudDrive/Shared-TobAnni/T-KNCS-Teaching && yazi";
       zzz = "zellij";
       reset-audio = "systemctl --user restart pipewire wireplumber && sleep 2";
     };
