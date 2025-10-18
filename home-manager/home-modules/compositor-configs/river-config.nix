@@ -257,8 +257,7 @@ in
         ${cfg.extraConfig}
         spawn "systemctl --user import-environment DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
         spawn "dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
-        spawn "systemctl --user start --no-block xdg-desktop-portal-gnome.service"
-        spawn "systemctl --user start --no-block xdg-desktop-portal-gtk.service"
+        spawn "systemctl --user start --no-block xdg-desktop-portal-kde.service"
       '';
     };
   };

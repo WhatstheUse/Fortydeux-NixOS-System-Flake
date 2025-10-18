@@ -17,7 +17,7 @@ in
       configFragments = [
         {
           river = {
-            default = [ "gtk" "wlr" "gnome" ];
+            default = [ "wlr" "gtk" ];
             "org.freedesktop.impl.portal.FileChooser" = [ "gtk" ];
             "org.freedesktop.impl.portal.OpenURI" = [ "gtk" ];
             "org.freedesktop.impl.portal.Secret" = [ "gnome-keyring" ];

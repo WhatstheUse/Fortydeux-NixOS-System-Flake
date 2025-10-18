@@ -77,9 +77,7 @@ in
         notifications = mako
         outputs = kanshi
         portal = /usr/libexec/xdg-desktop-portal-wlr
-        import-portals = bash -lc 'systemctl --user import-environment DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP && dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP'
-        start-gtk-portal = bash -lc 'systemctl --user start --no-block xdg-desktop-portal-gtk.service'
-        start-gnome-portal = bash -lc 'systemctl --user start --no-block xdg-desktop-portal-gnome.service'
+        import-portals = bash -lc 'systemctl --user import-environment DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP && dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP && systemctl --user start --no-block xdg-desktop-portal-kde.service'
 
         [background]
         cycle_timeout = 150

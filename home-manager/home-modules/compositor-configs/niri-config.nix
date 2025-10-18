@@ -293,7 +293,7 @@ lib.mkIf sessionEnabled {
     spawn-at-startup "bash" "-c" "waybar -c $HOME/.config/niri/waybar/config -s $HOME/.config/niri/waybar/style.css"
     spawn-at-startup "mako"
     spawn-at-startup "niriswitcher"
-    spawn-at-startup "bash" "-c" "systemctl --user import-environment DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP && dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP && systemctl --user start --no-block xdg-desktop-portal-gnome.service && systemctl --user start --no-block xdg-desktop-portal-gtk.service"
+    spawn-at-startup "bash" "-c" "systemctl --user import-environment DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP && dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP && systemctl --user start --no-block xdg-desktop-portal-kde.service"
     // spawn-at-startup "xwayland-satellite"
     spawn-at-startup "bash" "-c" "sleep 3 && pcloud"
     spawn-at-startup "bash" "-c" "swayidle -w timeout 300 'swaylock -f -c 000000' timeout 600 'swaymsg \"output * power off\"' resume 'swaymsg \"output * power on\"' before-sleep 'swaylock -f -c 000000' "
@@ -577,10 +577,12 @@ lib.mkIf sessionEnabled {
         // open-fullscreen false
     }
 
-    // Hide Xwayland Video Bridge window
+    // Hide Xwayland Video Bridge window for screen recording support
+    // Shrink to 1x1 pixels and position in top-right corner
     window-rule {
-        match title="^Wayland to X Recording bridge - Xwayland Video Bridge$"
+        match app-id="^xwaylandvideobridge$"
         open-floating true
+        default-floating-position x=0 y=0 relative-to="top-right"
         min-width 1
         max-width 1
         min-height 1

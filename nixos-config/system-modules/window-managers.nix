@@ -96,7 +96,10 @@ in
       config = mkMerge (portalBaseFragments ++ portalCfg.configFragments);
       extraPortals = unique (basePortalPackages ++ portalCfg.extraPortals);
       wlr.enable = mkDefault anyWlr;
-      xdgOpenUsePortal = true;
+      # Disabled: OpenURI interface is not provided by gnome/gtk portals
+      # This was causing "No such interface OpenURI" errors in non-KDE compositors
+      # URL handling now works via traditional MIME type associations in mime-config.nix
+      xdgOpenUsePortal = false;
     };
 
     # Register session packages with the display manager
@@ -115,6 +118,12 @@ in
 
     # Enable dconf for proper settings management
     programs.dconf.enable = true;
+
+    # Create applications.menu symlink for KDE applications outside Plasma
+    # This fixes the "applications.menu not found" error in Okular and other KDE apps
+    environment.etc."xdg/menus/applications.menu" = lib.mkIf cfg.plasma.enable {
+      source = "${pkgs.kdePackages.plasma-workspace}/etc/xdg/menus/plasma-applications.menu";
+    };
 
     # System packages - Common Wayland infrastructure and utilities
     environment.systemPackages = with pkgs; [

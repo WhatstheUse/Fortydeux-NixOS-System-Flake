@@ -24,9 +24,9 @@ in
       configFragments = [
         {
           hyprland = {
-            default = [ "hyprland" "gtk" "gnome" ];
-            "org.freedesktop.impl.portal.FileChooser" = [ "gtk" ];
-            "org.freedesktop.impl.portal.OpenURI" = [ "gtk" ];
+            default = [ "hyprland" "gnome" "gtk" ];
+            "org.freedesktop.impl.portal.FileChooser" = [ "gnome" ];
+            "org.freedesktop.impl.portal.OpenURI" = [ "gnome" ];
             "org.freedesktop.impl.portal.Secret" = [ "gnome-keyring" ];
             "org.freedesktop.impl.portal.ScreenCast" = [ "hyprland" ];
             "org.freedesktop.impl.portal.Screenshot" = [ "hyprland" ];
