@@ -747,18 +747,94 @@
       WantedBy = [ "graphical-session.target" ];
     };
   };
+
+  systemd.user.services."import-wayland-environment" =
+    let
+      importScript = pkgs.writeShellScript "import-wayland-environment" ''#!/usr/bin/env bash
+        set -eu
+
+        find_wayland_display() {
+          if [ -n "''${WAYLAND_DISPLAY:-}" ]; then
+            return 0
+          fi
+          if [ -n "''${XDG_RUNTIME_DIR:-}" ]; then
+            guess=$(ls "''${XDG_RUNTIME_DIR}"/wayland-* 2>/dev/null | head -n1 || true)
+            if [ -n "$guess" ]; then
+              export WAYLAND_DISPLAY="$(basename "$guess")"
+              return 0
+            fi
+          fi
+          return 1
+        }
+
+        for _ in $(seq 1 20); do
+          if find_wayland_display; then
+            break
+          fi
+          sleep 0.25
+        done
+
+        if [ -z "''${DISPLAY:-}" ] && [ -n "''${WAYLAND_DISPLAY:-}" ]; then
+          export DISPLAY=":0"
+        fi
+
+        if [ -z "''${XDG_CURRENT_DESKTOP:-}" ]; then
+          if [ -n "''${DESKTOP_SESSION:-}" ]; then
+            export XDG_CURRENT_DESKTOP="''${DESKTOP_SESSION}"
+          else
+            export XDG_CURRENT_DESKTOP="WaylandSession"
+          fi
+        fi
+
+        systemctl --user import-environment DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP || true
+        dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP || true
+
+        # Restart portal backends to ensure they see the updated environment
+        systemctl --user start --no-block xdg-desktop-portal-wlr.service || true
+        systemctl --user restart --no-block xdg-desktop-portal.service || true
+        systemctl --user start --no-block xdg-desktop-portal-gnome.service || true
+        systemctl --user start --no-block xdg-desktop-portal-gtk.service || true
+      '';
+    in {
+      Unit = {
+        Description = "Import Wayland environment for portals";
+        PartOf = [ "graphical-session.target" ];
+        After = [ "graphical-session.target" ];
+      };
+      Service = {
+        Type = "oneshot";
+        ExecStart = importScript;
+        RemainAfterExit = false;
+      };
+      Install = {
+        WantedBy = [ "graphical-session.target" ];
+      };
+    };
   
   home.sessionVariables = {
     # NNN_OPENER = "/home/${user}/scripts/file-ops/linkhandler.sh";
     # NNN_FCOLORS = "$BLK$CHR$DIR$EXE$REG$HARDLINK$SYMLINK$MISSING$ORPHAN$FIFO$SOCK$OTHER";
     NNN_TRASH = 1;
     NNN_FIFO = "/tmp/nnn.fifo";
+    NIX_XDG_DESKTOP_PORTAL_DIR = lib.mkForce "/etc/xdg/xdg-desktop-portal/portals:/run/current-system/sw/share/xdg-desktop-portal/portals:${config.home.homeDirectory}/.nix-profile/share/xdg-desktop-portal/portals";
     
     # API Keys for Neovim plugins (overridden by ~/.env.secrets if it exists)
     AVANTE_ANTHROPIC_API_KEY = "";
     AVANTE_OPENAI_API_KEY = "";
     ANTHROPIC_API_KEY = "";
     OPENAI_API_KEY = "";
+  };
+
+  xdg.configFile."xdg-desktop-portal/portals.conf" = {
+    text = ''
+      [preferred]
+      default=gtk;wlr;gnome
+      org.freedesktop.impl.portal.FileChooser=gtk
+      org.freedesktop.impl.portal.OpenURI=gtk
+      org.freedesktop.impl.portal.ScreenCast=wlr
+      org.freedesktop.impl.portal.Screenshot=wlr
+      org.freedesktop.impl.portal.Secret=gnome-keyring
+    '';
   };
   # Home Manager can also manage your environment variables through
   # 'home.sessionVariables'. If you don't want to manage your shell through Home

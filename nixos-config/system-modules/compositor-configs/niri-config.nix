@@ -20,7 +20,7 @@ in
       configFragments = [
         {
           niri = {
-            default = [ "gnome" "gtk" ];
+            default = [ "wlr" "gtk" "gnome" ];
             "org.freedesktop.impl.portal.FileChooser" = [ "gtk" ];
             "org.freedesktop.impl.portal.OpenURI" = [ "gtk" ];
             "org.freedesktop.impl.portal.Secret" = [ "gnome-keyring" ];

@@ -293,6 +293,7 @@ lib.mkIf sessionEnabled {
     spawn-at-startup "bash" "-c" "waybar -c $HOME/.config/niri/waybar/config -s $HOME/.config/niri/waybar/style.css"
     spawn-at-startup "mako"
     spawn-at-startup "niriswitcher"
+    spawn-at-startup "bash" "-c" "systemctl --user import-environment DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP && dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP && systemctl --user start --no-block xdg-desktop-portal-gnome.service && systemctl --user start --no-block xdg-desktop-portal-gtk.service"
     // spawn-at-startup "xwayland-satellite"
     spawn-at-startup "bash" "-c" "sleep 3 && pcloud"
     spawn-at-startup "bash" "-c" "swayidle -w timeout 300 'swaylock -f -c 000000' timeout 600 'swaymsg \"output * power off\"' resume 'swaymsg \"output * power on\"' before-sleep 'swaylock -f -c 000000' "

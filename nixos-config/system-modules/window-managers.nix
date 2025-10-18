@@ -5,6 +5,7 @@ let
     mkEnableOption
     mkOption
     mkMerge
+    mkIf
     mkDefault
     types
     optional
@@ -38,8 +39,7 @@ let
     xdg-desktop-portal
     xdg-desktop-portal-gtk
     xdg-desktop-portal-gnome
-    kdePackages.xdg-desktop-portal-kde
-  ];
+  ] ++ optional cfg.plasma.enable pkgs.kdePackages.xdg-desktop-portal-kde;
 
   anyWlr =
     cfg.hyprland.enable
@@ -108,14 +108,9 @@ in
         NIXOS_OZONE_WL = "1";
         XCURSOR_SIZE = "32";
         XCURSOR_THEME = "phinger-cursors-light";
-        KDE_SESSION_VERSION = "6";
-        KDE_FULL_SESSION = "true";
       };
 
-      variables = {
-        NIXOS_OZONE_WL = "1";
-        QT_QPA_PLATFORMTHEME = "kde";
-      };
+      variables.NIXOS_OZONE_WL = "1";
     };
 
     # Enable dconf for proper settings management

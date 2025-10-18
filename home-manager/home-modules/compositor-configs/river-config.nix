@@ -215,6 +215,9 @@ in
       };
       
       extraConfig = ''
+        spawn "systemctl --user import-environment DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
+        spawn "dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
+
         # auto starting apps
         bash $HOME/.config/river/scripts/autostart.sh
 
@@ -252,6 +255,10 @@ in
         rivertile -view-padding 2 -outer-padding 2 -main-ratio 0.5 &
 
         ${cfg.extraConfig}
+        spawn "systemctl --user import-environment DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
+        spawn "dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
+        spawn "systemctl --user start --no-block xdg-desktop-portal-gnome.service"
+        spawn "systemctl --user start --no-block xdg-desktop-portal-gtk.service"
       '';
     };
   };

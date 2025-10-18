@@ -25,7 +25,7 @@ in
       configFragments = [
         {
           wayfire = {
-            default = [ "wlr" "gtk" ];
+            default = [ "gtk" "wlr" "gnome" ];
             "org.freedesktop.impl.portal.FileChooser" = [ "gtk" ];
             "org.freedesktop.impl.portal.OpenURI" = [ "gtk" ];
             "org.freedesktop.impl.portal.Secret" = [ "gnome-keyring" ];
