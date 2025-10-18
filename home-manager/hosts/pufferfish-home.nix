@@ -3,11 +3,10 @@
 { # pufferfish-home.nix
 
   # Enable compositor programs
-  # Uncomment the compositors you want to enable:
-  # programs.hyprland = { enable = true; enableStylix = true; };
-  # programs.sway = { enable = true; enableStylix = true; };
-  # programs.wayfire = { enable = true; enableStylix = true; };
-  # programs.river = { enable = true; enableStylix = true; };
+  programs.hyprland = { enable = true; enableStylix = true; };
+  programs.sway = { enable = true; enableStylix = true; };
+  programs.wayfire = { enable = true; enableStylix = true; };
+  programs.river = { enable = true; enableStylix = true; };
 
   imports = [
     ../home-modules/home-commonConfig.nix
@@ -29,7 +28,7 @@
 
   sessionProfiles = {
     plasma.enable = true;
-    cosmic.enable = false;
+    cosmic.enable = true;
     hyprland.enable = true;
     niri.enable = true;
     sway.enable = true;

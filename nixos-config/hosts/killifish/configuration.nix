@@ -71,7 +71,7 @@
 
   sessionProfiles = {
     plasma.enable = true;
-    cosmic.enable = false;
+    cosmic.enable = true;
     hyprland.enable = true;
     niri.enable = true;
     sway.enable = true;
