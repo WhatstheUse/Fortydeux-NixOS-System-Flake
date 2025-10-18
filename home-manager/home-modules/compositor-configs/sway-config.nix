@@ -25,9 +25,6 @@ in
     
     home.packages = with pkgs; [
       sway
-      swaybg
-      swaylock-effects
-      swayidle
       i3status-rust
       wl-clipboard
       grim

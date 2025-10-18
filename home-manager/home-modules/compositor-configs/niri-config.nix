@@ -290,6 +290,7 @@ lib.mkIf sessionEnabled {
     // See the binds section below for more spawn examples.
     // spawn-at-startup "alacritty" "-e" "fish"
     spawn-at-startup "bash" "-c" "foot --server"
+    spawn-at-startup "swaybg" "-m" "fill" "-i" "${config.stylix.image}"
     spawn-at-startup "bash" "-c" "waybar -c $HOME/.config/niri/waybar/config -s $HOME/.config/niri/waybar/style.css"
     spawn-at-startup "mako"
     spawn-at-startup "niriswitcher"

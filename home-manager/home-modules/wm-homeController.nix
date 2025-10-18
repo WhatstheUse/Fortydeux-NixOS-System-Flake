@@ -21,6 +21,9 @@ in
 
     home.packages = (with pkgs; [
       # kdePackages.yakuake #Drop-down terminal
+      swaybg # Wallpaper setter used by multiple compositors (Sway, River, Niri)
+      swaylock-effects # Screen locker used by multiple compositors
+      swayidle # Idle management daemon used by multiple compositors
     ]);
     
     wayland.windowManager = {
