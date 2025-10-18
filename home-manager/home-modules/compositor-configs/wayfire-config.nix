@@ -19,12 +19,10 @@ in
   };
 
   config = mkIf (cfg.enable && sessionEnabled) {
-    home.packages = with pkgs; [
-      wayfire
-      wayfirePlugins.wcm
-      wayfirePlugins.wf-shell
-      wayfirePlugins.wayfire-plugins-extra
-    ];
+    # Note: Wayfire and its plugins are provided by the system-level
+    # configuration (nixos-config/system-modules/compositor-configs/wayfire-config.nix)
+    # which creates a wrapped version with proper plugin paths.
+    # We only manage the configuration files here at the home-manager level.
 
     # Configure Wayfire with Stylix integration using home.file
     # This approach is used because the wayland.windowManager.wayfire module
@@ -256,9 +254,9 @@ in
         [follow-focus]
         change_output = true
         change_view = true
-        focus_delay = 50
+        focus_delay = 0
         raise_on_top = true
-        threshold = 10
+        threshold = 0
 
         [force-fullscreen]
         constrain_pointer = false

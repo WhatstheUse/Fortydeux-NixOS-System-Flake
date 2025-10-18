@@ -14,6 +14,20 @@ in
       ];
     };
 
+    # Ensure Wayfire plugin paths are set in the session environment
+    environment.sessionVariables = {
+      WAYFIRE_PLUGIN_PATH = lib.makeSearchPath "lib/wayfire" (with pkgs.wayfirePlugins; [
+        wcm
+        wf-shell
+        wayfire-plugins-extra
+      ]);
+      WAYFIRE_PLUGIN_XML_PATH = lib.makeSearchPath "share/wayfire/metadata" (with pkgs.wayfirePlugins; [
+        wcm
+        wf-shell
+        wayfire-plugins-extra
+      ]);
+    };
+
     environment.systemPackages = with pkgs; [
       wayfire
       wayfirePlugins.wcm

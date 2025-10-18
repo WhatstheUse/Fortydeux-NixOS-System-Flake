@@ -111,7 +111,7 @@ in
             accel_profile adaptive
             click_method clickfinger
             drag enabled
-            pointer_accel 0.8
+            pointer_accel 0.3
             dwt enabled
             tap enabled
             natural_scroll enabled
@@ -126,7 +126,7 @@ in
             accel_profile adaptive
             click_method clickfinger
             drag enabled
-            pointer_accel 0.8
+            pointer_accel 0.3
             dwt enabled
             tap enabled
             natural_scroll enabled
