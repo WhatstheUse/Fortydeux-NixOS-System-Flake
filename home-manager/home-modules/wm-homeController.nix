@@ -4,6 +4,10 @@ let
   inherit (lib) mkEnableOption;
 in
 {
+  imports = [
+    ./dotfiles/kanshi.nix
+  ];
+
   options.sessionProfiles = {
     plasma.enable =
       mkEnableOption "KDE Plasma desktop environment" // { default = true; };

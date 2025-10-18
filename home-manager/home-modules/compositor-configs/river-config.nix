@@ -221,8 +221,8 @@ in
         # auto starting apps
         bash $HOME/.config/river/scripts/autostart.sh
 
-        # Set resolution based on eDP-1 display resolution
-        bash $HOME/.config/scripts/fix-resolution.sh
+        # Output configuration is handled by Kanshi service
+        # See: home-manager/home-modules/dotfiles/kanshi.nix
 
         # Tag mappings (1-9)
         for i in $(seq 1 9)

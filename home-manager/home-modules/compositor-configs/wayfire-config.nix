@@ -69,7 +69,6 @@ in
 
         [autostart]
         autostart0 = pcloud
-        autostart1 = /home/${username}/.config/scripts/fix-resolution.sh
         autostart_wf_shell = true
         background = wf-background
         gamma = wlsunset
@@ -393,19 +392,13 @@ in
         transform = normal
         vrr = false
 
+        # eDP-1 configuration for high-DPI laptop displays (Surface Books, etc.)
+        # Scale 2.0 is appropriate for 3240x2160 displays
         [output:eDP-1]
         depth = 8
         mode = auto
         position = 0, 0
-        scale = 2.00000
-        transform = normal
-        vrr = false
-
-        [output:DP-1]
-        depth = 8
-        mode = auto
-        position = 1620, 0
-        scale = 1.00000
+        scale = 2.000000
         transform = normal
         vrr = false
 
@@ -633,6 +626,25 @@ in
         modifier = <super> 
         smoothing_duration = 300
         speed = 0.010000
+
+        # Host-specific output configurations
+        # Blacktetra: LG ULTRAWIDE main display (DP-1 connector)
+        [output:LG Electronics LG ULTRAWIDE 308NTTQD5209]
+        depth = 8
+        mode = 3440x1440@159.962006
+        position = 0, 0
+        scale = 1.00000
+        transform = normal
+        vrr = false
+
+        # Archerfish: Sceptre F27 secondary display (DP-1 connector)
+        [output:Sceptre Tech Inc Sceptre F27 0x00000001]
+        depth = 8
+        mode = 1920x1080@75.001999
+        position = 1620, 0
+        scale = 1.00000
+        transform = normal
+        vrr = false
 
         ${cfg.extraConfig}
       '';
