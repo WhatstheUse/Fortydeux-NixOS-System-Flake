@@ -254,9 +254,9 @@ in
         [follow-focus]
         change_output = true
         change_view = true
-        focus_delay = 0
+        focus_delay = 50
         raise_on_top = true
-        threshold = 0
+        threshold = 30
 
         [force-fullscreen]
         constrain_pointer = false
