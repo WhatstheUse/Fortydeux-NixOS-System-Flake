@@ -70,7 +70,7 @@ in
         autostart_wf_shell = true
         background = wf-background
         gamma = wlsunset
-        idle = swayidle before-sleep swaylock
+        idle = swayidle -w timeout 3600 'swaylock -f -c 000000' before-sleep 'swaylock -f -c 000000'
         notifications = mako
         outputs = kanshi
         portal = /usr/libexec/xdg-desktop-portal-wlr
@@ -300,8 +300,8 @@ in
         cube_zoom_speed = 1000
         disable_initially = false
         disable_on_fullscreen = true
-        dpms_timeout = -1
-        screensaver_timeout = 3600
+        dpms_timeout = 2400
+        screensaver_timeout = 1200
         toggle = <super> <shift> KEY_I
 
         [input]
