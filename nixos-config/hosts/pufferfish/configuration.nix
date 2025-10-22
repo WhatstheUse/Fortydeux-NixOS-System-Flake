@@ -53,7 +53,8 @@
 
 
   # Kernel to use
-  boot.kernelPackages = pkgs.linuxPackages_xanmod_latest;
+  # boot.kernelPackages = pkgs.linuxPackages_xanmod_latest;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
 
   sessionProfiles = {
     plasma.enable = true;
