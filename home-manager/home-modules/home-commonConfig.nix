@@ -66,6 +66,7 @@
     # freetube #An Open Source YouTube app for privacy
     # fuzzel # Wayland launcher
     gh #Github CLI tool 
+    ghostscript #PDF Tools
     ghostty #Fast, native, feature-rich terminal emulator pushing modern features
     kdePackages.ghostwriter # Text editor for Markdown
     # helix #Post modern modal text editor
