@@ -244,6 +244,56 @@
       plugins = {
         avante = {
           enable = true;
+          settings = {
+            provider = "openrouter";
+            auto_suggestions_provider = "openrouter";
+            providers = {
+              copilot = {
+                __raw = ''
+                  {
+                    parse_curl_args = function() return {} end,
+                    parse_response_data = function() return "" end,
+                    list_models = function() return {} end,
+                  }
+                '';
+              };
+              openrouter = {
+                __inherited_from = "openai";
+                api_key_name = "OPENROUTER_API_KEY";
+                endpoint = "https://openrouter.ai/api/v1";
+                model = "anthropic/claude-sonnet-4.5";
+                timeout = 30000;
+                model_names = [
+                  # Anthropic Claude 
+                  "anthropic/claude-sonnet-4.5"    
+                  "anthropic/claude-haiku-4.5"     
+                  "anthropic/claude-opus-4.1"      
+
+                  # OpenAI
+                  "openai/gpt-4.1"                 
+                  "openai/gpt-4o"                  
+                  "openai/gpt-4o-mini"             
+
+                  # Google Gemini
+                  "google/gemini-2.5-pro"          
+                  "google/gemini-2.5-flash"        
+                  "google/gemini-2.5-pro-exp-03-25:free" 
+
+                  # DeepSeek 
+                  "deepseek/deepseek-r1"           
+                  "deepseek/deepseek-r1:free"      
+
+                  # Meta Llama 
+                  "meta-llama/llama-4-maverick:free"      
+                  "meta-llama/llama-3.3-70b-instruct:free"
+                ];
+                extra_request_body = {
+                  temperature = 0;
+                  max_tokens = 4096;
+                };
+              };
+            };
+          };
         };
         codecompanion = {
           enable = true;
@@ -268,6 +318,23 @@
                       return require("codecompanion.adapters").extend("openai", {
                         env = {
                           api_key = "OPENAI_API_KEY",
+                        },
+                      })
+                    end
+                  '';
+                };
+                openrouter = {
+                  __raw = ''
+                    function()
+                      return require("codecompanion.adapters").extend("openai", {
+                        env = {
+                          api_key = "OPENROUTER_API_KEY",
+                        },
+                        url = "https://openrouter.ai/api/v1/chat/completions",
+                        schema = {
+                          model = {
+                            default = "anthropic/claude-3.5-sonnet",
+                          },
                         },
                       })
                     end
@@ -819,8 +886,10 @@
     # API Keys for Neovim plugins (overridden by ~/.env.secrets if it exists)
     AVANTE_ANTHROPIC_API_KEY = "";
     AVANTE_OPENAI_API_KEY = "";
+    AVANTE_OPENROUTER_API_KEY = "";
     ANTHROPIC_API_KEY = "";
     OPENAI_API_KEY = "";
+    OPENROUTER_API_KEY = "";
   };
 
   # Home Manager can also manage your environment variables through
