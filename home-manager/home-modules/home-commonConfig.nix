@@ -792,29 +792,29 @@
   #   };
   };
 
-  systemd.user.services."caffeine-ng" =
-    let
-      caffeineLauncher = pkgs.writeShellScript "launch-caffeine-ng" ''
-        if [[ ${"$"}{XDG_CURRENT_DESKTOP:-} == *KDE* ]]; then
-          exec ${pkgs.caffeine-ng}/bin/caffeine
-        else
-          exit 0
-        fi
-      '';
-    in {
-    Unit = {
-      Description = "Caffeine-ng (conditional launch)";
-      PartOf = [ "graphical-session.target" ];
-      After = [ "graphical-session.target" ];
-    };
-    Service = {
-      ExecStart = caffeineLauncher;
-      Restart = "on-failure";
-    };
-    Install = {
-      WantedBy = [ "graphical-session.target" ];
-    };
-  };
+  # systemd.user.services."caffeine-ng" =
+  #   let
+  #     caffeineLauncher = pkgs.writeShellScript "launch-caffeine-ng" ''
+  #       if [[ ${"$"}{XDG_CURRENT_DESKTOP:-} == *KDE* ]]; then
+  #         exec ${pkgs.caffeine-ng}/bin/caffeine
+  #       else
+  #         exit 0
+  #       fi
+  #     '';
+  #   in {
+  #   Unit = {
+  #     Description = "Caffeine-ng (conditional launch)";
+  #     PartOf = [ "graphical-session.target" ];
+  #     After = [ "graphical-session.target" ];
+  #   };
+  #   Service = {
+  #     ExecStart = caffeineLauncher;
+  #     Restart = "on-failure";
+  #   };
+  #   Install = {
+  #     WantedBy = [ "graphical-session.target" ];
+  #   };
+  # };
 
   systemd.user.services."import-wayland-environment" =
     let
