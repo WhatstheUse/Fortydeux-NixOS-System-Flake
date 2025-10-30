@@ -1,6 +1,6 @@
 { config, lib, pkgs, ... }:
 let
-  whisperPkg = pkgs.openai-whisper-cpp;
+  whisperPkg = pkgs.whisper-cpp;
   
   # Shared Python env - includes all packages needed by both whisper systems  
   pyEnvWhisper = pkgs.python313.withPackages (ps: with ps; [

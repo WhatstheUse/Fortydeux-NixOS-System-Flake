@@ -97,7 +97,7 @@
     # obs-studio #Screen recorder       
     patchance # JACK Patchbay GUI
     pdfgrep # Commandline utility to search text in PDF files
-    poppler_utils #Poppler is a PDF rendering library based on the xpdf-3.0 code base. In addition it provides a number of tools that can be installed separately.    
+    poppler-utils #Poppler is a PDF rendering library based on the xpdf-3.0 code base. In addition it provides a number of tools that can be installed separately.    
     python3 # Python 3
     pyradio #Curses based internet radio
     radio-cli #Simple radio CLI written in rust

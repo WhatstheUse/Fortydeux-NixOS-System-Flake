@@ -15,7 +15,7 @@ pkgs,
 
     ## Office Packages
     libreoffice-qt6-fresh # Comprehensive, professional-quality productivity suite, a variant of openoffice.org
-    onlyoffice-bin # Office suite that combines text, spreadsheet and presentation editors allowing to create, view and edit local documents
+    onlyoffice-desktopeditors # Office suite that combines text, spreadsheet and presentation editors allowing to create, view and edit local documents
 
     ## Wine
     winetricks
