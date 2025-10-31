@@ -70,6 +70,7 @@
     ghostty #Fast, native, feature-rich terminal emulator pushing modern features
     kdePackages.ghostwriter # Text editor for Markdown
     # helix #Post modern modal text editor
+    img2pdf #Image JPEG to PDF converter with stitching capability
     imagemagick # Software suite to convert, edit, merge, create bitmap images
     # img2pdf # Convert images to PDFs via direct JPEG inclusion
     impala #TUI for managing Wifi
