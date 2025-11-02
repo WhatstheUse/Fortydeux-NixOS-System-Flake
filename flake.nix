@@ -67,7 +67,7 @@
     # };
   };
   
-  outputs = { self, nixpkgs, home-manager, atuin, ... }@inputs: 
+  outputs = { self, nixpkgs, home-manager, atuin, ... }@inputs:
     let
       username = "fortydeux";  # Change this to your username
       lib = nixpkgs.lib;
@@ -77,41 +77,36 @@
       nixosConfigurations = {
         #--Archerfish host--#
       	archerfish-nixos = lib.nixosSystem {
-    	  	inherit system;
-    	  	modules = [ 
-    	  	  ./nixos-config/hosts/archerfish/configuration.nix 
+    	  	modules = [
+    	  	  ./nixos-config/hosts/archerfish/configuration.nix
           ];
           specialArgs = { inherit inputs username; };
       	};
         #--Killifish host--#
       	killifish-nixos = lib.nixosSystem {
-    	  	inherit system;
-    	  	modules = [ 
-    	  	  ./nixos-config/hosts/killifish/configuration.nix 
+    	  	modules = [
+    	  	  ./nixos-config/hosts/killifish/configuration.nix
           ];
           specialArgs = { inherit inputs username; };
       	};
         #--Pufferfish host--#
       	pufferfish-nixos = lib.nixosSystem {
-    	  	inherit system;
-    	  	modules = [ 
-    	  	  ./nixos-config/hosts/pufferfish/configuration.nix 
+    	  	modules = [
+    	  	  ./nixos-config/hosts/pufferfish/configuration.nix
           ];
           specialArgs = { inherit inputs username; };
       	};
         #--Blackfin host--#
       	blackfin-nixos = lib.nixosSystem {
-    	  	inherit system;
-    	  	modules = [ 
-    	  	  ./nixos-config/hosts/blackfin/configuration.nix 
+    	  	modules = [
+    	  	  ./nixos-config/hosts/blackfin/configuration.nix
             ];
           specialArgs = { inherit inputs username; };
       	};
         #--Blacktetra host--#
         blacktetra-nixos = lib.nixosSystem {
-          inherit system;
-          modules = [ 
-            ./nixos-config/hosts/blacktetra/configuration.nix 
+          modules = [
+            ./nixos-config/hosts/blacktetra/configuration.nix
           ];
           specialArgs = { inherit inputs username; };
         }; 
