@@ -66,9 +66,14 @@ in
             natural-scroll = "enabled";
             click-method = "clickfinger";
             tap = "enabled";
+            dwt = "enabled";
           };
           "pointer-9354-33639-Telink_Wireless_Receiver_Mouse" = {
             natural-scroll = "enabled";
+          };
+          # Generic touchpad configuration
+          "type:pointer" = {
+            dwt = "enabled";
           };
         };
         
