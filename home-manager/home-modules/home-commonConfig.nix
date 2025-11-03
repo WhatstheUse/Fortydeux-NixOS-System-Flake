@@ -86,7 +86,7 @@
     # kdePackages.kdenlive # Open source video editor based on MLT and KDE frameworks
  #   logseq #Logseq electron desktop client
     # libinput # Handles input devices in Wayland compositors
-    lan-mouse #Wayland software KVM switch
+    # lan-mouse #Wayland software KVM switch
     # media-downloader #Media-downloader desktop client
     # mediawriter #USB imaage writer
     # moc # Terminal music player
@@ -104,7 +104,6 @@
     radio-cli #Simple radio CLI written in rust
     reaper #Reaper DAW
     retext # Editor for Markdown and reStructuredText
-    rustscan #Nmap scanner written in Rust
     satty #Modern Screenshot Annotation tool
     # shotcut #Open-source cross-platform video editor
     # signal-desktop-bin # original package replaced by wrapped version below
@@ -144,6 +143,11 @@
     
     # Secrets management
     # sops  # Secrets OPerationS - encrypted secrets management
+
+    # Network Tools
+    rustscan #Nmap scanner written in Rust
+    speedtest-rs # Network speedtest tool written in Rust
+    zenmap # Official NMAP security scanner GUI
     
     
   ]) ++ [ signalDesktopWithKwallet ];
