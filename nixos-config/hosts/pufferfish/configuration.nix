@@ -51,10 +51,14 @@
   # Swappiness
   boot.kernel.sysctl."vm.swappiness" = 20;
 
+  zramSwap = {
+    enable = true;
+    memoryPercent = 40;
+  };
 
   # Kernel to use
-  # boot.kernelPackages = pkgs.linuxPackages_xanmod_latest;
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelPackages = pkgs.linuxPackages_xanmod_latest;
+  # boot.kernelPackages = pkgs.linuxPackages_latest;
 
   sessionProfiles = {
     plasma.enable = true;
