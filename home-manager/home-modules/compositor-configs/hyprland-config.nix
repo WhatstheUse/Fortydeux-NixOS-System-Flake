@@ -354,8 +354,8 @@ in
         hyprscrolling = {
           # Column configuration
           fullscreen_on_one_column = false;
-          column_width = 0.5;  # Default column width (50% of monitor width)
-          explicit_column_widths = "0.333, 0.5, 0.667, 0.8, 1.0";  # Predefined widths for cycling
+          column_width = 0.8;  # Default column width (% of monitor width)
+          explicit_column_widths = "0.333, 0.5, 0.667, 0.75, 0.8, 0.9, 1.0";  # Predefined widths for cycling
           
           # Focus behavior
           focus_fit_method = 0;  # 0 = center, 1 = fit

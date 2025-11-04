@@ -18,9 +18,9 @@ in
         position = "top";
         height = 35;
         spacing = 4;
-        margin-top = 4;
-        margin-right = 4;
-        margin-left = 4;
+        margin-top = 0;
+        margin-right = 0;
+        margin-left = 0;
         margin-bottom = 0;
 
         # Choose the order of the modules
