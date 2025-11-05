@@ -1,4 +1,4 @@
-{config, lib, pkgs, inputs, base16Theme, ...}:
+{config, lib, pkgs, inputs, base16Theme, polarity, ...}:
 
 {
   imports = [
@@ -13,7 +13,7 @@
     #   url = "https://www.pixelstalk.net/wp-content/uploads/2016/05/Epic-Anime-Awesome-Wallpapers.jpg";
     #   sha256 = "enQo3wqhgf0FEPHj2coOCvo7DuZv+x5rL/WIo4qPI50=";
     # };
-    polarity = "dark";
+    polarity = polarity;
     base16Scheme = "${pkgs.base16-schemes}/share/themes/${base16Theme}";
     # https://tinted-theming.github.io/tinted-gallery/
     # # 3024, ayu-mirage, brewer, bright, chalk, circus, classic-dark, colors, da-one-black, default-dark, 
