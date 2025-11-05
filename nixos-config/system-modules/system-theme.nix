@@ -1,4 +1,4 @@
-{ config, lib, pkgs, inputs, ... }:
+{ config, lib, pkgs, inputs, base16Theme, ... }:
 
 {
   imports = [
@@ -14,7 +14,7 @@
     #   sha256 = "enQo3wqhgf0FEPHj2coOCvo7DuZv+x5rL/WIo4qPI50=";
     # };
     polarity = "dark"; 
-    base16Scheme = "${pkgs.base16-schemes}/share/themes/valua.yaml";
+    base16Scheme = "${pkgs.base16-schemes}/share/themes/${base16Theme}";
     cursor = {
       package = pkgs.phinger-cursors;
       name = "phinger-cursors-light";

@@ -70,6 +70,7 @@
   outputs = { self, nixpkgs, home-manager, atuin, ... }@inputs:
     let
       username = "fortydeux";  # Change this to your username
+      base16Theme = "valua.yaml";  # Base16 color scheme for Stylix theming
       lib = nixpkgs.lib;
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
@@ -80,35 +81,35 @@
     	  	modules = [
     	  	  ./nixos-config/hosts/archerfish/configuration.nix
           ];
-          specialArgs = { inherit inputs username; };
+          specialArgs = { inherit inputs username base16Theme; };
       	};
         #--Killifish host--#
       	killifish-nixos = lib.nixosSystem {
     	  	modules = [
     	  	  ./nixos-config/hosts/killifish/configuration.nix
           ];
-          specialArgs = { inherit inputs username; };
+          specialArgs = { inherit inputs username base16Theme; };
       	};
         #--Pufferfish host--#
       	pufferfish-nixos = lib.nixosSystem {
     	  	modules = [
     	  	  ./nixos-config/hosts/pufferfish/configuration.nix
           ];
-          specialArgs = { inherit inputs username; };
+          specialArgs = { inherit inputs username base16Theme; };
       	};
         #--Blackfin host--#
       	blackfin-nixos = lib.nixosSystem {
     	  	modules = [
     	  	  ./nixos-config/hosts/blackfin/configuration.nix
             ];
-          specialArgs = { inherit inputs username; };
+          specialArgs = { inherit inputs username base16Theme; };
       	};
         #--Blacktetra host--#
         blacktetra-nixos = lib.nixosSystem {
           modules = [
             ./nixos-config/hosts/blacktetra/configuration.nix
           ];
-          specialArgs = { inherit inputs username; };
+          specialArgs = { inherit inputs username base16Theme; };
         }; 
 
       };
@@ -118,7 +119,7 @@
         #--Archerfish host--#
         "${username}@archerfish-nixos" = home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
-          extraSpecialArgs = { inherit inputs username; };
+          extraSpecialArgs = { inherit inputs username base16Theme; };
     	    modules = [
             ./home-manager/hosts/archerfish-home.nix
           ];
@@ -126,7 +127,7 @@
          #--Killifish host--#
         "${username}@killifish-nixos" = home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
-          extraSpecialArgs = { inherit inputs username; };
+          extraSpecialArgs = { inherit inputs username base16Theme; };
     	    modules = [
             ./home-manager/hosts/killifish-home.nix
           ];
@@ -134,7 +135,7 @@
          #--Pufferfish host--#
         "${username}@pufferfish-nixos" = home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
-          extraSpecialArgs = { inherit inputs username; };
+          extraSpecialArgs = { inherit inputs username base16Theme; };
     	    modules = [
             ./home-manager/hosts/pufferfish-home.nix
           ];
@@ -142,7 +143,7 @@
          #--Blackfin host--#
         "${username}@blackfin-nixos" = home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
-          extraSpecialArgs = { inherit inputs username; };
+          extraSpecialArgs = { inherit inputs username base16Theme; };
     	    modules = [
             ./home-manager/hosts/blackfin-home.nix
           ];
@@ -150,7 +151,7 @@
          #--Blacktetra host--#
         "${username}@blacktetra-nixos" = home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
-          extraSpecialArgs = { inherit inputs username; };
+          extraSpecialArgs = { inherit inputs username base16Theme; };
           modules = [
             ./home-manager/hosts/blacktetra-home.nix
           ];
