@@ -70,7 +70,7 @@
   outputs = { self, nixpkgs, home-manager, atuin, ... }@inputs:
     let
       username = "fortydeux";  # Change this to your username
-      base16Theme = "phd.yaml";  # Base16 color scheme for Stylix theming - recommended: valua, darkmoss, darktooth, gigavolt, gruvbox-material-dark-hard, measured-dark, phd, kanagawa, kanagawa-dragon, everforest-dark-hard
+      base16Theme = "gruvbox-dark-hard.yaml";  # Base16 color scheme for Stylix theming - recommended: valua, darkmoss, darktooth, gigavolt, gruvbox-dark-hard, gruvbox-material-dark-hard, measured-dark, phd, precious-dark-eleven, kanagawa, kanagawa-dragon, everforest-dark-hard
       polarity = "dark";  # Theme polarity: "dark" or "light"
       lib = nixpkgs.lib;
       system = "x86_64-linux";
