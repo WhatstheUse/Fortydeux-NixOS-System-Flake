@@ -70,7 +70,7 @@
   outputs = { self, nixpkgs, home-manager, atuin, ... }@inputs:
     let
       username = "fortydeux";  # Change this to your username
-      base16Theme = "vice.yaml";
+      base16Theme = "gruvbox-material-dark-soft.yaml";
       # Base16 Tinted theming gallery: https://tinted-theming.github.io/tinted-gallery/
       # Base16 color scheme for Stylix theming - Recommended: valua, darkmoss, atlas, atelier-cave, atelier-savanna, darktooth, digital-rain, eris, espresso, gigavolt, gruvbox-dark-hard, gruvbox-material-dark-hard, measured-dark, mocha, moonlight, paraiso, phd, precious-dark-eleven, kanagawa, kanagawa-dragon, everforest-dark-hard, silk-dark, vice; Recommended light: da-one-paper, gruvbox-light/-soft/-material-light-soft, precious-light-warm
       polarity = "dark";  # Theme polarity: "dark" or "light"
