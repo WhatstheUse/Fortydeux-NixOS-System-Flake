@@ -7,7 +7,7 @@
 
   home.packages = (with pkgs; [
     aichat #LLMs in the command line with repl, sessions, etc. 
-    alpaca #GTK4 app for Ollama and local LLM interaction
+    # alpaca #GTK4 app for Ollama and local LLM interaction
     appflowy #An open-source alternative to Notion - now with AI drafting features
     code-cursor #AI-powered code editor built on vscode
     codex #OpenAI lightweight coding agent that runs in terminal
