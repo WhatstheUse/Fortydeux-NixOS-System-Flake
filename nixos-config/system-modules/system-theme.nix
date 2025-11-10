@@ -14,7 +14,12 @@
     #   sha256 = "enQo3wqhgf0FEPHj2coOCvo7DuZv+x5rL/WIo4qPI50=";
     # };
     polarity = polarity;
-    base16Scheme = "${pkgs.base16-schemes}/share/themes/${base16Theme}";
+    # Use explicit theme if set, otherwise fall back to 'valua' default
+    # (Home-manager can override this with wallpaper-derived colors)
+    base16Scheme =
+      if base16Theme != null
+      then "${pkgs.base16-schemes}/share/themes/${base16Theme}"
+      else "${pkgs.base16-schemes}/share/themes/valua.yaml";
     cursor = {
       package = pkgs.phinger-cursors;
       name = "phinger-cursors-light";

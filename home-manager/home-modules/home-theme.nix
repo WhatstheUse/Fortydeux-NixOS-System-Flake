@@ -1,5 +1,9 @@
 {config, lib, pkgs, inputs, base16Theme, polarity, ...}:
 
+let
+  wallpaperPath = ../home-modules/dotfiles/wallpapers/dark-leaves.jpg; # Sets Stylix wallpaper image
+  useWallpaper = true;  # Set to false to disable wallpaper-based theming
+in
 {
   imports = [
     inputs.stylix.homeModules.stylix
@@ -8,13 +12,22 @@
   stylix = {
     enable = true;
     autoEnable = true;
-    image = ../home-modules/dotfiles/wallpapers/dark-leaves.jpg; 
     # image = pkgs.fetchurl {
     #   url = "https://www.pixelstalk.net/wp-content/uploads/2016/05/Epic-Anime-Awesome-Wallpapers.jpg";
     #   sha256 = "enQo3wqhgf0FEPHj2coOCvo7DuZv+x5rL/WIo4qPI50=";
     # };
     polarity = polarity;
+    # Theming behavior (priority order):
+    # 1. If base16Theme is set: use explicit theme (overrides everything)
+    # 2. If base16Theme is null + useWallpaper = true: derive colors from wallpaper
+    # 3. If base16Theme is null + useWallpaper = false: use 'valua' fallback theme
+  } // lib.optionalAttrs useWallpaper {
+    image = wallpaperPath;
+  } // lib.optionalAttrs (base16Theme != null) {
     base16Scheme = "${pkgs.base16-schemes}/share/themes/${base16Theme}";
+  } // lib.optionalAttrs (base16Theme == null && !useWallpaper) {
+    base16Scheme = "${pkgs.base16-schemes}/share/themes/valua.yaml";
+  } // {
     # https://tinted-theming.github.io/tinted-gallery/
     # # 3024, ayu-mirage, brewer, bright, chalk, circus, classic-dark, colors, da-one-black, default-dark, 
     # embers, equilibrium-dark, equilibrium-gray-dark, evenok-dark, framer, gigavolt, google-dark, gruber,
