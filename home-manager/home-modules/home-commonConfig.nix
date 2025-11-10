@@ -75,7 +75,7 @@
     # img2pdf # Convert images to PDFs via direct JPEG inclusion
     impala #TUI for managing Wifi
     jellyfin-tui #TUI for Jellyfin music
-    joplin-desktop #An open source note taking and to-do application with synchronisation capabilities
+    # joplin-desktop #An open source note taking and to-do application with synchronisation capabilities - TEMPORARILY DISABLED: uses EOL electron-36.9.5
     joshuto #Ranger-like TUI file manager written in Rust
     # (kdePackages.kdenlive.overrideAttrs (prevAttrs: {
     #   nativeBuildInputs = (prevAttrs.nativeBuildInputs or [ ]) ++ [ makeBinaryWrapper ];
