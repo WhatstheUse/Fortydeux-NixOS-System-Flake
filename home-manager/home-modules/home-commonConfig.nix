@@ -778,6 +778,8 @@
 
   services = {
     caffeine.enable = lib.mkForce false;
+
+    tomat.enable = true;
     
   #   walker = {
   #     enable = true;
