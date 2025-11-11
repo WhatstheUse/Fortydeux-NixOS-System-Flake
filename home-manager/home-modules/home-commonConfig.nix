@@ -487,7 +487,7 @@
         dressing.enable = true;
         oil.enable = true;
         flash.enable = true;
-        multicursors.enable = true;
+        visual-multi.enable = true;
         web-devicons.enable = true;
         yanky.enable = true;
       };
