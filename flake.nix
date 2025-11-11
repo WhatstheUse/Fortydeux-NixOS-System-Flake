@@ -55,7 +55,7 @@
     anyrun.url = "github:anyrun-org/anyrun";
     # Atuin shell history
     atuin = {
-      url = "github:ellie/atuin";
+      url = "github:ellie/atuin/ea218c546f325ea408e4e10cefee5f5ac97b35b8";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     #MusNix
