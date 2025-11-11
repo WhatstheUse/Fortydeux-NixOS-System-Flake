@@ -549,19 +549,19 @@
           # Text files
           edit = [
             { run = "$EDITOR \"$@\""; block = true; for = "unix"; }
+            { run = "kitty -e nvim \"$@\""; desc = "Neovim"; }
+            { run = "kitty -e hx \"$@\""; desc = "Helix"; }
+            { run = "retext \"$@\""; desc = "ReText"; }
+            { run = "okular \"$@\""; desc = "Okular"; }
+            { run = "onlyoffice-desktopeditors \"$@\""; desc = "OnlyOffice"; }
+            { run = "zeditor \"$@\""; desc = "Zed Editor"; }
+            { run = "emacs \"$@\""; desc = "Emacs"; }
             { run = "code \"$@\""; desc = "VS Code"; }
             { run = "cursor \"$@\""; desc = "Cursor"; }
-            { run = "zeditor \"$@\""; desc = "Zed Editor"; }
             { run = "kate \"$@\""; desc = "Kate"; }
             { run = "lapce \"$@\""; desc = "Lapce"; }
             { run = "ghostwriter \"$@\""; desc = "Ghostwriter"; }
-            { run = "kitty -e hx \"$@\""; desc = "Helix"; }
-            { run = "kitty -e nvim \"$@\""; desc = "Neovim"; }
-            { run = "emacs \"$@\""; desc = "Emacs"; }
-            { run = "retext \"$@\""; desc = "ReText"; }
-            { run = "okular \"$@\""; desc = "Okular"; }
             { run = "apostrophe \"$@\""; desc = "Apostrophe"; }
-            { run = "onlyoffice-desktopeditors \"$@\""; desc = "OnlyOffice"; }
             { run = "${config.home.homeDirectory}/.config/scripts/app-picker.sh \"$@\""; desc = "Application Picker"; }
           ];
           
