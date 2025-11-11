@@ -225,7 +225,7 @@ in
         "$mainMod, J, togglesplit, "
         "$mainMod SHIFT, F, fullscreen, 0"
         "$mainMod, F, fullscreen, 1"
-        "CTRL, SPACE, exec, pkill fuzzel || fuzzel"
+        "$mainMod, SPACE, exec, pkill fuzzel || fuzzel"
         "$mainMod, B, exec, pkill waybar || waybar"
         "$mainMod, K, exec, kate"
         "$mainMod, R, exec, hyprctl seterror disable"

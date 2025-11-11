@@ -112,7 +112,7 @@ in
         toggle = none
 
         [command]
-        binding_launcher = <ctrl> KEY_SPACE
+        binding_launcher = <super> KEY_SPACE
         command_launcher = fuzzel
         binding_anyrun = <alt> KEY_SPACE
         command_anyrun = anyrun

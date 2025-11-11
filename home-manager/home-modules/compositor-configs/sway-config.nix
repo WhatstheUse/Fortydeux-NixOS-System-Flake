@@ -160,7 +160,7 @@ in
 
           # Start your launcher
           bindsym $mod+d exec $menu
-          bindsym ctrl+space exec $menu
+          bindsym $mod+space exec $menu
           bindsym alt+space exec "anyrun"
           bindsym $mod+grave exec "fuzzel"
           
