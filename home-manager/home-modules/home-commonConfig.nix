@@ -484,6 +484,7 @@
         };
         lualine.enable = true;
         bufferline.enable = true;
+        colorizer.enable = true;
         dressing.enable = true;
         oil.enable = true;
         flash.enable = true;
