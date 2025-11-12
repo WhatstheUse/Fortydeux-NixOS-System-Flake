@@ -40,6 +40,37 @@
         ];
       }
       {
+        profile.name = "killifish-dual";
+        profile.outputs = [
+          {
+            criteria = "LG Display 0x0554 0x0D0000A1";
+            status = "enable";
+            mode = "3240x2160@59.995";
+            position = "0,0";
+            scale = 2.0;
+          }
+          {
+            criteria = "Sceptre Tech Inc Sceptre F27 0x00000001";
+            status = "enable";
+            mode = "1920x1080@75.002";
+            position = "1620,0";
+            scale = 1.0;
+          }
+        ];
+      }
+      {
+        profile.name = "killifish-solo";
+        profile.outputs = [
+          {
+            criteria = "LG Display 0x0554 0x0D0000A1";
+            status = "enable";
+            mode = "3240x2160@59.995";
+            position = "0,0";
+            scale = 2.0;
+          }
+        ];
+      }
+      {
         profile.name = "blacktetra-dual";
         profile.outputs = [
           {
@@ -67,6 +98,16 @@
             mode = "3440x1440@159.962";
             position = "0,0";
             scale = 1.0;
+          }
+        ];
+      }
+      {
+        profile.name = "generic-edp";
+        profile.outputs = [
+          {
+            criteria = "eDP-1";
+            status = "enable";
+            scale = 2.0;
           }
         ];
       }
