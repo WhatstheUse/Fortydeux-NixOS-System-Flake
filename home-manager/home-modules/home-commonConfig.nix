@@ -96,6 +96,7 @@
     nix-search-tv # Fuzzy search for Nix packages
     nvchecker # New version checker for software
     # obs-studio #Screen recorder       
+    pandoc # Conversion between document formats
     patchance # JACK Patchbay GUI
     pdfgrep # Commandline utility to search text in PDF files
     poppler-utils #Poppler is a PDF rendering library based on the xpdf-3.0 code base. In addition it provides a number of tools that can be installed separately.    
