@@ -388,6 +388,7 @@
           settings = {
             org_agenda_files = [ "~/org/*.org" ];
             org_default_notes_file = "~/org/notes.org";
+            org_todo_keywords = [ "TODO" "DOING" "|" "DONE" ];
           };
         };
         which-key.enable = true;
