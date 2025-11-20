@@ -50,6 +50,11 @@
           '';
         };
     in (with pkgs; [
+    # XDG Desktop Portal backends - Required for file choosers and other portal features
+    xdg-desktop-portal-gtk
+    xdg-desktop-portal-gnome
+    gnome-keyring
+
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
     # hello
