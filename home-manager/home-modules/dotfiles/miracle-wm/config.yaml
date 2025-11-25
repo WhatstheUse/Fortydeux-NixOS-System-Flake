@@ -1,6 +1,9 @@
 
 # Miracle-WM Configuration
 
+# Action key
+action_key: meta
+
 # Input device configuration - consistent with your other WM setups
 input:
   touchpad:
@@ -13,16 +16,21 @@ input:
   
   mouse:
     natural_scroll: true
-    accel_speed: 0.4
+    # accel_speed: 0.4
 
   pointer:
     natural_scroll: true
-    accel_speed: 0.4
+    # accel_speed: 0.4
   
   keyboard:
     numlock_on_startup: true
     repeat_rate: 50
     repeat_delay: 300
+
+# Cursor
+cursor:
+  scale: 2.0
+  focus_mode: hover
 
 # Window borders
 border:
@@ -42,39 +50,39 @@ move_modifier:
   - primary
 
 # Default action overrides
-default_action_overrides:
-  - name: toggle_stacking
-  - action: "down"
-  - modifiers:
-      - primary
-      - shift
-  - key: KEY_S
+# default_action_overrides:
+#   - name: toggle_stacking
+#   - action: "down"
+#   - modifiers:
+#       - primary
+#       - shift
+#   - key: KEY_S
 
-  # Override default quit_compositor with working pkill method
-  - name: quit_compositor
-  - action: "down"
-  - modifiers:
-      - primary
-      - shift
-  - key: KEY_E
-  - command: pkill miracle-wm
+#   # Override default quit_compositor with working pkill method
+#   - name: quit_compositor
+#   - action: "down"
+#   - modifiers:
+#       - primary
+#       - shift
+#   - key: KEY_E
+#   - command: pkill miracle-wm
 
-  # Override close focused window from Super+Shift+Q to Super+Q
-  - name: close_window
-  - action: "down"
-  - modifiers:
-      - primary
-  - key: KEY_Q
+#   # Override close focused window from Super+Shift+Q to Super+Q
+#   - name: close_window
+#   - action: "down"
+#   - modifiers:
+#       - primary
+#   - key: KEY_Q
 
 # Core custom actions for consistent experience across WMs
 custom_actions:
   # Built-in exit method (buggy - for testing only)
-  - command: miracle-wm --quit-compositor
-    action: down
-    modifiers:
-      - primary
-      - shift
-    key: KEY_Q
+  # - command: miracle-wm --quit-compositor
+  #   action: down
+  #   modifiers:
+  #     - primary
+  #     - shift
+  #   key: KEY_Q
 
   # Launcher keybindings - consistent across your configs
   - command: anyrun
@@ -86,7 +94,7 @@ custom_actions:
   - command: fuzzel
     action: down
     modifiers:
-      - ctrl
+      - primary
     key: KEY_SPACE
 
   # Terminal
@@ -125,11 +133,11 @@ custom_actions:
     key: KEY_BRIGHTNESSDOWN
 
   # Toggle Waybar
-  - command: pkill waybar || waybar
-    action: down
-    modifiers:
-      - primary
-    key: KEY_B
+  # - command: pkill waybar || waybar
+  #   action: down
+  #   modifiers:
+  #     - primary
+  #   key: KEY_B
 
 
 # Startup applications - using Waybar like your other configs

@@ -108,6 +108,9 @@ in
     # Register session packages with the display manager
     services.displayManager.sessionPackages = unique cfg.sessionPackages;
 
+    # Miracle-WM
+    # programs.wayland.miracle-wm.enable = true;
+
     # Environment Variables - Optimized for all compositors
     environment = {
       sessionVariables = {
