@@ -50,13 +50,13 @@
   #   "videobuf2_vmalloc"
       "ipu3_imgu"
   ];
-  # boot.kernelPatches = [
-  #   {
-  #     name = "disable-rust";
-  #     patch = null;
-  #     extraConfig = ''
-  #       RUST n
-  #     '';
-  #   }
-  # ];
+  boot.kernelPatches = [
+    {
+      name = "disable-rust";
+      patch = null;
+      extraConfig = ''
+        RUST n
+      '';
+    }
+  ];
 }
