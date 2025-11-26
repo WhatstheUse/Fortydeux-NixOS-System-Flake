@@ -70,10 +70,22 @@
   outputs = { self, nixpkgs, home-manager, atuin, ... }@inputs:
     let
       username = "fortydeux";  # Change this to your username
-      # base16Theme = null;
-      base16Theme = "gruvbox-material-dark-soft.yaml";
+
+      # Theme configuration - three modes:
+      # 1. Named theme (string): "gruvbox-material-dark-soft.yaml" - fetched from base16-schemes
+      # 2. Custom theme (path): ./themes/my-custom-theme.yaml - local file in repo
+      # 3. Wallpaper-derived (null): null - requires useWallpaper = true in home-theme.nix
+      #
       # Base16 Tinted theming gallery: https://tinted-theming.github.io/tinted-gallery/
-      # Base16 color scheme for Stylix theming - Recommended: valua, darkmoss, atlas, atelier-cave, atelier-savanna, darktooth, digital-rain, eris, espresso, gigavolt, gruvbox-dark-hard, gruvbox-material-dark-hard, measured-dark, mocha, moonlight, paraiso, phd, precious-dark-eleven, kanagawa, kanagawa-dragon, everforest-dark-hard, silk-dark, vice; Recommended light: da-one-paper, gruvbox-light/-soft/-material-light-soft, precious-light-warm
+      # Recommended dark: valua, darkmoss, atlas, atelier-cave, atelier-savanna, darktooth,
+      #   digital-rain, eris, espresso, gigavolt, gruvbox-dark-hard, gruvbox-material-dark-hard,
+      #   measured-dark, mocha, moonlight, paraiso, phd, precious-dark-eleven, kanagawa,
+      #   kanagawa-dragon, everforest-dark-hard, silk-dark, vice
+      # Recommended light: da-one-paper, gruvbox-light/-soft/-material-light-soft, precious-light-warm
+      # base16Theme = "gruvbox-material-dark-soft.yaml";  # Named theme
+      base16Theme = ./themes/custom-ascendancy.yaml;  # Custom theme file
+      # base16Theme = null;  # Wallpaper-derived colors
+
       polarity = "dark";  # Theme polarity: "dark" or "light"
       lib = nixpkgs.lib;
       system = "x86_64-linux";

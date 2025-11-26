@@ -14,12 +14,19 @@
     #   sha256 = "enQo3wqhgf0FEPHj2coOCvo7DuZv+x5rL/WIo4qPI50=";
     # };
     polarity = polarity;
-    # Use explicit theme if set, otherwise fall back to 'valua' default
+
+    # Smart theme resolution:
+    # - If base16Theme is a path (Nix path type or contains "/"): use as-is (local file)
+    # - If base16Theme is a string: fetch from base16-schemes (named theme)
+    # - If base16Theme is null: use fallback
     # (Home-manager can override this with wallpaper-derived colors)
     base16Scheme =
       if base16Theme != null
-      then "${pkgs.base16-schemes}/share/themes/${base16Theme}"
-      else "${pkgs.base16-schemes}/share/themes/valua.yaml";
+      then
+        if builtins.isPath base16Theme || lib.hasInfix "/" (toString base16Theme)
+        then base16Theme  # Local file path
+        else "${pkgs.base16-schemes}/share/themes/${base16Theme}"  # Named theme
+      else "${pkgs.base16-schemes}/share/themes/valua.yaml";  # Fallback
     cursor = {
       package = pkgs.phinger-cursors;
       name = "phinger-cursors-light";
