@@ -27,7 +27,7 @@
 
   # Surface Laptop Support
   environment.systemPackages = [
-    pkgs.libwacom-surface
+    # pkgs.libwacom-surface
     # Both below are enabled in surface-pro-intel module
     # pkgs.iptsd
     pkgs.surface-control
