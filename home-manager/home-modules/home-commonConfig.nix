@@ -397,7 +397,7 @@
           settings = {
             org_agenda_files = [ "~/pCloudDrive/webDAV/Org-Mode/*.org" ];
             org_default_notes_file = "~/pCloudDrive/webDAV/Org-Mode/notes.org";
-            org_todo_keywords = [ "TODO" "DOING" "|" "DONE" ];
+            org_todo_keywords = [ "TODO" "NEXT" "DOING" "|" "DONE" ];
           };
         };
         which-key.enable = true;
