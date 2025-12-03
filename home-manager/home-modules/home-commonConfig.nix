@@ -246,8 +246,12 @@
         number = true;
         relativenumber = true;
         # Other useful settings
-        wrap = false;
+        wrap = true;
         cursorline = true;
+        # Allow cursor to wrap to next/previous line with arrow keys
+        whichwrap = "b,s,<,>,[,]";
+        # Enable system clipboard integration
+        clipboard = "unnamedplus";
         # Timeout settings for better plugin compatibility
         timeoutlen = 1000;
         updatetime = 300;
@@ -391,8 +395,8 @@
         orgmode = {
           enable = true;
           settings = {
-            org_agenda_files = [ "~/org/*.org" ];
-            org_default_notes_file = "~/org/notes.org";
+            org_agenda_files = [ "~/pCloudDrive/webDAV/Org-Mode/*.org" ];
+            org_default_notes_file = "~/pCloudDrive/webDAV/Org-Mode/notes.org";
             org_todo_keywords = [ "TODO" "DOING" "|" "DONE" ];
           };
         };
