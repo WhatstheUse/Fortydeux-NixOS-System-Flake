@@ -395,8 +395,8 @@
         orgmode = {
           enable = true;
           settings = {
-            org_agenda_files = [ "~/pCloudDrive/webDAV/Org-Mode/*.org" ];
-            org_default_notes_file = "~/pCloudDrive/webDAV/Org-Mode/notes.org";
+            org_agenda_files = [ "~/Documents/Org-Mode/*.org" ];
+            org_default_notes_file = "~/Documents/Org-Mode/notes.org";
             org_todo_keywords = [ "TODO" "NEXT" "DOING" "|" "DONE" ];
           };
         };
@@ -558,6 +558,25 @@
       enable = true;
       settings = {
         opener = {
+          # Org files - Neovim as default, but other editors available
+          org-edit = [
+            { run = "nvim \"$@\""; block = true; orphan = true; desc = "Neovim"; }
+            { run = "kitty -e nvim \"$@\""; desc = "Nvim"; }
+            { run = "emacs \"$@\""; desc = "Emacs"; }
+            { run = "kitty -e hx \"$@\""; desc = "Helix"; }
+            { run = "retext \"$@\""; desc = "ReText"; }
+            { run = "okular \"$@\""; desc = "Okular"; }
+            { run = "onlyoffice-desktopeditors \"$@\""; desc = "OnlyOffice"; }
+            { run = "zeditor \"$@\""; desc = "Zed Editor"; }
+            { run = "code \"$@\""; desc = "VS Code"; }
+            { run = "cursor \"$@\""; desc = "Cursor"; }
+            { run = "kate \"$@\""; desc = "Kate"; }
+            { run = "lapce \"$@\""; desc = "Lapce"; }
+            { run = "ghostwriter \"$@\""; desc = "Ghostwriter"; }
+            { run = "apostrophe \"$@\""; desc = "Apostrophe"; }
+            { run = "${config.home.homeDirectory}/.config/scripts/app-picker.sh \"$@\""; desc = "Application Picker"; }
+          ];
+
           # Text files
           edit = [
             { run = "$EDITOR \"$@\""; block = true; for = "unix"; }
@@ -642,6 +661,9 @@
         
         open = {
           rules = [
+            # Org-mode files - always use Neovim
+            { name = "*.org"; use = [ "org-edit" "reveal" ]; }
+
             { name = "*/"; use = [ "edit" "reveal" ]; }
             { mime = "text/*"; use = [ "edit" "reveal" ]; }
             # MIME type rules
