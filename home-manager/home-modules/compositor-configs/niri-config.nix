@@ -72,7 +72,7 @@ lib.mkIf sessionEnabled {
         mouse {
             // off
             natural-scroll
-            accel-speed 0.4
+            accel-speed -0.5
             // accel-profile "flat"
             // scroll-method "no-scroll"
         }

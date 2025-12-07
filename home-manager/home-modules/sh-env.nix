@@ -85,6 +85,8 @@
       fetch = "fastfetch";
       ff = "cd ~/fortyflake";
       ffy = "cd ~/fortyflake && yazi";
+      org = "cd ~/Documents/Org-Mode";
+      orgy = "cd ~/Documents/Org-Mode && yazi";
       stat = "git status";
       st = "git status -s";
       kncaudio = "cd ~/pCloudDrive/KNC-Audio";
