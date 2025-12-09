@@ -1,7 +1,7 @@
 {config, lib, pkgs, inputs, base16Theme, polarity, ...}:
 
 let
-  wallpaperPath = ../home-modules/dotfiles/wallpapers/lightsweep.jpg; # Sets Stylix wallpaper image
+  wallpaperPath = ../home-modules/dotfiles/wallpapers/aurora.jpg; # Sets Stylix wallpaper image
   useWallpaper = true;  # Set to false to disable wallpaper-based theming
 
   # Helper to determine if base16Theme is a path vs. a named theme

@@ -83,7 +83,7 @@
       #   kanagawa-dragon, everforest-dark-hard, silk-dark, vice
       # Recommended light: da-one-paper, gruvbox-light/-soft/-material-light-soft, precious-light-warm
       # base16Theme = "gruvbox-material-dark-soft.yaml";  # Named theme
-      base16Theme = ./themes/custom-gruvbox.yaml;  # Custom theme file
+      base16Theme = ./themes/custom-gruvyrails.yaml;  # Custom theme file
       # base16Theme = null;  # Wallpaper-derived colors
 
       polarity = "dark";  # Theme polarity: "dark" or "light"
