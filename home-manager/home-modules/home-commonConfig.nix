@@ -103,35 +103,39 @@
     # obs-studio #Screen recorder       
     pandoc # Conversion between document formats
     patchance # JACK Patchbay GUI
+    pdfarranger # GTK4 GUI for arranging, merging, and working with PDF documents
     pdfgrep # Commandline utility to search text in PDF files
-    poppler-utils #Poppler is a PDF rendering library based on the xpdf-3.0 code base. In addition it provides a number of tools that can be installed separately.    
+    pdfchain # GUI for using pdftk - requires pdftk
+    pdftk # Command line tool for working with PDFs
+    poppler-utils # Poppler is a PDF rendering library based on the xpdf-3.0 code base. In addition it provides a number of tools that can be installed separately.    
     python3 # Python 3
-    pyradio #Curses based internet radio
-    radio-cli #Simple radio CLI written in rust
-    reaper #Reaper DAW
+    pyradio # Curses based internet radio
+    radio-cli # Simple radio CLI written in rust
+    reaper # Reaper DAW
     retext # Editor for Markdown and reStructuredText
-    satty #Modern Screenshot Annotation tool
+    satty # Modern Screenshot Annotation tool
     # shotcut #Open-source cross-platform video editor
     # signal-desktop-bin # original package replaced by wrapped version below
-    # simplex-chat-desktop #SimpleX Chat Desktop Client
-    spotify-player #Spotify music client
-    ncspot #Spotify music client
-    # spotify #Spotify music client - Requires non-free packages enabled
+    # simplex-chat-desktop # SimpleX Chat Desktop Client
+    spotify-player # Spotify music client
+    ncspot # Spotify music client
+    # spotify # Spotify music client - Requires non-free packages enabled
     super-productivity # To Do List / Time Tracker with Jira Integration
  #   teams #Microsoft Teams application - not yet available for Linux
     # telegram-desktop #Telegram desktop client
-    testdisk #Data recovery utilities
-    ticktick #A powerful to-do & task management app with seamless cloud synchronization across all your devices
+    testdisk # Data recovery utilities
+    ticktick # A powerful to-do & task management app with seamless cloud synchronization across all your devices
     tldr # Simplified and community-driven man pages
-    tmux #Terminal multiplexer
+    tmux # Terminal multiplexer
+    topgrade # Upgrade all the things
     trayer # Lightweight GTK2-based system tray for unix desktp
-    vault-tasks #TUI Markdown Task manager
-    vscode #Open source source code editor developed by Microsoft for Windows, Linux and macOS    
+    vault-tasks # TUI Markdown Task manager
+    vscode # Open source source code editor developed by Microsoft for Windows, Linux and macOS    
     # kdePackages.yakuake #Drop-down terminal emulator based on Konsole technologies
     # waynergy #A synergy client for Wayland compositors
-    wiki-tui #Wikipedia TUI interface
-    yt-dlp #Command-line tool to download videos from YouTube.com and other sites (youtube-dl fork)
-    # zoom-us #zoom.us video conferencing application
+    wiki-tui # Wikipedia TUI interface
+    yt-dlp # Command-line tool to download videos from YouTube.com and other sites (youtube-dl fork)
+    # zoom-us # zoom.us video conferencing application
     
     # Alternative audio control applications that work properly
     pwvucontrol  # Modern PipeWire volume control (should have working icons)
