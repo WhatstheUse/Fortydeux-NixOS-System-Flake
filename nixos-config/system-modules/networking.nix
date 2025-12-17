@@ -11,11 +11,29 @@
   # Enable networking
   networking.networkmanager.enable = true;
 
-  # Tailscale    
+  # Tailscale
   services.tailscale = {
     enable = true;
     openFirewall = true;
-  }; 
+  };
+
+  # Tor
+  services.tor = {
+    enable = true;
+    client.enable = true;
+  };
+
+  # Proxychains - routes traffic through Tor
+  programs.proxychains = {
+    enable = true;
+    proxies = {
+      tor = {
+        type = "socks5";
+        host = "127.0.0.1";
+        port = 9050;
+      };
+    };
+  };
 
   # Packages
   programs.kdeconnect.enable = true;

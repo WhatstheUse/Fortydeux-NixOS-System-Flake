@@ -130,6 +130,7 @@
     topgrade # Upgrade all the things
     trayer # Lightweight GTK2-based system tray for unix desktp
     vault-tasks # TUI Markdown Task manager
+    vlc # Cross-platform media player
     vscode # Open source source code editor developed by Microsoft for Windows, Linux and macOS    
     # kdePackages.yakuake #Drop-down terminal emulator based on Konsole technologies
     # waynergy #A synergy client for Wayland compositors
