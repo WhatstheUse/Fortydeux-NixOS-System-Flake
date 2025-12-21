@@ -61,6 +61,7 @@
     # apostrophe # Distraction-free Markdown editor for GNU/Linux
     # anytype #P2P note-taking tool
     cachix #Command-line client for Nix binary cache hosting https://cachix.org
+    castero # TUI Podcast client for the terminal
     # cheese # Cheesy camera app
     ctune # Ncurses internet radio TUI
     # decent-sampler #An audio sample player
