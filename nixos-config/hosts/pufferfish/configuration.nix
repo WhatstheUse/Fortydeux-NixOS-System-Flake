@@ -31,11 +31,11 @@
     
     # Home-manager
     inputs.home-manager.nixosModules.home-manager
-    # Device-specific
+    # Device-specific - iMac 12,2 (2011 mid-year, 27")
     ./hardware-configuration.nix
     inputs.nixos-hardware.nixosModules.common-cpu-intel
-    inputs.nixos-hardware.nixosModules.common-pc-laptop
-    inputs.nixos-hardware.nixosModules.common-pc-laptop-ssd
+    inputs.nixos-hardware.nixosModules.common-pc
+    inputs.nixos-hardware.nixosModules.common-pc-ssd
   ];
 
   # Be sure to generate your own hardware-configuration.nix before building
@@ -55,6 +55,25 @@
     enable = true;
     memoryPercent = 40;
   };
+
+  # iMac 12,2 specific hardware configuration
+  # Hardware: Intel Core i5-2400, AMD Radeon HD 6970M + Intel HD Graphics
+  # Display: 2560x1440 built-in, 12GB RAM
+
+  # Load Apple-specific kernel modules
+  boot.kernelModules = [ "applesmc" ];
+
+  # Video drivers for dual GPU setup (AMD primary, Intel integrated)
+  services.xserver.videoDrivers = [ "radeon" "modesetting" ];
+
+  # Enable Broadcom WiFi firmware (BCM4321) - uncomment if needed
+  # networking.enableB43Firmware = true;
+
+  # If experiencing graphics issues, uncomment these kernel parameters:
+  # boot.kernelParams = [
+  #   "radeon.modeset=1"  # Enable kernel mode-setting for Radeon
+  #   "video=2560x1440@60" # Force native resolution
+  # ];
 
   # Kernel to use
   boot.kernelPackages = pkgs.linuxPackages_xanmod_latest;
