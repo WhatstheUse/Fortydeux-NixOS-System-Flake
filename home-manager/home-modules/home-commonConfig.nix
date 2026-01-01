@@ -354,7 +354,7 @@
                         url = "https://openrouter.ai/api/v1/chat/completions",
                         schema = {
                           model = {
-                            default = "anthropic/claude-3.5-sonnet",
+                            default = "anthropic/claude-4.5-sonnet",
                           },
                         },
                       })
@@ -410,9 +410,21 @@
         telescope.enable = true;
         treesitter = {
           enable = true;
-          settings = { 
+          grammarPackages = with pkgs.vimPlugins.nvim-treesitter.builtGrammars; [
+            lua
+            nix
+            python
+            json
+            yaml
+            markdown
+            markdown_inline
+            bash
+            javascript
+            html
+            css
+          ];
+          settings = {
             indent.enable = true;
-            ensure_installed = [ "lua" "nix" "python" "json" "yaml" "markdown" "bash" "javascript" "html" "css" ];
           };
         };
         treesitter-textobjects.enable = true;
