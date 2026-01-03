@@ -179,6 +179,158 @@
   programs = {
     emacs = {
       enable = true;
+      extraPackages = epkgs: with epkgs; [
+        # Org-mode and visual enhancements
+        org
+        org-bullets
+        org-modern
+        org-appear
+
+        # Productivity and time management
+        org-pomodoro
+        org-download
+
+        # UI and usability
+        which-key
+        evil  # Vim keybindings (optional, can remove if not needed)
+        evil-org
+
+        # Syntax highlighting and completion
+        company
+
+        # Theme (optional)
+        doom-themes
+      ];
+
+      extraConfig = ''
+        ;;; Emacs Org-mode Configuration (Moderate Setup)
+
+        ;; Basic Emacs settings
+        (setq inhibit-startup-message t)
+        (tool-bar-mode -1)
+        (menu-bar-mode -1)
+        (scroll-bar-mode -1)
+        (global-display-line-numbers-mode 1)
+        (setq display-line-numbers-type 'relative)
+
+        ;; Font size
+        (set-face-attribute 'default nil :height 120)
+
+        ;; Theme
+        (load-theme 'doom-one t)
+
+        ;; Which-key for keybinding discovery
+        (require 'which-key)
+        (which-key-mode 1)
+        (setq which-key-idle-delay 0.5)
+
+        ;; Company mode for completion
+        (require 'company)
+        (add-hook 'after-init-hook 'global-company-mode)
+
+        ;; Evil mode (Vim keybindings) - comment out if you prefer Emacs bindings
+        (require 'evil)
+        (evil-mode 1)
+        (require 'evil-org)
+        (add-hook 'org-mode-hook 'evil-org-mode)
+        (evil-org-set-key-theme '(navigation insert textobjects additional calendar))
+
+        ;;; Org-mode Configuration
+        (require 'org)
+
+        ;; Org directory structure
+        (setq org-directory "~/Documents/Org-Mode/")
+        (setq org-default-notes-file (concat org-directory "inbox.org"))
+
+        ;; Org agenda files
+        (setq org-agenda-files
+              (list (concat org-directory "todo.org")
+                    (concat org-directory "notes.org")
+                    (concat org-directory "class-notes.org")))
+
+        ;; Visual improvements
+        (require 'org-bullets)
+        (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+
+        (require 'org-modern)
+        (add-hook 'org-mode-hook 'org-modern-mode)
+        (add-hook 'org-agenda-finalize-hook 'org-modern-agenda)
+
+        (require 'org-appear)
+        (add-hook 'org-mode-hook 'org-appear-mode)
+        (setq org-appear-autolinks t)
+        (setq org-appear-autosubmarkers t)
+        (setq org-appear-autoentities t)
+
+        ;; Better org-mode display
+        (setq org-hide-emphasis-markers t)
+        (setq org-pretty-entities t)
+        (setq org-startup-indented t)
+        (setq org-ellipsis " ▾")
+
+        ;; Org TODO keywords
+        (setq org-todo-keywords
+              '((sequence "TODO(t)" "IN-PROGRESS(i)" "WAITING(w)" "|" "DONE(d)" "CANCELLED(c)")))
+
+        ;; Org TODO keyword faces
+        (setq org-todo-keyword-faces
+              '(("TODO" . org-warning)
+                ("IN-PROGRESS" . "yellow")
+                ("WAITING" . "orange")
+                ("DONE" . org-done)
+                ("CANCELLED" . "grey")))
+
+        ;; Org capture templates
+        (setq org-capture-templates
+              '(("t" "Task" entry (file+headline org-default-notes-file "Tasks")
+                 "* TODO %?\n  %i\n  %a\n  %T")
+                ("n" "Note" entry (file+headline org-default-notes-file "Notes")
+                 "* %?\n  %i\n  %a\n  %T")
+                ("j" "Journal" entry (file+datetree (concat org-directory "journal.org"))
+                 "* %?\nEntered on %U\n  %i")
+                ("m" "Meeting" entry (file+headline org-default-notes-file "Meetings")
+                 "* MEETING %? :meeting:\n  %T\n  %i")))
+
+        ;; Org refile targets
+        (setq org-refile-targets
+              '((org-agenda-files :maxlevel . 3)))
+        (setq org-refile-use-outline-path 'file)
+        (setq org-outline-path-complete-in-steps nil)
+
+        ;; Org babel - code execution support
+        (org-babel-do-load-languages
+         'org-babel-load-languages
+         '((emacs-lisp . t)
+           (shell . t)
+           (python . t)
+           (js . t)))
+        (setq org-confirm-babel-evaluate nil)  ; Don't prompt for confirmation
+        (setq org-src-fontify-natively t)      ; Syntax highlighting in source blocks
+        (setq org-src-tab-acts-natively t)     ; Tab acts as in native mode
+
+        ;; Org-download for images
+        (require 'org-download)
+        (add-hook 'dired-mode-hook 'org-download-enable)
+        (setq-default org-download-image-dir (concat org-directory "images/"))
+
+        ;; Org-pomodoro
+        (require 'org-pomodoro)
+        (setq org-pomodoro-length 25)
+        (setq org-pomodoro-short-break-length 5)
+        (setq org-pomodoro-long-break-length 15)
+
+        ;; Key bindings
+        (global-set-key (kbd "C-c l") 'org-store-link)
+        (global-set-key (kbd "C-c a") 'org-agenda)
+        (global-set-key (kbd "C-c c") 'org-capture)
+        (global-set-key (kbd "C-c b") 'org-switchb)
+
+        ;; Additional org-mode hooks
+        (add-hook 'org-mode-hook 'visual-line-mode)
+        (add-hook 'org-mode-hook 'org-indent-mode)
+
+        ;;; End of Org-mode Configuration
+      '';
     };
     fzf.enable = true;
     fuzzel = {
