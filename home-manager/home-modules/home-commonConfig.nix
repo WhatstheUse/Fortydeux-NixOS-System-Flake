@@ -121,7 +121,7 @@
     spotify-player # Spotify music client
     ncspot # Spotify music client
     # spotify # Spotify music client - Requires non-free packages enabled
-    super-productivity # To Do List / Time Tracker with Jira Integration
+    # super-productivity # To Do List / Time Tracker with Jira Integration
  #   teams #Microsoft Teams application - not yet available for Linux
     # telegram-desktop #Telegram desktop client
     testdisk # Data recovery utilities
@@ -129,7 +129,7 @@
     tldr # Simplified and community-driven man pages
     tmux # Terminal multiplexer
     topgrade # Upgrade all the things
-    trayer # Lightweight GTK2-based system tray for unix desktp
+    # trayer # Lightweight GTK2-based system tray for unix desktp
     vault-tasks # TUI Markdown Task manager
     vlc # Cross-platform media player
     vscode # Open source source code editor developed by Microsoft for Windows, Linux and macOS    

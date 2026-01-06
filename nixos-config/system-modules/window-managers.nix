@@ -88,7 +88,7 @@ in
         hyprland = {
           prettyName = "Hyprland";
           comment = "Hyprland compositor managed by UWSM";
-          binPath = "/run/current-system/sw/bin/Hyprland";
+          binPath = mkDefault "/run/current-system/sw/bin/Hyprland";
         };
       };
     };
@@ -166,10 +166,10 @@ in
       swayidle
       swaylock-effects
       pavucontrol
-      xfce.thunar
-      xfce.thunar-archive-plugin
-      xfce.thunar-volman
-      xfce.xfce4-terminal
+      thunar
+      thunar-archive-plugin
+      thunar-volman
+      xfce4-terminal
       networkmanagerapplet
       lm_sensors
       kanshi
