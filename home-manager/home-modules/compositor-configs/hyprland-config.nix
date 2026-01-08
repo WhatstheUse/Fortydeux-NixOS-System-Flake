@@ -36,7 +36,7 @@ in
     };
     
     home.packages = with pkgs; [
-      # inputs.hyprland-qtutils.packages.${pkgs.system}.default
+      # inputs.hyprland-qtutils.packages.${pkgs.stdenv.hostPlatform.system}.default
       iio-hyprland # Hyprland tablet layout listener/changer
       wvkbd # On-screen virtual keyboard for wlroots
       # Add hyprscrolling plugin to system packages
@@ -49,22 +49,22 @@ in
       enable = true;
     # systemd.enable = false;
     package = pkgs.hyprland;
-    # package = inputs.hyprland.packages.${pkgs.system}.default;
+    # package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.default;
     # systemd.variables = ["--all"];
     plugins = [
       # Use system packages instead of flake inputs to avoid NIX_MAIN_PROGRAM conflicts
       # Hyprgrass plugin
       # pkgs.hyprlandPlugins.hyprgrass
-      # inputs.hyprgrass.packages.${pkgs.system}.hyprgrass
+      # inputs.hyprgrass.packages.${pkgs.stdenv.hostPlatform.system}.hyprgrass
       # Hyprscroller plugin - commented out, switching to hyprscrolling
       # pkgs.hyprlandPlugins.hyprscroller
       # HyprExpo
       pkgs.hyprlandPlugins.hyprexpo
-      # inputs.hyprland-plugins.packages.${pkgs.system}.hyprexpo
-      # inputs.hyprscroller.packages.${pkgs.system}.default
+      # inputs.hyprland-plugins.packages.${pkgs.stdenv.hostPlatform.system}.hyprexpo
+      # inputs.hyprscroller.packages.${pkgs.stdenv.hostPlatform.system}.default
       # New official hyprscrolling plugin from hyprland-plugins flake input
       pkgs.hyprlandPlugins.hyprscrolling
-      # inputs.hyprland-plugins.packages.${pkgs.system}.hyprscrolling
+      # inputs.hyprland-plugins.packages.${pkgs.stdenv.hostPlatform.system}.hyprscrolling
     ];
     settings = let
       stylixColors = lib.attrByPath [ "lib" "stylix" "colors" ] {} config;
@@ -248,7 +248,7 @@ in
         # Hyprshell - Application/Workspace Switcher (manual keybindings as fallback)
         # Since plugin compilation fails, we need manual keybindings
         # Use Alt + Super + Tab as per Hyprshell config
-        # "SUPER, Tab, exec, ${inputs.hyprshell.packages.${pkgs.system}.default}/bin/hyprshell socat '\"OpenOverview\"'"
+        # "SUPER, Tab, exec, ${inputs.hyprshell.packages.${pkgs.stdenv.hostPlatform.system}.default}/bin/hyprshell socat '\"OpenOverview\"'"
 
         # Volume
         ", XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"

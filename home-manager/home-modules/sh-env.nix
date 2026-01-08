@@ -120,6 +120,6 @@
     nixd #Feature-rich Nix language server interoperating with C++ nix
     # Formatters
     # alejandra #Uncompromising Nix Code Formatter
-    nixfmt-rfc-style #Official formatter for Nix code
+    nixfmt #Official formatter for Nix code
   ]);
 }

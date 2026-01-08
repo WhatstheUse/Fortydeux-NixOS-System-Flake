@@ -7,7 +7,7 @@ in
   config = lib.mkIf cfg.enable {
     programs.niri = {
       enable = true;
-      # package = inputs.niri.packages.${pkgs.system}.default;
+      # package = inputs.niri.packages.${pkgs.stdenv.hostPlatform.system}.default;
     };
 
     environment.systemPackages = with pkgs; [

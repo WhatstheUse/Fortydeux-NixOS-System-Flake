@@ -58,6 +58,11 @@
       url = "github:ellie/atuin/ea218c546f325ea408e4e10cefee5f5ac97b35b8";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    # Yazi file manager - using git version for latest fixes
+    yazi = {
+      url = "github:sxyazi/yazi";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     #MusNix
     musnix.url = "github:musnix/musnix";
     # SOPS secrets management

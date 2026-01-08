@@ -726,106 +726,106 @@
     };
     yazi = {
       enable = true;
+      # package = inputs.yazi.packages.${pkgs.stdenv.hostPlatform.system}.default;
       settings = {
         opener = {
           # Org files - Neovim as default, but other editors available
           org-edit = [
-            { run = "nvim \"$@\""; block = true; orphan = true; desc = "Neovim"; }
-            { run = "kitty -e nvim \"$@\""; desc = "Nvim"; }
-            { run = "emacs \"$@\""; desc = "Emacs"; }
-            { run = "kitty -e hx \"$@\""; desc = "Helix"; }
-            { run = "retext \"$@\""; desc = "ReText"; }
-            { run = "okular \"$@\""; desc = "Okular"; }
-            { run = "onlyoffice-desktopeditors \"$@\""; desc = "OnlyOffice"; }
-            { run = "zeditor \"$@\""; desc = "Zed Editor"; }
-            { run = "code \"$@\""; desc = "VS Code"; }
-            { run = "cursor \"$@\""; desc = "Cursor"; }
-            { run = "kate \"$@\""; desc = "Kate"; }
-            { run = "lapce \"$@\""; desc = "Lapce"; }
-            { run = "ghostwriter \"$@\""; desc = "Ghostwriter"; }
-            { run = "apostrophe \"$@\""; desc = "Apostrophe"; }
-            { run = "${config.home.homeDirectory}/.config/scripts/app-picker.sh \"$@\""; desc = "Application Picker"; }
+            { run = "nvim %s"; block = true; orphan = true; desc = "Neovim"; }
+            { run = "kitty -e nvim %s"; desc = "Nvim"; }
+            { run = "emacs %s"; desc = "Emacs"; }
+            { run = "kitty -e hx %s"; desc = "Helix"; }
+            { run = "retext %s"; desc = "ReText"; }
+            { run = "okular %s"; desc = "Okular"; }
+            { run = "onlyoffice-desktopeditors %s"; desc = "OnlyOffice"; }
+            { run = "zeditor %s"; desc = "Zed Editor"; }
+            { run = "code %s"; desc = "VS Code"; }
+            { run = "cursor %s"; desc = "Cursor"; }
+            { run = "kate %s"; desc = "Kate"; }
+            { run = "lapce %s"; desc = "Lapce"; }
+            { run = "ghostwriter %s"; desc = "Ghostwriter"; }
+            { run = "apostrophe %s"; desc = "Apostrophe"; }
+            { run = "${config.home.homeDirectory}/.config/scripts/app-picker.sh %s"; desc = "Application Picker"; }
           ];
 
           # Text files
           edit = [
-            { run = "$EDITOR \"$@\""; block = true; for = "unix"; }
-            { run = "kitty -e nvim \"$@\""; desc = "Neovim"; }
-            { run = "kitty -e hx \"$@\""; desc = "Helix"; }
-            { run = "retext \"$@\""; desc = "ReText"; }
-            { run = "okular \"$@\""; desc = "Okular"; }
-            { run = "onlyoffice-desktopeditors \"$@\""; desc = "OnlyOffice"; }
-            { run = "zeditor \"$@\""; desc = "Zed Editor"; }
-            { run = "emacs \"$@\""; desc = "Emacs"; }
-            { run = "code \"$@\""; desc = "VS Code"; }
-            { run = "cursor \"$@\""; desc = "Cursor"; }
-            { run = "kate \"$@\""; desc = "Kate"; }
-            { run = "lapce \"$@\""; desc = "Lapce"; }
-            { run = "ghostwriter \"$@\""; desc = "Ghostwriter"; }
-            { run = "apostrophe \"$@\""; desc = "Apostrophe"; }
-            { run = "${config.home.homeDirectory}/.config/scripts/app-picker.sh \"$@\""; desc = "Application Picker"; }
+            { run = "$EDITOR %s"; block = true; for = "unix"; }
+            { run = "kitty -e nvim %s"; desc = "Neovim"; }
+            { run = "kitty -e hx %s"; desc = "Helix"; }
+            { run = "retext %s"; desc = "ReText"; }
+            { run = "okular %s"; desc = "Okular"; }
+            { run = "onlyoffice-desktopeditors %s"; desc = "OnlyOffice"; }
+            { run = "zeditor %s"; desc = "Zed Editor"; }
+            { run = "emacs %s"; desc = "Emacs"; }
+            { run = "code %s"; desc = "VS Code"; }
+            { run = "cursor %s"; desc = "Cursor"; }
+            { run = "kate %s"; desc = "Kate"; }
+            { run = "lapce %s"; desc = "Lapce"; }
+            { run = "ghostwriter %s"; desc = "Ghostwriter"; }
+            { run = "apostrophe %s"; desc = "Apostrophe"; }
+            { run = "${config.home.homeDirectory}/.config/scripts/app-picker.sh %s"; desc = "Application Picker"; }
           ];
           
           # Images
           image = [
-            { run = "gwenview \"$@\""; desc = "Gwenview"; }
-            { run = "firefox \"$@\""; desc = "Firefox"; }
-            { run = "${config.home.homeDirectory}/.config/scripts/app-picker.sh \"$@\""; desc = "Application Picker"; }
+            { run = "gwenview %s"; desc = "Gwenview"; }
+            { run = "firefox %s"; desc = "Firefox"; }
+            { run = "${config.home.homeDirectory}/.config/scripts/app-picker.sh %s"; desc = "Application Picker"; }
           ];
           
           # Videos
           video = [
-            { run = "mpv \"$@\""; desc = "MPV"; }
-            { run = "vlc \"$@\""; desc = "VLC"; }
-            { run = "${config.home.homeDirectory}/.config/scripts/app-picker.sh \"$@\""; desc = "Application Picker"; }
+            { run = "mpv %s"; desc = "MPV"; }
+            { run = "vlc %s"; desc = "VLC"; }
+            { run = "${config.home.homeDirectory}/.config/scripts/app-picker.sh %s"; desc = "Application Picker"; }
           ];
           
           # Audio
           audio = [
-            { run = "mpv \"$@\""; desc = "MPV"; }
-            { run = "vlc \"$@\""; desc = "VLC"; }
-            { run = "${config.home.homeDirectory}/.config/scripts/app-picker.sh \"$@\""; desc = "Application Picker"; }
+            { run = "mpv %s"; desc = "MPV"; }
+            { run = "vlc %s"; desc = "VLC"; }
+            { run = "${config.home.homeDirectory}/.config/scripts/app-picker.sh %s"; desc = "Application Picker"; }
             ];
           
           # PDFs
           pdf = [
-            { run = "okular \"$@\""; desc = "Okular"; }
-            { run = "evince \"$@\""; desc = "Evince"; }
-            { run = "xournalpp \"$@\""; desc = "Xournal++"; }
-            { run = "org.libreoffice.LibreOffice --draw \"$@\""; desc = "LibreOffice Draw (flatpak)"; }
-            { run = "libreoffice --draw \"$@\""; desc = "LibreOffice Draw (nixpkgs)"; }
-            { run = "onlyoffice-desktopeditors \"$@\""; desc = "OnlyOffice"; }
-            { run = "firefox \"$@\""; desc = "Firefox"; }
-            { run = "${config.home.homeDirectory}/.config/scripts/app-picker.sh \"$@\""; desc = "Application Picker"; }
+            { run = "okular %s"; desc = "Okular"; }
+            { run = "evince %s"; desc = "Evince"; }
+            { run = "xournalpp %s"; desc = "Xournal++"; }
+            { run = "org.libreoffice.LibreOffice --draw %s"; desc = "LibreOffice Draw (flatpak)"; }
+            { run = "libreoffice --draw %s"; desc = "LibreOffice Draw (nixpkgs)"; }
+            { run = "onlyoffice-desktopeditors %s"; desc = "OnlyOffice"; }
+            { run = "firefox %s"; desc = "Firefox"; }
+            { run = "${config.home.homeDirectory}/.config/scripts/app-picker.sh %s"; desc = "Application Picker"; }
           ];
           
           # Documents
           document = [
-            { run = "org.libreoffice.LibreOffice \"$@\""; desc = "LibreOffice flatpak"; }
-            { run = "libreoffice \"$@\""; desc = "LibreOffice nixpkgs"; }
-            { run = "onlyoffice-desktopeditors \"$@\""; desc = "OnlyOffice"; }
-            { run = "${config.home.homeDirectory}/.config/scripts/app-picker.sh \"$@\""; desc = "Application Picker"; }
+            { run = "libreoffice %s"; block = true; orphan = true; desc = "LibreOffice"; }
+            { run = "onlyoffice-desktopeditors %s"; desc = "OnlyOffice"; }
+            { run = "${config.home.homeDirectory}/.config/scripts/app-picker.sh %s"; desc = "Application Picker"; }
           ];
           
           # Archives
           archive = [
-            { run = "ark \"$@\""; desc = "Ark"; }
-            { run = "${config.home.homeDirectory}/.config/scripts/app-picker.sh \"$@\""; desc = "Application Picker"; }
+            { run = "ark %s"; desc = "Ark"; }
+            { run = "${config.home.homeDirectory}/.config/scripts/app-picker.sh %s"; desc = "Application Picker"; }
           ];
           
           # Web links
           web = [
-            { run = "firefox \"$@\""; desc = "Firefox"; }
-            { run = "${config.home.homeDirectory}/.config/scripts/app-picker.sh \"$@\""; desc = "Application Picker"; }
+            { run = "firefox %s"; desc = "Firefox"; }
+            { run = "${config.home.homeDirectory}/.config/scripts/app-picker.sh %s"; desc = "Application Picker"; }
           ];
           
           # Reveal in file manager
           reveal = [
-            { run = "nautilus \"$@\""; desc = "Nautilus"; }
-            { run = "dolphin \"$@\""; desc = "Dolphin"; }
-            { run = "thunar \"$@\""; desc = "Thunar"; }
-            { run = "pcmanfm \"$@\""; desc = "PCManFM"; }
-            { run = "${config.home.homeDirectory}/.config/scripts/app-picker.sh \"$@\""; desc = "Application Picker"; }
+            { run = "nautilus %s"; desc = "Nautilus"; }
+            { run = "dolphin %s"; desc = "Dolphin"; }
+            { run = "thunar %s"; desc = "Thunar"; }
+            { run = "pcmanfm %s"; desc = "PCManFM"; }
+            { run = "${config.home.homeDirectory}/.config/scripts/app-picker.sh %s"; desc = "Application Picker"; }
           ];
         };
         
@@ -841,6 +841,17 @@
             { mime = "video/*"; use = [ "video" "reveal" ]; }
             { mime = "audio/*"; use = [ "audio" "reveal" ]; }
             { mime = "application/pdf"; use = [ "pdf" "reveal" ]; }
+            # Office document MIME types (must come before application/zip since these are ZIP-based formats)
+            # NOTE: Yazi v0.4.0+ strips 'vnd.' prefix internally, so rules must NOT include 'vnd.'
+            { mime = "application/oasis.opendocument.presentation"; use = [ "document" "reveal" ]; }
+            { mime = "application/oasis.opendocument.text"; use = [ "document" "reveal" ]; }
+            { mime = "application/oasis.opendocument.spreadsheet"; use = [ "document" "reveal" ]; }
+            { mime = "application/openxmlformats-officedocument.presentationml.presentation"; use = [ "document" "reveal" ]; }
+            { mime = "application/openxmlformats-officedocument.wordprocessingml.document"; use = [ "document" "reveal" ]; }
+            { mime = "application/openxmlformats-officedocument.spreadsheetml.sheet"; use = [ "document" "reveal" ]; }
+            { mime = "application/msword"; use = [ "document" "reveal" ]; }
+            { mime = "application/ms-excel"; use = [ "document" "reveal" ]; }
+            { mime = "application/ms-powerpoint"; use = [ "document" "reveal" ]; }
             { mime = "application/zip"; use = [ "archive" "reveal" ]; }
             { mime = "application/x-tar"; use = [ "archive" "reveal" ]; }
             { mime = "application/x-7z-compressed"; use = [ "archive" "reveal" ]; }
