@@ -114,7 +114,10 @@ in
             "Super+Shift X" = "spawn 'dictate-wc-ptt-auto 5'";
             "Super backslash" = "spawn dictate-fw-ptt-toggle";
             "Super+Shift backslash" = "spawn dictate-wc-ptt-toggle";
-            
+
+            # Wooz screen magnifier
+            "Super Z" = "spawn 'wooz --zoom-in 10% --mouse-track'";
+
             # Layout control
             "Super H" = "send-layout-cmd rivertile 'main-ratio -0.05'";
             "Super L" = "send-layout-cmd rivertile 'main-ratio +0.05'";

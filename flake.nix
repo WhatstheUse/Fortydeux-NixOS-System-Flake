@@ -30,6 +30,8 @@
     stylix.url = "github:nix-community/stylix";
     # Niri compositor
     niri.url = "github:YaLTeR/niri";
+    # Wooz screen magnifier for Wayland
+    wooz.url = "github:negrel/wooz";
     # Hyprland compositor + Plugins
     hyprland.url = "github:hyprwm/Hyprland";
     hyprland-plugins = {

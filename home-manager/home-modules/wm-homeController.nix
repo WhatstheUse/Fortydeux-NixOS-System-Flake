@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, inputs, ... }:
 
 let
   inherit (lib) mkEnableOption;
@@ -28,7 +28,10 @@ in
       swaybg # Wallpaper setter used by multiple compositors (Sway, River, Niri)
       swaylock-effects # Screen locker used by multiple compositors
       swayidle # Idle management daemon used by multiple compositors
-    ]);
+    ]) ++ [
+      # Wooz screen magnifier for compositors without built-in zoom (Niri, Sway, River)
+      inputs.wooz.packages.${pkgs.stdenv.hostPlatform.system}.default
+    ];
     
     wayland.windowManager = {
       labwc = {

@@ -171,12 +171,15 @@ in
           # Voice dictation - Toggle
           bindsym --no-repeat $mod+backslash exec "dictate-fw-ptt-toggle"
           bindsym --no-repeat $mod+Shift+backslash exec "dictate-wc-ptt-toggle"
-          
+
           # Voice dictation - True push-to-talk (hold key)
           # bindsym $mod+backslash exec "dictate-fw-ptt-start"
           # bindsym --on-release $mod+backslash exec "dictate-fw-ptt-stop"
           # bindsym $mod+Shift+backslash exec "dictate-wc-ptt-start"
           # bindsym --on-release $mod+Shift+backslash exec "dictate-wc-ptt-stop"
+
+          # Wooz screen magnifier
+          bindsym $mod+z exec "wooz --zoom-in 10% --mouse-track"
 
           # Drag floating windows by holding down $mod and left mouse button.
           # Resize them with right mouse button + $mod.

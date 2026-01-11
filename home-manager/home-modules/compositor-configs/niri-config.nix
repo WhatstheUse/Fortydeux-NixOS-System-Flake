@@ -686,6 +686,9 @@ lib.mkIf sessionEnabled {
         // Mod+R { spawn "wofi"; }
         Mod+Escape { spawn "bash" "-c" "swaylock -f -c 000000"; }
 
+        // Wooz screen magnifier
+        Mod+Z { spawn "wooz" "--zoom-in" "10%" "--mouse-track"; }
+
         // Voice Dictation - Momentary
         Mod+X repeat=false { spawn "bash" "-c" "dictate-fw-ptt-auto"; }
         Mod+Shift+X repeat=false { spawn "bash" "-c" "dictate-wc-ptt-auto"; }
@@ -720,7 +723,7 @@ lib.mkIf sessionEnabled {
         // Open/close the Overview: a zoomed-out view of workspaces and windows.
         // You can also move the mouse into the top-left hot corner,
         // or do a four-finger swipe up on a touchpad.
-        Mod+O repeat=false { toggle-overview; }
+        Mod+W repeat=false { toggle-overview; }
         Mod+Grave repeat=false { toggle-overview; }
 
         Mod+Q repeat=false { close-window; }
@@ -912,7 +915,7 @@ lib.mkIf sessionEnabled {
         // Toggle tabbed column display mode.
         // Windows in this column will appear as vertical tabs,
         // rather than stacked on top of each other.
-        Mod+W { toggle-column-tabbed-display; }
+        Mod+Shift+S { toggle-column-tabbed-display; }
 
         // Actions to switch layouts.
         // Note: if you uncomment these, make sure you do NOT have
