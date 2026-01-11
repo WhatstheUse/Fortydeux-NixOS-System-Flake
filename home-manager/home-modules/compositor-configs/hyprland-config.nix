@@ -645,11 +645,15 @@ in
       # Window promotion (move to new column)
       bind = $mainMod, o, layoutmsg, promote
 
+      # Zoom (using Hyprland's built-in cursor zoom)
+      bind = $mainMod, z, exec, hyprctl keyword cursor:zoom_factor 2.0
+      bind = $mainMod SHIFT, z, exec, hyprctl keyword cursor:zoom_factor 1.0
+
       gesture = 3, right, dispatcher, layoutmsg, move -col
       gesture = 3, left, dispatcher, layoutmsg, move +col
       gesture = 4, left, dispatcher, workspace, e+1
       gesture = 4, right, dispatcher, workspace, e-1
-      
+
       # End Hyprscrolling
     '';
   };
