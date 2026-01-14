@@ -731,117 +731,115 @@
         opener = {
           # Org files - Neovim as default, but other editors available
           org-edit = [
-            { run = "nvim %s"; block = true; orphan = true; desc = "Neovim"; }
-            { run = "kitty -e nvim %s"; desc = "Nvim"; }
-            { run = "emacs %s"; desc = "Emacs"; }
-            { run = "kitty -e hx %s"; desc = "Helix"; }
-            { run = "retext %s"; desc = "ReText"; }
-            { run = "okular %s"; desc = "Okular"; }
-            { run = "onlyoffice-desktopeditors %s"; desc = "OnlyOffice"; }
-            { run = "zeditor %s"; desc = "Zed Editor"; }
-            { run = "code %s"; desc = "VS Code"; }
-            { run = "cursor %s"; desc = "Cursor"; }
-            { run = "kate %s"; desc = "Kate"; }
-            { run = "lapce %s"; desc = "Lapce"; }
-            { run = "ghostwriter %s"; desc = "Ghostwriter"; }
-            { run = "apostrophe %s"; desc = "Apostrophe"; }
+            { run = "nvim %s"; block = true; orphan = true; desc = "Neovim (current terminal)"; }
+            { run = "kitty -e nvim %s"; desc = "Neovim (new window)"; }
+            { run = "kitty -e hx %s"; desc = "Helix (new window)"; }
+            { run = "emacs %s"; orphan = true; desc = "Emacs (GUI)"; }
+            { run = "code %s"; orphan = true; desc = "VS Code (GUI)"; }
+            { run = "cursor %s"; orphan = true; desc = "Cursor (GUI)"; }
+            { run = "zeditor %s"; orphan = true; desc = "Zed Editor (GUI)"; }
+            { run = "kate %s"; orphan = true; desc = "Kate (GUI)"; }
+            { run = "lapce %s"; orphan = true; desc = "Lapce (GUI)"; }
+            { run = "ghostwriter %s"; orphan = true; desc = "Ghostwriter (GUI)"; }
+            { run = "apostrophe %s"; orphan = true; desc = "Apostrophe (GUI)"; }
+            { run = "retext %s"; orphan = true; desc = "ReText (GUI)"; }
+            { run = "okular %s"; orphan = true; desc = "Okular (GUI)"; }
+            { run = "onlyoffice-desktopeditors %s"; orphan = true; desc = "OnlyOffice (GUI)"; }
             { run = "${config.home.homeDirectory}/.config/scripts/app-picker.sh %s"; desc = "Application Picker"; }
           ];
 
           # Text files
           edit = [
-            { run = "$EDITOR %s"; block = true; for = "unix"; }
-            { run = "kitty -e nvim %s"; desc = "Neovim"; }
-            { run = "kitty -e hx %s"; desc = "Helix"; }
-            { run = "retext %s"; desc = "ReText"; }
-            { run = "okular %s"; desc = "Okular"; }
-            { run = "onlyoffice-desktopeditors %s"; desc = "OnlyOffice"; }
-            { run = "zeditor %s"; desc = "Zed Editor"; }
-            { run = "emacs %s"; desc = "Emacs"; }
-            { run = "code %s"; desc = "VS Code"; }
-            { run = "cursor %s"; desc = "Cursor"; }
-            { run = "kate %s"; desc = "Kate"; }
-            { run = "lapce %s"; desc = "Lapce"; }
-            { run = "ghostwriter %s"; desc = "Ghostwriter"; }
-            { run = "apostrophe %s"; desc = "Apostrophe"; }
+            { run = "$EDITOR %s"; block = true; for = "unix"; desc = "Default Editor (current terminal)"; }
+            { run = "kitty -e nvim %s"; desc = "Neovim (new window)"; }
+            { run = "kitty -e hx %s"; desc = "Helix (new window)"; }
+            { run = "emacs %s"; orphan = true; desc = "Emacs (GUI)"; }
+            { run = "code %s"; orphan = true; desc = "VS Code (GUI)"; }
+            { run = "cursor %s"; orphan = true; desc = "Cursor (GUI)"; }
+            { run = "zeditor %s"; orphan = true; desc = "Zed Editor (GUI)"; }
+            { run = "kate %s"; orphan = true; desc = "Kate (GUI)"; }
+            { run = "lapce %s"; orphan = true; desc = "Lapce (GUI)"; }
+            { run = "ghostwriter %s"; orphan = true; desc = "Ghostwriter (GUI)"; }
+            { run = "apostrophe %s"; orphan = true; desc = "Apostrophe (GUI)"; }
+            { run = "retext %s"; orphan = true; desc = "ReText (GUI)"; }
+            { run = "okular %s"; orphan = true; desc = "Okular (GUI)"; }
+            { run = "onlyoffice-desktopeditors %s"; orphan = true; desc = "OnlyOffice (GUI)"; }
             { run = "${config.home.homeDirectory}/.config/scripts/app-picker.sh %s"; desc = "Application Picker"; }
           ];
           
           # Images
           image = [
-            { run = "gwenview %s"; desc = "Gwenview"; }
-            { run = "firefox %s"; desc = "Firefox"; }
+            { run = "gwenview %s"; orphan = true; desc = "Gwenview"; }
+            { run = "firefox %s"; orphan = true; desc = "Firefox"; }
             { run = "${config.home.homeDirectory}/.config/scripts/app-picker.sh %s"; desc = "Application Picker"; }
           ];
           
           # Videos
           video = [
-            { run = "mpv %s"; desc = "MPV"; }
-            { run = "vlc %s"; desc = "VLC"; }
+            { run = "mpv %s"; orphan = true; desc = "MPV"; }
+            { run = "vlc %s"; orphan = true; desc = "VLC"; }
             { run = "${config.home.homeDirectory}/.config/scripts/app-picker.sh %s"; desc = "Application Picker"; }
           ];
           
           # Audio
           audio = [
-            { run = "mpv %s"; desc = "MPV"; }
-            { run = "vlc %s"; desc = "VLC"; }
+            { run = "mpv %s"; orphan = true; desc = "MPV"; }
+            { run = "vlc %s"; orphan = true; desc = "VLC"; }
             { run = "${config.home.homeDirectory}/.config/scripts/app-picker.sh %s"; desc = "Application Picker"; }
             ];
           
           # PDFs
           pdf = [
-            { run = "okular %s"; desc = "Okular"; }
-            { run = "evince %s"; desc = "Evince"; }
-            { run = "xournalpp %s"; desc = "Xournal++"; }
-            { run = "org.libreoffice.LibreOffice --draw %s"; desc = "LibreOffice Draw (flatpak)"; }
-            { run = "libreoffice --draw %s"; desc = "LibreOffice Draw (nixpkgs)"; }
-            { run = "onlyoffice-desktopeditors %s"; desc = "OnlyOffice"; }
-            { run = "firefox %s"; desc = "Firefox"; }
+            { run = "okular %s"; orphan = true; desc = "Okular"; }
+            { run = "evince %s"; orphan = true; desc = "Evince"; }
+            { run = "xournalpp %s"; orphan = true; desc = "Xournal++"; }
+            { run = "org.libreoffice.LibreOffice --draw %s"; orphan = true; desc = "LibreOffice Draw (flatpak)"; }
+            { run = "libreoffice --draw %s"; orphan = true; desc = "LibreOffice Draw (nixpkgs)"; }
+            { run = "onlyoffice-desktopeditors %s"; orphan = true; desc = "OnlyOffice"; }
+            { run = "firefox %s"; orphan = true; desc = "Firefox"; }
             { run = "${config.home.homeDirectory}/.config/scripts/app-picker.sh %s"; desc = "Application Picker"; }
           ];
           
           # Documents
           document = [
-            { run = "libreoffice %s"; block = true; orphan = true; desc = "LibreOffice"; }
-            { run = "onlyoffice-desktopeditors %s"; desc = "OnlyOffice"; }
+            { run = "libreoffice %s"; orphan = true; desc = "LibreOffice"; }
+            { run = "onlyoffice-desktopeditors %s"; orphan = true; desc = "OnlyOffice"; }
             { run = "${config.home.homeDirectory}/.config/scripts/app-picker.sh %s"; desc = "Application Picker"; }
           ];
           
           # Archives
           archive = [
-            { run = "ark %s"; desc = "Ark"; }
+            { run = "ark %s"; orphan = true; desc = "Ark"; }
             { run = "${config.home.homeDirectory}/.config/scripts/app-picker.sh %s"; desc = "Application Picker"; }
           ];
           
           # Web links
           web = [
-            { run = "firefox %s"; desc = "Firefox"; }
+            { run = "firefox %s"; orphan = true; desc = "Firefox"; }
             { run = "${config.home.homeDirectory}/.config/scripts/app-picker.sh %s"; desc = "Application Picker"; }
           ];
           
           # Reveal in file manager
           reveal = [
-            { run = "nautilus %s"; desc = "Nautilus"; }
-            { run = "dolphin %s"; desc = "Dolphin"; }
-            { run = "thunar %s"; desc = "Thunar"; }
-            { run = "pcmanfm %s"; desc = "PCManFM"; }
+            { run = "nautilus %s"; orphan = true; desc = "Nautilus"; }
+            { run = "dolphin %s"; orphan = true; desc = "Dolphin"; }
+            { run = "thunar %s"; orphan = true; desc = "Thunar"; }
+            { run = "pcmanfm %s"; orphan = true; desc = "PCManFM"; }
             { run = "${config.home.homeDirectory}/.config/scripts/app-picker.sh %s"; desc = "Application Picker"; }
           ];
         };
-        
-        open = {
-          rules = [
-            # Org-mode files - always use Neovim
-            { name = "*.org"; use = [ "org-edit" "reveal" ]; }
 
-            { name = "*/"; use = [ "edit" "reveal" ]; }
-            { mime = "text/*"; use = [ "edit" "reveal" ]; }
-            # MIME type rules
-            { mime = "image/*"; use = [ "image" "reveal" ]; }
-            { mime = "video/*"; use = [ "video" "reveal" ]; }
-            { mime = "audio/*"; use = [ "audio" "reveal" ]; }
+        open = {
+          # Use prepend_rules to add only custom rules without overriding Yazi's preset rules
+          # This keeps our config minimal and automatically benefits from Yazi's built-in rules
+          prepend_rules = [
+            # Org-mode files - use custom org-edit opener (not in Yazi's preset)
+            { url = "*.org"; use = [ "org-edit" "reveal" ]; }
+
+            # PDF files - use custom pdf opener
             { mime = "application/pdf"; use = [ "pdf" "reveal" ]; }
-            # Office document MIME types (must come before application/zip since these are ZIP-based formats)
+
+            # Office document MIME types - must be prepended before Yazi's application/zip rule
             # NOTE: Yazi v0.4.0+ strips 'vnd.' prefix internally, so rules must NOT include 'vnd.'
             { mime = "application/oasis.opendocument.presentation"; use = [ "document" "reveal" ]; }
             { mime = "application/oasis.opendocument.text"; use = [ "document" "reveal" ]; }
@@ -852,149 +850,6 @@
             { mime = "application/msword"; use = [ "document" "reveal" ]; }
             { mime = "application/ms-excel"; use = [ "document" "reveal" ]; }
             { mime = "application/ms-powerpoint"; use = [ "document" "reveal" ]; }
-            { mime = "application/zip"; use = [ "archive" "reveal" ]; }
-            { mime = "application/x-tar"; use = [ "archive" "reveal" ]; }
-            { mime = "application/x-7z-compressed"; use = [ "archive" "reveal" ]; }
-            { mime = "application/x-rar-compressed"; use = [ "archive" "reveal" ]; }
-            { mime = "application/x-bzip2"; use = [ "archive" "reveal" ]; }
-            { mime = "application/x-xz"; use = [ "archive" "reveal" ]; }
-            { mime = "application/x-lzma"; use = [ "archive" "reveal" ]; }
-            { mime = "font/ttf"; use = [ "reveal" ]; }
-            { mime = "font/otf"; use = [ "reveal" ]; }
-            { mime = "font/woff"; use = [ "reveal" ]; }
-            { mime = "font/woff2"; use = [ "reveal" ]; }
-            { mime = "model/vnd.collada+xml"; use = [ "reveal" ]; }
-            { mime = "application/sla"; use = [ "reveal" ]; }
-            # Code and markup files
-            { name = "*.nix"; use = [ "edit" "reveal" ]; }
-            { name = "*.py"; use = [ "edit" "reveal" ]; }
-            { name = "*.rs"; use = [ "edit" "reveal" ]; }
-            { name = "*.js"; use = [ "edit" "reveal" ]; }
-            { name = "*.ts"; use = [ "edit" "reveal" ]; }
-            { name = "*.json"; use = [ "edit" "reveal" ]; }
-            { name = "*.yaml"; use = [ "edit" "reveal" ]; }
-            { name = "*.yml"; use = [ "edit" "reveal" ]; }
-            { name = "*.toml"; use = [ "edit" "reveal" ]; }
-            { name = "*.xml"; use = [ "edit" "reveal" ]; }
-            { name = "*.html"; use = [ "edit" "reveal" ]; }
-            { name = "*.htm"; use = [ "edit" "reveal" ]; }
-            { name = "*.css"; use = [ "edit" "reveal" ]; }
-            { name = "*.sql"; use = [ "edit" "reveal" ]; }
-            { name = "*.sh"; use = [ "edit" "reveal" ]; }
-            { name = "*.bash"; use = [ "edit" "reveal" ]; }
-            { name = "*.zsh"; use = [ "edit" "reveal" ]; }
-            { name = "*.fish"; use = [ "edit" "reveal" ]; }
-            { name = "*.c"; use = [ "edit" "reveal" ]; }
-            { name = "*.cpp"; use = [ "edit" "reveal" ]; }
-            { name = "*.cc"; use = [ "edit" "reveal" ]; }
-            { name = "*.h"; use = [ "edit" "reveal" ]; }
-            { name = "*.hpp"; use = [ "edit" "reveal" ]; }
-            
-            # Image files
-            { name = "*.jpg"; use = [ "image" "reveal" ]; }
-            { name = "*.jpeg"; use = [ "image" "reveal" ]; }
-            { name = "*.png"; use = [ "image" "reveal" ]; }
-            { name = "*.gif"; use = [ "image" "reveal" ]; }
-            { name = "*.bmp"; use = [ "image" "reveal" ]; }
-            { name = "*.svg"; use = [ "image" "reveal" ]; }
-            { name = "*.webp"; use = [ "image" "reveal" ]; }
-            { name = "*.tiff"; use = [ "image" "reveal" ]; }
-            { name = "*.tif"; use = [ "image" "reveal" ]; }
-            { name = "*.ico"; use = [ "image" "reveal" ]; }
-            { name = "*.xcf"; use = [ "image" "reveal" ]; }
-            
-            # Video files
-            { name = "*.mp4"; use = [ "video" "reveal" ]; }
-            { name = "*.avi"; use = [ "video" "reveal" ]; }
-            { name = "*.mkv"; use = [ "video" "reveal" ]; }
-            { name = "*.mov"; use = [ "video" "reveal" ]; }
-            { name = "*.wmv"; use = [ "video" "reveal" ]; }
-            { name = "*.flv"; use = [ "video" "reveal" ]; }
-            { name = "*.webm"; use = [ "video" "reveal" ]; }
-            { name = "*.m4v"; use = [ "video" "reveal" ]; }
-            { name = "*.mpg"; use = [ "video" "reveal" ]; }
-            { name = "*.mpeg"; use = [ "video" "reveal" ]; }
-            { name = "*.ogv"; use = [ "video" "reveal" ]; }
-            
-            # Audio files
-            { name = "*.mp3"; use = [ "audio" "reveal" ]; }
-            { name = "*.wav"; use = [ "audio" "reveal" ]; }
-            { name = "*.flac"; use = [ "audio" "reveal" ]; }
-            { name = "*.ogg"; use = [ "audio" "reveal" ]; }
-            { name = "*.m4a"; use = [ "audio" "reveal" ]; }
-            { name = "*.aac"; use = [ "audio" "reveal" ]; }
-            { name = "*.wma"; use = [ "audio" "reveal" ]; }
-            
-            # Archive files
-            { name = "*.zip"; use = [ "archive" "reveal" ]; }
-            { name = "*.tar"; use = [ "archive" "reveal" ]; }
-            { name = "*.gz"; use = [ "archive" "reveal" ]; }
-            { name = "*.bz2"; use = [ "archive" "reveal" ]; }
-            { name = "*.7z"; use = [ "archive" "reveal" ]; }
-            { name = "*.rar"; use = [ "archive" "reveal" ]; }
-            { name = "*.xz"; use = [ "archive" "reveal" ]; }
-            { name = "*.lzma"; use = [ "archive" "reveal" ]; }
-            
-            # Font files
-            { name = "*.ttf"; use = [ "reveal" ]; }
-            { name = "*.otf"; use = [ "reveal" ]; }
-            { name = "*.woff"; use = [ "reveal" ]; }
-            { name = "*.woff2"; use = [ "reveal" ]; }
-            
-            # 3D/CAD files
-            { name = "*.stl"; use = [ "reveal" ]; }
-            { name = "*.obj"; use = [ "edit" "reveal" ]; }
-            { name = "*.fbx"; use = [ "reveal" ]; }
-            { name = "*.dae"; use = [ "reveal" ]; }
-            
-            # Microsoft Office formats
-            { name = "*.docx"; use = [ "document" "reveal" ]; }
-            { name = "*.doc"; use = [ "document" "reveal" ]; }
-            { name = "*.xlsx"; use = [ "document" "reveal" ]; }
-            { name = "*.xls"; use = [ "document" "reveal" ]; }
-            { name = "*.pptx"; use = [ "document" "reveal" ]; }
-            { name = "*.ppt"; use = [ "document" "reveal" ]; }
-            
-            # OpenDocument formats
-            { name = "*.odt"; use = [ "document" "reveal" ]; }
-            { name = "*.ods"; use = [ "document" "reveal" ]; }
-            { name = "*.odp"; use = [ "document" "reveal" ]; }
-            { name = "*.odg"; use = [ "document" "reveal" ]; }
-            { name = "*.odc"; use = [ "document" "reveal" ]; }
-            { name = "*.odf"; use = [ "document" "reveal" ]; }
-            { name = "*.odi"; use = [ "document" "reveal" ]; }
-            { name = "*.odm"; use = [ "document" "reveal" ]; }
-            
-            # Other document formats
-            { name = "*.rtf"; use = [ "document" "reveal" ]; }
-            { name = "*.csv"; use = [ "document" "reveal" ]; }
-            { name = "*.txt"; use = [ "edit" "reveal" ]; }
-            { name = "*.md"; use = [ "edit" "reveal" ]; }
-            { name = "*.markdown"; use = [ "edit" "reveal" ]; }
-            { name = "*.mdown"; use = [ "edit" "reveal" ]; }
-            { name = "*.mkd"; use = [ "edit" "reveal" ]; }
-            { name = "*.mkdn"; use = [ "edit" "reveal" ]; }
-            { name = "*.mdwn"; use = [ "edit" "reveal" ]; }
-            { name = "*.mdtxt"; use = [ "edit" "reveal" ]; }
-            { name = "*.mdtext"; use = [ "edit" "reveal" ]; }
-            { name = "*.rst"; use = [ "edit" "reveal" ]; }
-            { name = "*.log"; use = [ "edit" "reveal" ]; }
-            
-            # Database files
-            { name = "*.db"; use = [ "reveal" ]; }
-            { name = "*.sqlite"; use = [ "reveal" ]; }
-            { name = "*.sqlite3"; use = [ "reveal" ]; }
-            
-            # Web and configuration files
-            { name = "*.conf"; use = [ "edit" "reveal" ]; }
-            { name = "*.config"; use = [ "edit" "reveal" ]; }
-            { name = "*.ini"; use = [ "edit" "reveal" ]; }
-            { name = "*.cfg"; use = [ "edit" "reveal" ]; }
-            { name = "*.env"; use = [ "edit" "reveal" ]; }
-            { name = "*.lock"; use = [ "edit" "reveal" ]; }
-            
-            # Catch-all rule for any remaining files
-            { name = "*"; use = [ "edit" "reveal" ]; }
           ];
         };
       };
