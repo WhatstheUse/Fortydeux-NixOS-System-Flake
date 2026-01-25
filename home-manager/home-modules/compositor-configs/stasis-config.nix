@@ -12,11 +12,23 @@ let
   # Check if any Wayland compositor/DE is enabled
   anyWaylandEnabled = hyprlandEnabled || niriEnabled || swayEnabled || riverEnabled || wayfireEnabled || cosmicEnabled;
 
-  # Determine lock command based on active compositor/DE
-  lockCommand =
-    if hyprlandEnabled then "pidof hyprlock || hyprlock"
-    else if cosmicEnabled then "swaylock -f -c 000000"
-    else "swaylock -f -c 000000";
+  # Dynamic lock command wrapper that detects current session at runtime
+  stasis-lock = pkgs.writeShellScriptBin "stasis-lock" ''
+    # Detect which compositor is currently running
+    if ${pkgs.procps}/bin/pgrep -x Hyprland > /dev/null; then
+      # Hyprland session - use hyprlock
+      if ${pkgs.procps}/bin/pidof hyprlock > /dev/null; then
+        echo "hyprlock already running"
+        exit 0
+      fi
+      exec ${pkgs.hyprlock}/bin/hyprlock
+    else
+      # All other compositors - use swaylock
+      exec ${pkgs.swaylock-effects}/bin/swaylock -f -c 000000
+    fi
+  '';
+
+  lockCommand = "stasis-lock";
 
   # Determine DPMS commands based on active compositor/DE
   dpmsOffCommand =
@@ -102,8 +114,8 @@ let
 
       brightness:
         timeout 300
-        command "brightnessctl set 10%"
-        resume-command "brightnessctl set 100%"
+        command "brightnessctl -s set 10%"
+        resume-command "brightnessctl -r"
       end
 
       keyboard-backlight:
@@ -135,12 +147,6 @@ let
       # More conservative on AC power, more aggressive on battery
 
       on_ac:
-        # Restore full brightness immediately when on AC
-        custom-brightness-instant:
-          timeout 0
-          command "brightnessctl set 100%"
-        end
-
         # Standard desktop timeouts apply here
         # (inherits from desktop actions above)
       end
@@ -149,8 +155,8 @@ let
         # More aggressive power saving on battery
         brightness:
           timeout 180  # 3 minutes
-          command "brightnessctl set 5%"
-          resume-command "brightnessctl set 50%"
+          command "brightnessctl -s set 5%"
+          resume-command "brightnessctl -r"
         end
 
         keyboard-backlight:
@@ -208,17 +214,17 @@ let
     MEDIA_BLOCKING=$(echo "$INFO" | ${pkgs.jq}/bin/jq -r '.media_blocking // false')
 
     if [ "$PAUSED" = "true" ]; then
-      echo '{"text": "󰒳", "tooltip": "Stasis: Paused", "class": "paused"}'
+      echo '{"text": "󰒳", "tooltip": "Stasis: Paused - system will stay awake", "class": "paused"}'
     elif [ "$MANUALLY_INHIBITED" = "true" ]; then
-      echo '{"text": "󰾪", "tooltip": "Stasis: Manually inhibited (click to disable)", "class": "inhibited-manual"}'
+      echo '{"text": "󰅶", "tooltip": "Stasis: Keeping system awake (click to allow sleep)", "class": "inhibited-manual"}'
     elif [ "$MEDIA_BLOCKING" = "true" ]; then
-      echo '{"text": "󰝚", "tooltip": "Stasis: Inhibited by media playback", "class": "inhibited-media"}'
+      echo '{"text": "󰝚", "tooltip": "Stasis: Keeping awake - media playing", "class": "inhibited-media"}'
     elif [ "$APP_BLOCKING" = "true" ]; then
-      echo '{"text": "󰀲", "tooltip": "Stasis: Inhibited by application", "class": "inhibited-app"}'
+      echo '{"text": "󰀲", "tooltip": "Stasis: Keeping awake - app blocking idle", "class": "inhibited-app"}'
     elif [ "$IDLE_INHIBITED" = "true" ]; then
-      echo '{"text": "󰾪", "tooltip": "Stasis: Idle inhibited", "class": "inhibited"}'
+      echo '{"text": "󰅶", "tooltip": "Stasis: Keeping system awake", "class": "inhibited"}'
     else
-      echo '{"text": "󰅶", "tooltip": "Stasis: Active (click to inhibit)", "class": "active"}'
+      echo '{"text": "󰾪", "tooltip": "Stasis: Idle detection ON (click to keep awake)", "class": "active"}'
     fi
   '';
 in
@@ -228,6 +234,7 @@ in
     home.packages = with pkgs; [
       stasis
       stasis-status
+      stasis-lock
       wlopm  # Display power management for COSMIC and River
     ];
 

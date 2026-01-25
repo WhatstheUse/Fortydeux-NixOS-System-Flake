@@ -26,9 +26,29 @@ in
         # Choose the order of the modules
         modules-left = ["custom/launcher" "clock" "custom/weather" "hyprland/workspaces" "hyprland/window"];
         # modules-center = [ "custom/media" ];
-        modules-right = ["custom/dictate" "custom/stasis" "idle_inhibitor" "pulseaudio" "backlight" "network" "cpu" "memory" "temperature" "battery" "battery#bat2" "tray" "custom/power"];
+        modules-right = ["custom/dictate" "group/idle" "pulseaudio" "backlight" "network" "group/system" "battery" "battery#bat2" "tray" "custom/power"];
 
         # Modules configuration
+        "group/idle" = {
+          orientation = "inherit";
+          drawer = {
+            transition-duration = 500;
+            children-class = "idle-drawer";
+            transition-left-to-right = false;
+          };
+          modules = ["custom/stasis" "idle_inhibitor"];
+        };
+
+        "group/system" = {
+          orientation = "inherit";
+          drawer = {
+            transition-duration = 500;
+            children-class = "system-drawer";
+            transition-left-to-right = false;
+          };
+          modules = ["cpu" "memory" "temperature"];
+        };
+
         "hyprland/workspaces" = {
           disable-scroll = false;
           all-outputs = true;
@@ -333,6 +353,10 @@ in
         color: @accent_color;
       }
 
+      #idle_inhibitor.activated {
+        color: @success_color;
+      }
+
       #network {
         color: @link_color;
       }
@@ -376,11 +400,11 @@ in
        }
 
        #custom-stasis.active {
-         color: @success_color;
+         color: @accent_color;
        }
 
        #custom-stasis.inhibited-manual {
-         color: @accent_color;
+         color: @success_color;
        }
 
        #custom-stasis.inhibited-media {
@@ -397,6 +421,15 @@ in
 
        #custom-stasis.disabled {
          color: @insensitive_fg_color;
+       }
+
+       #group-idle,
+       #group-system {
+         background: @theme_bg_color;
+         padding: 1px 10px;
+         margin: 2px;
+         border: 1px solid @borders;
+         border-radius: 10px;
        }
 
     '';

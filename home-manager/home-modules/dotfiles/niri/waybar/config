@@ -101,6 +101,31 @@
         "deactivated": " "
       }
     },
+    "group/idle": {
+      "orientation": "inherit",
+      "drawer": {
+        "transition-duration": 500,
+        "children-class": "idle-drawer",
+        "transition-left-to-right": false
+      },
+      "modules": [
+        "custom/stasis",
+        "idle_inhibitor"
+      ]
+    },
+    "group/system": {
+      "orientation": "inherit",
+      "drawer": {
+        "transition-duration": 500,
+        "children-class": "system-drawer",
+        "transition-left-to-right": false
+      },
+      "modules": [
+        "cpu",
+        "memory",
+        "temperature"
+      ]
+    },
     "keyboard-state": {
       "capslock": true,
       "format": " {name} {icon}",
@@ -128,14 +153,11 @@
     ],
     "modules-right": [
       "custom/dictate",
-      "custom/stasis",
-      "idle_inhibitor",
+      "group/idle",
       "pulseaudio",
       "backlight",
       "network",
-      "cpu",
-      "memory",
-      "temperature",
+      "group/system",
       "battery",
       "battery#bat2",
       "tray",
