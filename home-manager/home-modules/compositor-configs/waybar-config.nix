@@ -26,7 +26,7 @@ in
         # Choose the order of the modules
         modules-left = ["custom/launcher" "clock" "custom/weather" "hyprland/workspaces" "hyprland/window"];
         # modules-center = [ "custom/media" ];
-        modules-right = ["custom/dictate" "idle_inhibitor" "pulseaudio" "backlight" "network" "cpu" "memory" "temperature" "battery" "battery#bat2" "tray" "custom/power"];
+        modules-right = ["custom/dictate" "custom/stasis" "idle_inhibitor" "pulseaudio" "backlight" "network" "cpu" "memory" "temperature" "battery" "battery#bat2" "tray" "custom/power"];
 
         # Modules configuration
         "hyprland/workspaces" = {
@@ -207,6 +207,16 @@ in
           on-click = "dictate-fw-ptt-toggle";
           on-click-right = "dictate-wc-ptt-toggle";
         };
+
+        "custom/stasis" = {
+          exec = "stasis-status";
+          return-type = "json";
+          interval = 5;
+          format = "{}";
+          tooltip = true;
+          on-click = "stasis toggle-inhibit && pkill -RTMIN+8 waybar";
+          signal = 8;
+        };
       };
     };
     
@@ -275,6 +285,7 @@ in
       #custom-power,
       #custom-launcher,
       #custom-dictate,
+      #custom-stasis,
       #idle_inhibitor,
       #cpu,
       #memory,
@@ -355,10 +366,39 @@ in
        background: @theme_bg_color;
        }
        
-       #custom-dictate.offline { 
-         color: #888; 
+       #custom-dictate.offline {
+         color: #888;
        }
-      
+
+       #custom-stasis {
+         color: @accent_color;
+         padding-right: 12px;
+       }
+
+       #custom-stasis.active {
+         color: @success_color;
+       }
+
+       #custom-stasis.inhibited-manual {
+         color: @accent_color;
+       }
+
+       #custom-stasis.inhibited-media {
+         color: @link_color;
+       }
+
+       #custom-stasis.inhibited-app {
+         color: @warning_color;
+       }
+
+       #custom-stasis.paused {
+         color: @warning_color;
+       }
+
+       #custom-stasis.disabled {
+         color: @insensitive_fg_color;
+       }
+
     '';
     };
   };

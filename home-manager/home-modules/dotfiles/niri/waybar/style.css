@@ -17,6 +17,7 @@
 #custom-power,
 #custom-launcher,
 #custom-dictate,
+#custom-stasis,
 #idle_inhibitor,
 #cpu,
 #memory,
@@ -150,6 +151,35 @@ tooltip {
   background: @theme_bg_color;
 }
 
-#custom-dictate.offline { 
-  color: #888; 
+#custom-dictate.offline {
+  color: #888;
+}
+
+#custom-stasis {
+  color: @accent_color;
+  padding-right: 12px;
+}
+
+#custom-stasis.active {
+  color: @success_color;
+}
+
+#custom-stasis.inhibited-manual {
+  color: @accent_color;
+}
+
+#custom-stasis.inhibited-media {
+  color: @link_color;
+}
+
+#custom-stasis.inhibited-app {
+  color: @warning_color;
+}
+
+#custom-stasis.paused {
+  color: @warning_color;
+}
+
+#custom-stasis.disabled {
+  color: @insensitive_fg_color;
 }

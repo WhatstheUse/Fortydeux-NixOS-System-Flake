@@ -6,6 +6,7 @@ in
 {
   imports = [
     ./dotfiles/kanshi.nix
+    ./compositor-configs/stasis-config.nix
   ];
 
   options.sessionProfiles = {
@@ -27,7 +28,7 @@ in
       # kdePackages.yakuake #Drop-down terminal
       swaybg # Wallpaper setter used by multiple compositors (Sway, River, Niri)
       swaylock-effects # Screen locker used by multiple compositors
-      swayidle # Idle management daemon used by multiple compositors
+      # swayidle # Replaced by Stasis idle manager
     ]) ++ [
       # Wooz screen magnifier for compositors without built-in zoom (Niri, Sway, River)
       inputs.wooz.packages.${pkgs.stdenv.hostPlatform.system}.default

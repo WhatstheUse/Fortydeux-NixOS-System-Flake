@@ -128,6 +128,7 @@
     ],
     "modules-right": [
       "custom/dictate",
+      "custom/stasis",
       "idle_inhibitor",
       "pulseaudio",
       "backlight",
@@ -207,6 +208,15 @@
       "tooltip": true,
       "on-click": "dictate-fw-ptt-toggle",
       "on-click-right": "dictate-wc-ptt-toggle"
+    },
+    "custom/stasis": {
+      "exec": "stasis-status",
+      "return-type": "json",
+      "interval": 5,
+      "format": "{}",
+      "tooltip": true,
+      "on-click": "stasis toggle-inhibit && pkill -RTMIN+8 waybar",
+      "signal": 8
     }
   }
 ]
