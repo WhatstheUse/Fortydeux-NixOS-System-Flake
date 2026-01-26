@@ -26,18 +26,20 @@ in
         # Choose the order of the modules
         modules-left = ["custom/launcher" "clock" "custom/weather" "hyprland/workspaces" "hyprland/window"];
         # modules-center = [ "custom/media" ];
-        modules-right = ["custom/dictate" "group/idle" "pulseaudio" "backlight" "network" "group/system" "battery" "battery#bat2" "tray" "custom/power"];
+        modules-right = ["custom/dictate" "idle_inhibitor" "pulseaudio" "backlight" "network" "group/system" "battery" "battery#bat2" "tray" "custom/power"];
+        # modules-right = ["custom/dictate" "group/idle" "pulseaudio" "backlight" "network" "group/system" "battery" "battery#bat2" "tray" "custom/power"];  # With Stasis group/idle
 
         # Modules configuration
-        "group/idle" = {
-          orientation = "inherit";
-          drawer = {
-            transition-duration = 500;
-            children-class = "idle-drawer";
-            transition-left-to-right = false;
-          };
-          modules = ["custom/stasis" "idle_inhibitor"];
-        };
+        # Stasis group/idle - commented out, reverting to swayidle
+        # "group/idle" = {
+        #   orientation = "inherit";
+        #   drawer = {
+        #     transition-duration = 500;
+        #     children-class = "idle-drawer";
+        #     transition-left-to-right = false;
+        #   };
+        #   modules = ["custom/stasis" "idle_inhibitor"];
+        # };
 
         "group/system" = {
           orientation = "inherit";
@@ -228,15 +230,16 @@ in
           on-click-right = "dictate-wc-ptt-toggle";
         };
 
-        "custom/stasis" = {
-          exec = "stasis-status";
-          return-type = "json";
-          interval = 5;
-          format = "{}";
-          tooltip = true;
-          on-click = "stasis toggle-inhibit && pkill -RTMIN+8 waybar";
-          signal = 8;
-        };
+        # Stasis module - commented out, reverting to swayidle
+        # "custom/stasis" = {
+        #   exec = "stasis-status";
+        #   return-type = "json";
+        #   interval = 5;
+        #   format = "{}";
+        #   tooltip = true;
+        #   on-click = "stasis toggle-inhibit && pkill -RTMIN+8 waybar";
+        #   signal = 8;
+        # };
       };
     };
     

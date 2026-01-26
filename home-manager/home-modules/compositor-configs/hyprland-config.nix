@@ -20,7 +20,7 @@ in
 
   imports = [
     ./waybar-config.nix
-    # ./hypridle-config.nix  # Replaced by Stasis
+    ./hypridle-config.nix
     ./hyprlock-config.nix
     # inputs.hyprshell.homeModules.hyprshell
   ];
@@ -107,8 +107,8 @@ in
         # Add this line to start KWallet daemon
         "kwalletd6"
         "kded6"
-        # "$hypridle"  # Replaced by Stasis
-        "stasis"
+        "$hypridle"
+        # "stasis"  # Disabled - reverting to hypridle
       ];
       input = {
         kb_layout = "us";

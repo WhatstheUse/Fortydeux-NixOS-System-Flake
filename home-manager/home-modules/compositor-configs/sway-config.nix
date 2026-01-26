@@ -91,13 +91,10 @@ in
       # You can get the names of your outputs by running: swaymsg -t get_outputs
 
       ### Idle configuration
-      # Replaced by Stasis idle manager
-      # Previous swayidle configuration:
-      #
-      # exec swayidle -w \
-      #         timeout 3000 'swaylock -f -c ${if cfg.enableStylix then config.lib.stylix.colors.base00 else "000000"}' \
-      #         timeout 6000 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
-      #         before-sleep 'swaylock -f -c ${if cfg.enableStylix then config.lib.stylix.colors.base00 else "000000"}' 
+      exec swayidle -w \
+              timeout 3000 'swaylock -f -c ${if cfg.enableStylix then config.lib.stylix.colors.base00 else "000000"}' \
+              timeout 6000 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
+              before-sleep 'swaylock -f -c ${if cfg.enableStylix then config.lib.stylix.colors.base00 else "000000"}' 
 
       # This will lock your screen after 300 seconds of inactivity, then turn off
       # your displays after another 300 seconds, and turn your screens back on when
@@ -146,7 +143,7 @@ in
 
       ### Startup Applications
           exec pcloud
-          exec stasis
+          # exec stasis  # Disabled - reverting to swayidle
 
       ### Key bindings
       #

@@ -28,12 +28,12 @@ pcloud &
 
 export wallpaper='~/.config/wallpapers/balloon-wp.jpg'
 
-# Replaced by Stasis idle manager
-# pkill -f swayidle
-# swayidle -w \
-# 	timeout 900 'swaylock -f -i $wallpaper' \
-# 	timeout 1200 'wlopm --off \*;swaylock -F -i $wallpaper' resume 'wlopm --on \*' \
-# 	before-sleep 'swaylock -f -i $wallpaper' &
+pkill -f swayidle
+swayidle -w \
+	timeout 900 'swaylock -f -i $wallpaper' \
+	timeout 1200 'wlopm --off \*;swaylock -F -i $wallpaper' resume 'wlopm --on \*' \
+	before-sleep 'swaylock -f -i $wallpaper' &
 
-pkill -f stasis
-stasis &
+# Disabled - reverting to swayidle
+# pkill -f stasis
+# stasis &

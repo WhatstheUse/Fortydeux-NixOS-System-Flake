@@ -243,25 +243,26 @@ in
       text = stasisConfig;
     };
 
-    # Enable Stasis systemd service
-    systemd.user.services.stasis = {
-      Unit = {
-        Description = "Stasis Wayland idle manager";
-        Documentation = "https://github.com/saltnpepper97/stasis";
-        PartOf = [ "graphical-session.target" ];
-        After = [ "graphical-session.target" ];
-      };
-
-      Service = {
-        Type = "simple";
-        ExecStart = "${pkgs.stasis}/bin/stasis";
-        Restart = "on-failure";
-        RestartSec = 3;
-      };
-
-      Install = {
-        WantedBy = [ "graphical-session.target" ];
-      };
-    };
+    # Stasis systemd service - DISABLED (reverting to swayidle)
+    # To re-enable: uncomment the systemd.user.services.stasis block below
+    # systemd.user.services.stasis = {
+    #   Unit = {
+    #     Description = "Stasis Wayland idle manager";
+    #     Documentation = "https://github.com/saltnpepper97/stasis";
+    #     PartOf = [ "graphical-session.target" ];
+    #     After = [ "graphical-session.target" ];
+    #   };
+    #
+    #   Service = {
+    #     Type = "simple";
+    #     ExecStart = "${pkgs.stasis}/bin/stasis";
+    #     Restart = "on-failure";
+    #     RestartSec = 3;
+    #   };
+    #
+    #   Install = {
+    #     WantedBy = [ "graphical-session.target" ];
+    #   };
+    # };
   };
 }

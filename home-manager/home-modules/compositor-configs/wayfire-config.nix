@@ -67,11 +67,11 @@ in
 
         [autostart]
         autostart0 = pcloud
-        autostart1 = stasis
+        # autostart1 = stasis  # Disabled - reverting to swayidle
         autostart_wf_shell = true
         background = wf-background
         gamma = wlsunset
-        # idle = swayidle -w timeout 3600 'swaylock -f -c 000000' before-sleep 'swaylock -f -c 000000'  # Replaced by Stasis
+        idle = swayidle -w timeout 3600 'swaylock -f -c 000000' before-sleep 'swaylock -f -c 000000'
         notifications = mako
         outputs = kanshi
         portal = /usr/libexec/xdg-desktop-portal-wlr

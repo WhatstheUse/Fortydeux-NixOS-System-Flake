@@ -101,18 +101,19 @@
         "deactivated": " "
       }
     },
-    "group/idle": {
-      "orientation": "inherit",
-      "drawer": {
-        "transition-duration": 500,
-        "children-class": "idle-drawer",
-        "transition-left-to-right": false
-      },
-      "modules": [
-        "custom/stasis",
-        "idle_inhibitor"
-      ]
-    },
+    // Stasis group - commented out, reverting to swayidle
+    // "group/idle": {
+    //   "orientation": "inherit",
+    //   "drawer": {
+    //     "transition-duration": 500,
+    //     "children-class": "idle-drawer",
+    //     "transition-left-to-right": false
+    //   },
+    //   "modules": [
+    //     "custom/stasis",
+    //     "idle_inhibitor"
+    //   ]
+    // },
     "group/system": {
       "orientation": "inherit",
       "drawer": {
@@ -153,7 +154,7 @@
     ],
     "modules-right": [
       "custom/dictate",
-      "group/idle",
+      "idle_inhibitor",
       "pulseaudio",
       "backlight",
       "network",
@@ -231,14 +232,15 @@
       "on-click": "dictate-fw-ptt-toggle",
       "on-click-right": "dictate-wc-ptt-toggle"
     },
-    "custom/stasis": {
-      "exec": "stasis-status",
-      "return-type": "json",
-      "interval": 5,
-      "format": "{}",
-      "tooltip": true,
-      "on-click": "stasis toggle-inhibit && pkill -RTMIN+8 waybar",
-      "signal": 8
-    }
+    // Stasis module - commented out, reverting to swayidle
+    // "custom/stasis": {
+    //   "exec": "stasis-status",
+    //   "return-type": "json",
+    //   "interval": 5,
+    //   "format": "{}",
+    //   "tooltip": true,
+    //   "on-click": "stasis toggle-inhibit && pkill -RTMIN+8 waybar",
+    //   "signal": 8
+    // }
   }
 ]
