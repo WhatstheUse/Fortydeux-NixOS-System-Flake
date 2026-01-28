@@ -63,7 +63,7 @@
   programs.atuin = {
     enable = true;
     enableZshIntegration = true;
-    package = inputs.atuin.packages.${pkgs.stdenv.hostPlatform.system}.default;
+    # package = inputs.atuin.packages.${pkgs.stdenv.hostPlatform.system}.default;
   };
   # Session variables and shell aliases
   home = {

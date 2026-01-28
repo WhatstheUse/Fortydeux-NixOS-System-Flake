@@ -130,7 +130,7 @@
     tmux # Terminal multiplexer
     topgrade # Upgrade all the things
     trayer # Lightweight GTK2-based system tray for unix desktp
-    vault-tasks # TUI Markdown Task manager
+    # vault-tasks # TUI Markdown Task manager
     vlc # Cross-platform media player
     vscode # Open source source code editor developed by Microsoft for Windows, Linux and macOS    
     # kdePackages.yakuake #Drop-down terminal emulator based on Konsole technologies
@@ -147,7 +147,7 @@
     file  # File type detection utility
     
     # PDF tools
-    xournalpp  # Handwriting note-taking application
+    # xournalpp  # Handwriting note-taking application
     evince  # Document viewer for PDF files
     
     # C compiler for treesitter and other tools
