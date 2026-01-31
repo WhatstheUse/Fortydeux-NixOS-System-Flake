@@ -357,7 +357,7 @@ in
       }
 
       #idle_inhibitor.activated {
-        color: @success_color;
+        color: @theme_fg_color;
       }
 
       #network {
