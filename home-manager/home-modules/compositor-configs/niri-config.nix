@@ -296,7 +296,7 @@ lib.mkIf sessionEnabled {
     spawn-at-startup "niriswitcher"
     spawn-at-startup "bash" "-c" "systemctl --user import-environment DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP && dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP && systemctl --user start --no-block xdg-desktop-portal-kde.service"
     // spawn-at-startup "xwayland-satellite"
-    spawn-at-startup "bash" "-c" "sleep 3 && pcloud"
+    spawn-at-startup "bash" "-c" "while ! systemctl --user is-active graphical-session.target; do sleep 0.5; done && pcloud"
     // spawn-at-startup "stasis"  // Disabled - reverting to swayidle
     spawn-at-startup "bash" "-c" "swayidle -w timeout 300 'swaylock -f -c 000000' timeout 600 'swaymsg \"output * power off\"' resume 'swaymsg \"output * power on\"' before-sleep 'swaylock -f -c 000000' "
 
