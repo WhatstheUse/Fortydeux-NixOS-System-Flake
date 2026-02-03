@@ -734,17 +734,18 @@
             { run = "nvim %s"; block = true; orphan = true; desc = "Neovim (current terminal)"; }
             { run = "kitty -e nvim %s"; desc = "Neovim (new window)"; }
             { run = "kitty -e hx %s"; desc = "Helix (new window)"; }
-            { run = "emacs %s"; orphan = true; desc = "Emacs (GUI)"; }
-            { run = "code %s"; orphan = true; desc = "VS Code (GUI)"; }
-            { run = "cursor %s"; orphan = true; desc = "Cursor (GUI)"; }
-            { run = "zeditor %s"; orphan = true; desc = "Zed Editor (GUI)"; }
-            { run = "kate %s"; orphan = true; desc = "Kate (GUI)"; }
-            { run = "lapce %s"; orphan = true; desc = "Lapce (GUI)"; }
-            { run = "ghostwriter %s"; orphan = true; desc = "Ghostwriter (GUI)"; }
-            { run = "apostrophe %s"; orphan = true; desc = "Apostrophe (GUI)"; }
-            { run = "retext %s"; orphan = true; desc = "ReText (GUI)"; }
-            { run = "okular %s"; orphan = true; desc = "Okular (GUI)"; }
-            { run = "onlyoffice-desktopeditors %s"; orphan = true; desc = "OnlyOffice (GUI)"; }
+            { run = "emacs %s"; orphan = true; desc = "Emacs (nixpkgs)"; }
+            { run = "code %s"; orphan = true; desc = "VS Code (nixpkgs)"; }
+            { run = "cursor %s"; orphan = true; desc = "Cursor (nixpkgs)"; }
+            { run = "zeditor %s"; orphan = true; desc = "Zed Editor (nixpkgs)"; }
+            { run = "kate %s"; orphan = true; desc = "Kate (nixpkgs)"; }
+            { run = "lapce %s"; orphan = true; desc = "Lapce (nixpkgs)"; }
+            { run = "ghostwriter %s"; orphan = true; desc = "Ghostwriter (nixpkgs)"; }
+            { run = "apostrophe %s"; orphan = true; desc = "Apostrophe (nixpkgs)"; }
+            { run = "retext %s"; orphan = true; desc = "ReText (nixpkgs)"; }
+            { run = "okular %s"; orphan = true; desc = "Okular (nixpkgs)"; }
+            { run = "onlyoffice-desktopeditors %s"; orphan = true; desc = "OnlyOffice (nixpkgs)"; }
+            { run = "flatpak run org.onlyoffice.desktopeditors %s"; orphan = true; desc = "OnlyOffice (flatpak)"; }
             { run = "${config.home.homeDirectory}/.config/scripts/app-picker.sh %s"; desc = "Application Picker"; }
           ];
 
@@ -753,78 +754,87 @@
             { run = "$EDITOR %s"; block = true; for = "unix"; desc = "Default Editor (current terminal)"; }
             { run = "kitty -e nvim %s"; desc = "Neovim (new window)"; }
             { run = "kitty -e hx %s"; desc = "Helix (new window)"; }
-            { run = "emacs %s"; orphan = true; desc = "Emacs (GUI)"; }
-            { run = "code %s"; orphan = true; desc = "VS Code (GUI)"; }
-            { run = "cursor %s"; orphan = true; desc = "Cursor (GUI)"; }
-            { run = "zeditor %s"; orphan = true; desc = "Zed Editor (GUI)"; }
-            { run = "kate %s"; orphan = true; desc = "Kate (GUI)"; }
-            { run = "lapce %s"; orphan = true; desc = "Lapce (GUI)"; }
-            { run = "ghostwriter %s"; orphan = true; desc = "Ghostwriter (GUI)"; }
-            { run = "apostrophe %s"; orphan = true; desc = "Apostrophe (GUI)"; }
-            { run = "retext %s"; orphan = true; desc = "ReText (GUI)"; }
-            { run = "okular %s"; orphan = true; desc = "Okular (GUI)"; }
-            { run = "onlyoffice-desktopeditors %s"; orphan = true; desc = "OnlyOffice (GUI)"; }
+            { run = "emacs %s"; orphan = true; desc = "Emacs (nixpkgs)"; }
+            { run = "code %s"; orphan = true; desc = "VS Code (nixpkgs)"; }
+            { run = "cursor %s"; orphan = true; desc = "Cursor (nixpkgs)"; }
+            { run = "zeditor %s"; orphan = true; desc = "Zed Editor (nixpkgs)"; }
+            { run = "kate %s"; orphan = true; desc = "Kate (nixpkgs)"; }
+            { run = "lapce %s"; orphan = true; desc = "Lapce (nixpkgs)"; }
+            { run = "ghostwriter %s"; orphan = true; desc = "Ghostwriter (nixpkgs)"; }
+            { run = "apostrophe %s"; orphan = true; desc = "Apostrophe (nixpkgs)"; }
+            { run = "retext %s"; orphan = true; desc = "ReText (nixpkgs)"; }
+            { run = "okular %s"; orphan = true; desc = "Okular (nixpkgs)"; }
+            { run = "onlyoffice-desktopeditors %s"; orphan = true; desc = "OnlyOffice (nixpkgs)"; }
+            { run = "flatpak run org.onlyoffice.desktopeditors %s"; orphan = true; desc = "OnlyOffice (flatpak)"; }
             { run = "${config.home.homeDirectory}/.config/scripts/app-picker.sh %s"; desc = "Application Picker"; }
           ];
           
           # Images
           image = [
-            { run = "gwenview %s"; orphan = true; desc = "Gwenview"; }
-            { run = "firefox %s"; orphan = true; desc = "Firefox"; }
+            { run = "gwenview %s"; orphan = true; desc = "Gwenview (nixpkgs)"; }
+            { run = "firefox %s"; orphan = true; desc = "Firefox (nixpkgs)"; }
+            { run = "flatpak run org.mozilla.firefox %s"; orphan = true; desc = "Firefox (flatpak)"; }
             { run = "${config.home.homeDirectory}/.config/scripts/app-picker.sh %s"; desc = "Application Picker"; }
           ];
           
           # Videos
           video = [
-            { run = "mpv %s"; orphan = true; desc = "MPV"; }
-            { run = "vlc %s"; orphan = true; desc = "VLC"; }
+            { run = "mpv %s"; orphan = true; desc = "MPV (nixpkgs)"; }
+            { run = "vlc %s"; orphan = true; desc = "VLC (nixpkgs)"; }
+            { run = "flatpak run org.videolan.VLC %s"; orphan = true; desc = "VLC (flatpak)"; }
             { run = "${config.home.homeDirectory}/.config/scripts/app-picker.sh %s"; desc = "Application Picker"; }
           ];
           
           # Audio
           audio = [
-            { run = "mpv %s"; orphan = true; desc = "MPV"; }
-            { run = "vlc %s"; orphan = true; desc = "VLC"; }
+            { run = "mpv %s"; orphan = true; desc = "MPV (nixpkgs)"; }
+            { run = "vlc %s"; orphan = true; desc = "VLC (nixpkgs)"; }
+            { run = "flatpak run org.videolan.VLC %s"; orphan = true; desc = "VLC (flatpak)"; }
             { run = "${config.home.homeDirectory}/.config/scripts/app-picker.sh %s"; desc = "Application Picker"; }
             ];
           
           # PDFs
           pdf = [
-            { run = "okular %s"; orphan = true; desc = "Okular"; }
-            { run = "evince %s"; orphan = true; desc = "Evince"; }
-            { run = "xournalpp %s"; orphan = true; desc = "Xournal++"; }
-            { run = "org.libreoffice.LibreOffice --draw %s"; orphan = true; desc = "LibreOffice Draw (flatpak)"; }
+            { run = "okular %s"; orphan = true; desc = "Okular (nixpkgs)"; }
+            { run = "evince %s"; orphan = true; desc = "Evince (nixpkgs)"; }
+            { run = "xournalpp %s"; orphan = true; desc = "Xournal++ (nixpkgs)"; }
             { run = "libreoffice --draw %s"; orphan = true; desc = "LibreOffice Draw (nixpkgs)"; }
-            { run = "onlyoffice-desktopeditors %s"; orphan = true; desc = "OnlyOffice"; }
-            { run = "firefox %s"; orphan = true; desc = "Firefox"; }
+            { run = "flatpak run org.libreoffice.LibreOffice --draw %s"; orphan = true; desc = "LibreOffice Draw (flatpak)"; }
+            { run = "onlyoffice-desktopeditors %s"; orphan = true; desc = "OnlyOffice (nixpkgs)"; }
+            { run = "flatpak run org.onlyoffice.desktopeditors %s"; orphan = true; desc = "OnlyOffice (flatpak)"; }
+            { run = "firefox %s"; orphan = true; desc = "Firefox (nixpkgs)"; }
+            { run = "flatpak run org.mozilla.firefox %s"; orphan = true; desc = "Firefox (flatpak)"; }
             { run = "${config.home.homeDirectory}/.config/scripts/app-picker.sh %s"; desc = "Application Picker"; }
           ];
           
           # Documents
           document = [
-            { run = "libreoffice %s"; orphan = true; desc = "LibreOffice"; }
-            { run = "onlyoffice-desktopeditors %s"; orphan = true; desc = "OnlyOffice"; }
+            { run = "libreoffice %s"; orphan = true; desc = "LibreOffice (nixpkgs)"; }
+            { run = "flatpak run org.libreoffice.LibreOffice %s"; orphan = true; desc = "LibreOffice (flatpak)"; }
+            { run = "onlyoffice-desktopeditors %s"; orphan = true; desc = "OnlyOffice (nixpkgs)"; }
+            { run = "flatpak run org.onlyoffice.desktopeditors %s"; orphan = true; desc = "OnlyOffice (flatpak)"; }
             { run = "${config.home.homeDirectory}/.config/scripts/app-picker.sh %s"; desc = "Application Picker"; }
           ];
           
           # Archives
           archive = [
-            { run = "ark %s"; orphan = true; desc = "Ark"; }
+            { run = "ark %s"; orphan = true; desc = "Ark (nixpkgs)"; }
             { run = "${config.home.homeDirectory}/.config/scripts/app-picker.sh %s"; desc = "Application Picker"; }
           ];
           
           # Web links
           web = [
-            { run = "firefox %s"; orphan = true; desc = "Firefox"; }
+            { run = "firefox %s"; orphan = true; desc = "Firefox (nixpkgs)"; }
+            { run = "flatpak run org.mozilla.firefox %s"; orphan = true; desc = "Firefox (flatpak)"; }
             { run = "${config.home.homeDirectory}/.config/scripts/app-picker.sh %s"; desc = "Application Picker"; }
           ];
           
           # Reveal in file manager
           reveal = [
-            { run = "nautilus %s"; orphan = true; desc = "Nautilus"; }
-            { run = "dolphin %s"; orphan = true; desc = "Dolphin"; }
-            { run = "thunar %s"; orphan = true; desc = "Thunar"; }
-            { run = "pcmanfm %s"; orphan = true; desc = "PCManFM"; }
+            { run = "nautilus %s"; orphan = true; desc = "Nautilus (nixpkgs)"; }
+            { run = "dolphin %s"; orphan = true; desc = "Dolphin (nixpkgs)"; }
+            { run = "thunar %s"; orphan = true; desc = "Thunar (nixpkgs)"; }
+            { run = "pcmanfm %s"; orphan = true; desc = "PCManFM (nixpkgs)"; }
             { run = "${config.home.homeDirectory}/.config/scripts/app-picker.sh %s"; desc = "Application Picker"; }
           ];
         };
