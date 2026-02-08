@@ -112,7 +112,7 @@
                 "api.alsa.disable-mmap" = false;
                 "api.alsa.disable-batch" = false;
                 "audio.format" = "S32LE";
-                "audio.channels" = 12;
+                "audio.channels" = 16;  # Saffire Pro 40 has 16 channels
               };
             };
           }
@@ -151,12 +151,9 @@
     
     # FireWire audio support
     ffado              # FireWire audio drivers (kernel modules only)
-    # Note: ffado-mixer not needed - use helvum/pavucontrol instead
-    
-    # Qt support for ffado-mixer
-    qt5.qtbase
-    qt5.qtwayland
-    
+    # Note: ffado-mixer requires ffado-dbus-server which is not packaged in NixOS
+    # Use helvum/pavucontrol instead for device control
+
     # Audio bridges and plugins
     alsa-plugins       # ALSA plugins for compatibility
     
