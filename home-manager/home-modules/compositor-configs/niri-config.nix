@@ -199,7 +199,7 @@ lib.mkIf sessionEnabled {
     // https://github.com/YaLTeR/niri/wiki/Configuration:-Layout
 
     layout {
-        gaps 16
+        gaps 6
         center-focused-column "never"
         always-center-single-column
         empty-workspace-above-first
