@@ -25,7 +25,7 @@
     ../../system-modules/compositor-configs/cosmic-desktop.nix
     ../../system-modules/compositor-configs/hyprland-config.nix
     ../../system-modules/compositor-configs/sway-config.nix
-    ../../system-modules/compositor-configs/river-config.nix
+    # ../../system-modules/compositor-configs/river-config.nix  # Disabled: upstream Zig build issue
     ../../system-modules/compositor-configs/wayfire-config.nix
     ../../system-modules/compositor-configs/niri-config.nix
     
@@ -60,7 +60,7 @@
     hyprland.enable = true;
     niri.enable = true;
     sway.enable = true;
-    river.enable = true;
+    # river.enable = true;  # Disabled: upstream Zig build issue
     wayfire.enable = true;
   };
 }
