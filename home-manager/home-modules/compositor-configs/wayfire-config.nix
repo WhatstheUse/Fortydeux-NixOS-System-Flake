@@ -141,6 +141,12 @@ in
         command_volume_down = amixer set Master 5%-
         repeatable_binding_volume_up = KEY_VOLUMEUP
         command_volume_up = amixer set Master 5%+
+        binding_media_play = KEY_PLAYPAUSE
+        command_media_play = playerctl play-pause
+        binding_media_next = KEY_NEXTSONG
+        command_media_next = playerctl next
+        binding_media_prev = KEY_PREVIOUSSONG
+        command_media_prev = playerctl previous
         binding_dictate_fw_auto = <super> KEY_X
         command_dictate_fw_auto = dictate-fw-ptt-auto 5
         binding_dictate_wc_auto = <super> <shift> KEY_X

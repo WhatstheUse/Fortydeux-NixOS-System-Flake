@@ -716,6 +716,11 @@ lib.mkIf sessionEnabled {
         XF86AudioMute        allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"; }
         XF86AudioMicMute     allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SOURCE@" "toggle"; }
 
+        // Media control keys
+        XF86AudioPlay allow-when-locked=true { spawn "playerctl" "play-pause"; }
+        XF86AudioNext allow-when-locked=true { spawn "playerctl" "next"; }
+        XF86AudioPrev allow-when-locked=true { spawn "playerctl" "previous"; }
+
         // Screen brightness controls using brightnessctl.
         // The allow-when-locked=true property makes them work even when the session is locked.
         XF86MonBrightnessUp   allow-when-locked=true { spawn "brightnessctl" "set" "5%+"; }

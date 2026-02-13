@@ -256,6 +256,8 @@ in
 
         # Playerctl
         ", XF86AudioPlay, exec, playerctl play-pause"
+        ", XF86AudioNext, exec, playerctl next"
+        ", XF86AudioPrev, exec, playerctl previous"
 
         #Switches
         "SUPER, Escape, exec, hyprctl reload"
