@@ -726,6 +726,7 @@
     };
     yazi = {
       enable = true;
+      shellWrapperName = "y";
       # package = inputs.yazi.packages.${pkgs.stdenv.hostPlatform.system}.default;
       settings = {
         opener = {

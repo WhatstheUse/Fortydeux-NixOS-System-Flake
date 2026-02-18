@@ -5,36 +5,17 @@
   programs.bash = {
     enable = true;
     enableCompletion = true;
-    initExtra = ''
-      function y() {
-        local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
-        yazi "$@" --cwd-file="$tmp"
-        if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
-          builtin cd -- "$cwd"
-        fi
-        rm -f -- "$tmp"
-      }
-    '';
   };
   # Zsh shell
   programs.zsh = {
     enable = true;
     autosuggestion.enable = true;
     enableCompletion = true;
-    initContent = ''
+    initExtra = ''
       # fastfetch|lolc
       eval "$(zoxide init zsh)"
       eval "$(starship init zsh)"
       # eval "$(gh copilot alias -- zsh)"
-      
-      function y() {
-        local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
-        yazi "$@" --cwd-file="$tmp"
-        if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
-          builtin cd -- "$cwd"
-        fi
-        rm -f -- "$tmp"
-      }
     '';
   };
   # Fish Shell
@@ -42,21 +23,11 @@
     enable = true;
     interactiveShellInit = ''
       set fish_greeting
-      
+
       # Source API keys if secrets file exists
       if test -f ~/.env.secrets
         source ~/.env.secrets
       end
-      
-      function y
-        set tmp (mktemp -t "yazi-cwd.XXXXXX")
-        yazi $argv --cwd-file="$tmp"
-        if set cwd (command cat -- "$tmp"); and [ -n "$cwd" ]; and [ "$cwd" != "$PWD" ]
-          builtin cd -- "$cwd"
-        end
-        rm -f -- "$tmp"
-      end
-      
     '';
   };
   # Atuin shell history - using flake input for latest version
