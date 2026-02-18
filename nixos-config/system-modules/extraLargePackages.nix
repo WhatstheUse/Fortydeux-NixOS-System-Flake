@@ -19,7 +19,7 @@ pkgs,
 
     ## Wine
     winetricks
-    wineWowPackages.stable
+    wineWow64Packages.stable
     
   ];
 
