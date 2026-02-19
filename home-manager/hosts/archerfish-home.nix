@@ -6,7 +6,7 @@
   programs.hyprland = { enable = true; enableStylix = true; };
   programs.sway = { enable = true; enableStylix = true; };
   programs.wayfire = { enable = true; enableStylix = true; };
-  # programs.river = { enable = true; enableStylix = true; };  # Disabled: upstream Zig build issue
+  programs.river = { enable = true; enableStylix = true; };
 
   imports = [
     ../home-modules/home-commonConfig.nix
@@ -23,7 +23,7 @@
     ../home-modules/compositor-configs/niri-config.nix
     ../home-modules/compositor-configs/wayfire-config.nix
     ../home-modules/compositor-configs/sway-config.nix
-    # ../home-modules/compositor-configs/river-config.nix  # Disabled: upstream Zig build issue
+    ../home-modules/compositor-configs/river-config.nix
     
     # Device-specific
     ../home-modules/compositor-configs/highdpi-hyprland.nix
@@ -35,7 +35,7 @@
     hyprland.enable = true;
     niri.enable = true;
     sway.enable = true;
-    # river.enable = true;  # Disabled: upstream Zig build issue
+    river.enable = true;
     wayfire.enable = true;
   };
 }
