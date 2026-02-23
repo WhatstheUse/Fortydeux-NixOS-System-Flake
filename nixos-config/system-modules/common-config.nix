@@ -149,7 +149,7 @@
     uinput.enable = true; # Needed for ydotool
   };
 
-  services = { 
+  services = {
     blueman.enable = true;
     pulseaudio.enable = false;
   };

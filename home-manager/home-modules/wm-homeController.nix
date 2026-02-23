@@ -2,11 +2,16 @@
 
 let
   inherit (lib) mkEnableOption;
+
+  # Kirigami QML path for Noctalia (workaround for libplasma override issue)
+  # This is needed because libplasma's partial kirigami overrides the full kirigami package
+  kirigamiQmlPath = "${lib.getLib pkgs.kdePackages.kirigami}/lib/qt-6/qml";
 in
 {
   imports = [
     ./dotfiles/kanshi.nix
     ./compositor-configs/stasis-config.nix
+    inputs.noctalia.homeModules.default
   ];
 
   options.sessionProfiles = {
@@ -23,6 +28,14 @@ in
   config = {
     # Common window manager functionality
     # Individual compositor configs are imported in host-specific files
+
+    # Noctalia desktop shell - shared across compositors
+    programs.noctalia-shell = {
+      enable = true;
+      settings = {
+        # Configuration will be done through the wizard initially
+      };
+    };
 
     home.packages = (with pkgs; [
       # kdePackages.yakuake #Drop-down terminal

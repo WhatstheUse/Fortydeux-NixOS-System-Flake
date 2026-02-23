@@ -179,6 +179,9 @@ in
       yambar
       fastfetch
       phinger-cursors
+      # KDE QML modules required by Noctalia (Quickshell dependency)
+      kdePackages.kirigami
+      kdePackages.qqc2-breeze-style
     ];
   };
 }

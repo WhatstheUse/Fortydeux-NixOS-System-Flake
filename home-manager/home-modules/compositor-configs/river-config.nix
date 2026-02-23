@@ -4,6 +4,9 @@ let
   cfg = config.programs.river;
   sessionEnabled = config.sessionProfiles.river.enable or false;
   inherit (lib) mkEnableOption mkIf mkOption types;
+
+  # Kirigami QML path for Noctalia (workaround for libplasma override issue)
+  kirigamiQmlPath = "${lib.getLib pkgs.kdePackages.kirigami}/lib/qt-6/qml";
 in
 {
   options.programs.river = {
@@ -32,6 +35,8 @@ in
         QT_QPA_PLATFORM = "wayland";
         QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
         _JAVA_AWT_WM_NONREPARENTING = "1";
+        # Noctalia QML path (fixes libplasma kirigami override)
+        QML2_IMPORT_PATH = kirigamiQmlPath;
       };
 
       settings = {
@@ -225,6 +230,9 @@ in
       extraConfig = ''
         spawn "systemctl --user import-environment DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
         spawn "dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
+
+        # Launch Noctalia desktop shell
+        spawn "noctalia-shell"
 
         # auto starting apps
         bash $HOME/.config/river/scripts/autostart.sh

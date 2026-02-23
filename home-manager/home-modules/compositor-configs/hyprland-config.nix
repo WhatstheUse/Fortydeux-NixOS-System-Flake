@@ -4,6 +4,9 @@ let
   cfg = config.programs.hyprland;
   sessionEnabled = config.sessionProfiles.hyprland.enable or false;
   inherit (lib) mkEnableOption mkIf mkOption types;
+
+  # Kirigami QML path for Noctalia (workaround for libplasma override issue)
+  kirigamiQmlPath = "${lib.getLib pkgs.kdePackages.kirigami}/lib/qt-6/qml";
 in
 {
   options.programs.hyprland = {
@@ -97,7 +100,8 @@ in
         "hyprctl setcursor ${if cfg.enableStylix then config.stylix.cursor.name else "phinger-cursors"} ${if cfg.enableStylix then toString config.stylix.cursor.size else "32"}"
         # "emacs --daemon"
         "foot -s"
-        # "waybar"  # Removed - now handled by systemd integration
+        # "waybar"  # Removed - now using noctalia-shell
+        "noctalia-shell"
         "mako"
         "nm-applet --indicator"
         "blueman-applet"
@@ -138,6 +142,12 @@ in
         # layout = "scroller";  # Old hyprscroller layout
         layout = "scrolling";  # New official hyprscrolling layout
       };
+
+      # Reserve space for Noctalia bar at the bottom
+      workspace = [
+        # Reserve 60px at the bottom for Noctalia bar (adjust if needed)
+        "w[1-10], gapsout:100 9 100 9"
+      ];
 
       decoration = {
         # See https://wiki.hyprland.org/Configuring/Variables/ for more
@@ -407,6 +417,8 @@ in
       env=SDL_VIDEODRIVER,wayland
       env=CLUTTER_BACKEND,wayland
       env=QT_AUTO_SCREEN_SCALE_FACTOR,1
+      # Noctalia QML path (fixes libplasma kirigami override)
+      env=QML2_IMPORT_PATH,${kirigamiQmlPath}
       # KWallet6 configuration
       env=KDE_FULL_SESSION,true
       env=KDE_SESSION_VERSION,6

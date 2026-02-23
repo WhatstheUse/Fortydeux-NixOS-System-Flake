@@ -4,6 +4,9 @@ let
   cfg = config.programs.sway;
   sessionEnabled = config.sessionProfiles.sway.enable or false;
   inherit (lib) mkEnableOption mkIf mkOption types;
+
+  # Kirigami QML path for Noctalia (workaround for libplasma override issue)
+  kirigamiQmlPath = "${lib.getLib pkgs.kdePackages.kirigami}/lib/qt-6/qml";
 in
 {
   options.programs.sway = {
@@ -142,6 +145,9 @@ in
       # Read `man 5 sway-input` for more information about this section.
 
       ### Startup Applications
+          # Set QML path for Noctalia (fixes libplasma kirigami override)
+          exec_always export QML2_IMPORT_PATH="${kirigamiQmlPath}"
+          exec noctalia-shell
           exec pcloud
           # exec stasis  # Disabled - reverting to swayidle
 

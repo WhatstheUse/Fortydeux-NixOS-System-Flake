@@ -8,6 +8,14 @@
 
 let
   sessionEnabled = config.sessionProfiles.niri.enable or false;
+
+  # Kirigami QML path for Noctalia (workaround for libplasma override issue)
+  # NOTE: programs.noctalia-shell is configured in wm-homeController.nix (shared)
+  # Each compositor needs to set this environment variable in their own way:
+  # - Niri: environment { QML2_IMPORT_PATH "path" } (below)
+  # - Hyprland: env = QML2_IMPORT_PATH,path (in hyprland-config.nix)
+  # - Sway: exec_always export QML2_IMPORT_PATH=path (in sway-config.nix)
+  kirigamiQmlPath = "${lib.getLib pkgs.kdePackages.kirigami}/lib/qt-6/qml";
 in
 lib.mkIf sessionEnabled {
   programs = {
@@ -291,7 +299,9 @@ lib.mkIf sessionEnabled {
     // spawn-at-startup "alacritty" "-e" "fish"
     spawn-at-startup "bash" "-c" "foot --server"
     spawn-at-startup "swaybg" "-m" "fill" "-i" "${config.stylix.image}"
-    spawn-at-startup "bash" "-c" "waybar -c $HOME/.config/niri/waybar/config -s $HOME/.config/niri/waybar/style.css"
+    // spawn-at-startup "bash" "-c" "waybar -c $HOME/.config/niri/waybar/config -s $HOME/.config/niri/waybar/style.css"
+    // Noctalia (wrapped package via programs.noctalia-shell.package override)
+    spawn-at-startup "noctalia-shell"
     spawn-at-startup "mako"
     spawn-at-startup "niriswitcher"
     spawn-at-startup "bash" "-c" "systemctl --user import-environment DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP && dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP && systemctl --user start --no-block xdg-desktop-portal-kde.service"
@@ -300,9 +310,9 @@ lib.mkIf sessionEnabled {
     // spawn-at-startup "stasis"  // Disabled - reverting to swayidle
     spawn-at-startup "bash" "-c" "swayidle -w timeout 300 'swaylock -f -c 000000' timeout 600 'swaymsg \"output * power off\"' resume 'swaymsg \"output * power on\"' before-sleep 'swaylock -f -c 000000' "
 
-    // environment {
-    //     DISPLAY ":0"
-    // }
+    environment {
+        QML2_IMPORT_PATH "${kirigamiQmlPath}"
+    }
 
     // Uncomment this line to ask the clients to omit their client-side decorations if possible.
     // If the client will specifically ask for CSD, the request will be honored.
