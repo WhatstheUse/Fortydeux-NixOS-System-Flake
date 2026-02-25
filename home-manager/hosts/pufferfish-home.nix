@@ -7,6 +7,8 @@
   programs.sway = { enable = true; enableStylix = true; };
   programs.wayfire = { enable = true; enableStylix = true; };
   programs.river = { enable = true; enableStylix = true; };
+  programs.mangowc = { enable = true; enableStylix = true; };
+  programs.scroll = { enable = true; enableStylix = true; };
 
   imports = [
     ../home-modules/home-commonConfig.nix
@@ -24,6 +26,8 @@
     ../home-modules/compositor-configs/wayfire-config.nix
     ../home-modules/compositor-configs/sway-config.nix
     ../home-modules/compositor-configs/river-config.nix
+    ../home-modules/compositor-configs/mangowc-config.nix
+    ../home-modules/compositor-configs/scroll-config.nix
   ];
 
   sessionProfiles = {
@@ -34,6 +38,8 @@
     sway.enable = true;
     river.enable = true;
     wayfire.enable = true;
+    mangowc.enable = true;
+    scroll.enable = true;
   };
 
 }

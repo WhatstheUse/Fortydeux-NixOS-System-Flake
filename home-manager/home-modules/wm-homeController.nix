@@ -23,6 +23,8 @@ in
     sway.enable = mkEnableOption "Sway compositor";
     river.enable = mkEnableOption "River compositor";
     wayfire.enable = mkEnableOption "Wayfire compositor";
+    mangowc.enable = mkEnableOption "MangoWC compositor";
+    scroll.enable = mkEnableOption "Scroll compositor";
   };
 
   config = {

@@ -28,7 +28,9 @@
     ../../system-modules/compositor-configs/river-config.nix
     ../../system-modules/compositor-configs/wayfire-config.nix
     ../../system-modules/compositor-configs/niri-config.nix
-    
+    ../../system-modules/compositor-configs/mangowc-config.nix
+    ../../system-modules/compositor-configs/scroll-config.nix
+
     # Home-manager
     inputs.home-manager.nixosModules.home-manager
     # Device-specific
@@ -71,5 +73,7 @@
     sway.enable = true;
     river.enable = true;
     wayfire.enable = true;
+    mangowc.enable = true;
+    scroll.enable = true;
   };
 }

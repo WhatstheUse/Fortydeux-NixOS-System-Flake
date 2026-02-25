@@ -48,7 +48,9 @@ let
     cfg.hyprland.enable
     || cfg.river.enable
     || cfg.sway.enable
-    || cfg.wayfire.enable;
+    || cfg.wayfire.enable
+    || cfg.mangowc.enable
+    || cfg.scroll.enable;
 in
 {
   options.sessionProfiles = {
@@ -60,6 +62,8 @@ in
     sway.enable = mkEnableOption "Sway compositor";
     river.enable = mkEnableOption "River compositor";
     wayfire.enable = mkEnableOption "Wayfire compositor";
+    mangowc.enable = mkEnableOption "MangoWC compositor";
+    scroll.enable = mkEnableOption "Scroll compositor";
 
     portal.configFragments = mkOption {
       type = types.listOf types.attrs;

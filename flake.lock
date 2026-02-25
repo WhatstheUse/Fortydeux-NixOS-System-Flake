@@ -1659,6 +1659,7 @@
         "nixpkgs": "nixpkgs_6",
         "nixvim": "nixvim",
         "noctalia": "noctalia",
+        "scroll-flake": "scroll-flake",
         "stylix": "stylix",
         "wooz": "wooz",
         "yazi": "yazi"
@@ -1721,6 +1722,62 @@
         "owner": "oxalica",
         "repo": "rust-overlay",
         "type": "github"
+      }
+    },
+    "scroll-flake": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "scroll-git": "scroll-git",
+        "scroll-stable": "scroll-stable"
+      },
+      "locked": {
+        "lastModified": 1771898625,
+        "narHash": "sha256-W1Bkr2vddbvoxlmSaViFVo96gOf/20KMTbvWr4zeD7Q=",
+        "owner": "AsahiRocks",
+        "repo": "scroll-flake",
+        "rev": "742dfd7e744eb94566aab5bf89b0d4e6e373f27b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "AsahiRocks",
+        "repo": "scroll-flake",
+        "type": "github"
+      }
+    },
+    "scroll-git": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1771888938,
+        "narHash": "sha256-QzXV4k53lid1ESulAcl30q+j0ZqiroBo3Zg5WqEqy+E=",
+        "ref": "master",
+        "rev": "e73d8ec4e1679dcd8e480d1c97d489aa522c8a1e",
+        "revCount": 8177,
+        "type": "git",
+        "url": "https://github.com/dawsers/scroll"
+      },
+      "original": {
+        "ref": "master",
+        "type": "git",
+        "url": "https://github.com/dawsers/scroll"
+      }
+    },
+    "scroll-stable": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1771347627,
+        "narHash": "sha256-fhNC5i9ZHvXWKQY+zDRHr7QovmquU0eLI8/QY3euBnc=",
+        "ref": "refs/tags/1.12.5",
+        "rev": "f265ef29ef3752299f2ef19c154ef1b908515914",
+        "revCount": 8164,
+        "type": "git",
+        "url": "https://github.com/dawsers/scroll"
+      },
+      "original": {
+        "ref": "refs/tags/1.12.5",
+        "type": "git",
+        "url": "https://github.com/dawsers/scroll"
       }
     },
     "stylix": {

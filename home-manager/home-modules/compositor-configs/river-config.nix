@@ -36,7 +36,7 @@ in
         QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
         _JAVA_AWT_WM_NONREPARENTING = "1";
         # Noctalia QML path (fixes libplasma kirigami override)
-        QML2_IMPORT_PATH = kirigamiQmlPath;
+        # QML2_IMPORT_PATH = kirigamiQmlPath;
       };
 
       settings = {
@@ -232,7 +232,7 @@ in
         spawn "dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
 
         # Launch Noctalia desktop shell
-        spawn "noctalia-shell"
+        # spawn "noctalia-shell"
 
         # auto starting apps
         bash $HOME/.config/river/scripts/autostart.sh

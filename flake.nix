@@ -70,6 +70,11 @@
       url = "github:sxyazi/yazi";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    # Scroll compositor (Sway fork with scrolling layout)
+    scroll-flake = {
+      url = "github:AsahiRocks/scroll-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     #MusNix
     musnix.url = "github:musnix/musnix";
     # SOPS secrets management

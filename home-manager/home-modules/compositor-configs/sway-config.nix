@@ -145,9 +145,8 @@ in
       # Read `man 5 sway-input` for more information about this section.
 
       ### Startup Applications
-          # Set QML path for Noctalia (fixes libplasma kirigami override)
-          exec_always export QML2_IMPORT_PATH="${kirigamiQmlPath}"
-          exec noctalia-shell
+          # Launch Noctalia with QML path set (fixes libplasma kirigami override)
+          exec QML2_IMPORT_PATH="${kirigamiQmlPath}" noctalia-shell
           exec pcloud
           # exec stasis  # Disabled - reverting to swayidle
 
@@ -363,24 +362,25 @@ in
       # Status Bar:
       #
       # Read `man 5 sway-bar` for more information about this section.
-      bar {
-          position top
-
-          # When the status_command prints a new line to stdout, swaybar updates.
-          # The default just shows the current date and time.
-      #   status_command while date +'%Y-%m-%d %X'; do sleep 1; done
-
-          status_command i3status-rs ~/.config/i3status-rust/config-default.toml;
-
-
-          colors {
-              statusline ${if cfg.enableStylix then config.lib.stylix.colors.base05 else "#ffffff"}
-              background ${if cfg.enableStylix then config.lib.stylix.colors.base00 else "#323232"}
-              inactive_workspace ${if cfg.enableStylix then config.lib.stylix.colors.base02 else "#32323277"} ${if cfg.enableStylix then config.lib.stylix.colors.base01 else "#32323244"} ${if cfg.enableStylix then config.lib.stylix.colors.base05 else "#5c5c5c"}
-              active_workspace ${if cfg.enableStylix then config.lib.stylix.colors.base0D else "#ffffff"} ${if cfg.enableStylix then config.lib.stylix.colors.base0D else "#ffffff"} ${if cfg.enableStylix then config.lib.stylix.colors.base05 else "#ffffff"}
-              urgent_workspace ${if cfg.enableStylix then config.lib.stylix.colors.base08 else "#ff0000"} ${if cfg.enableStylix then config.lib.stylix.colors.base08 else "#ff0000"} ${if cfg.enableStylix then config.lib.stylix.colors.base00 else "#ffffff"}
-          }
-      }
+      # Bar disabled - using Noctalia desktop shell instead
+      # bar {
+      #     position top
+      #
+      #     # When the status_command prints a new line to stdout, swaybar updates.
+      #     # The default just shows the current date and time.
+      # #   status_command while date +'%Y-%m-%d %X'; do sleep 1; done
+      #
+      #     status_command i3status-rs ~/.config/i3status-rust/config-default.toml;
+      #
+      #
+      #     colors {
+      #         statusline ${if cfg.enableStylix then config.lib.stylix.colors.base05 else "#ffffff"}
+      #         background ${if cfg.enableStylix then config.lib.stylix.colors.base00 else "#323232"}
+      #         inactive_workspace ${if cfg.enableStylix then config.lib.stylix.colors.base02 else "#32323277"} ${if cfg.enableStylix then config.lib.stylix.colors.base01 else "#32323244"} ${if cfg.enableStylix then config.lib.stylix.colors.base05 else "#5c5c5c"}
+      #         active_workspace ${if cfg.enableStylix then config.lib.stylix.colors.base0D else "#ffffff"} ${if cfg.enableStylix then config.lib.stylix.colors.base0D else "#ffffff"} ${if cfg.enableStylix then config.lib.stylix.colors.base05 else "#ffffff"}
+      #         urgent_workspace ${if cfg.enableStylix then config.lib.stylix.colors.base08 else "#ff0000"} ${if cfg.enableStylix then config.lib.stylix.colors.base08 else "#ff0000"} ${if cfg.enableStylix then config.lib.stylix.colors.base00 else "#ffffff"}
+      #     }
+      # }
 
              include @sysconfdir@/sway/config.d/*
      '';
