@@ -6,7 +6,7 @@ let
   inherit (lib) mkEnableOption mkIf mkOption types;
 
   # Kirigami QML path for Noctalia (workaround for libplasma override issue)
-  kirigamiQmlPath = "${lib.getLib pkgs.kdePackages.kirigami}/lib/qt-6/qml";
+  # kirigamiQmlPath = "${lib.getLib pkgs.kdePackages.kirigami}/lib/qt-6/qml";
 in
 {
   options.programs.river = {

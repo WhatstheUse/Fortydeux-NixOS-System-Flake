@@ -236,7 +236,7 @@ in
         "$mainMod, J, togglesplit, "
         "$mainMod SHIFT, F, fullscreen, 0"
         "$mainMod, F, fullscreen, 1"
-        "$mainMod, SPACE, exec, pkill fuzzel || fuzzel"
+        "$mainMod, SPACE, exec, noctalia-shell ipc call launcher toggle"
         "$mainMod, B, exec, pkill waybar || waybar"
         "$mainMod, K, exec, kate"
         "$mainMod, R, exec, hyprctl seterror disable"

@@ -16,6 +16,7 @@ in
     settings = {
       location = {
         name = "Allentown";
+        useFahrenheit = true;
       };
       general = {
         radiusRatio = 0.4;   # container radius 40%
@@ -32,8 +33,8 @@ in
           { id = "MediaMini"; }
           { id = "Tray"; }
           { id = "NotificationHistory"; }
-          { id = "Battery"; }
-          { id = "Volume"; }
+          { id = "Battery"; displayMode = "icon-always"; }
+          { id = "Volume"; displayMode = "alwaysShow"; }
           { id = "Brightness"; }
           { id = "ControlCenter"; }
         ];

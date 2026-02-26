@@ -99,14 +99,14 @@ in
 
       ### Decorations
       ${if cfg.enableStylix then ''
-      default_decoration border_radius 6 shadow true shadow_dynamic true shadow_size 30 shadow_blur 20 shadow_offset 5 5 shadow_color #${config.lib.stylix.colors.base01}70 dim false
+      default_decoration border_radius 6 shadow true shadow_dynamic true shadow_size 6 shadow_blur 20 shadow_offset 5 5 shadow_color #${config.lib.stylix.colors.base01}70 dim false
       '' else ''
-      default_decoration border_radius 6 shadow true shadow_dynamic true shadow_size 30 shadow_blur 20 shadow_offset 5 5 shadow_color #00000070 dim false
+      default_decoration border_radius 6 shadow true shadow_dynamic true shadow_size 6 shadow_blur 20 shadow_offset 5 5 shadow_color #00000070 dim false
       ''}
       titlebar_border_radius 6
 
       ### Borders and gaps
-      default_border pixel 3
+      default_border pixel 2
       default_floating_border pixel 2
       gaps inner 5
       gaps outer 10
@@ -209,7 +209,7 @@ in
       bindsym $mod+q kill
 
       # Application launchers
-      bindsym $mod+space exec $menu
+      bindsym $mod+space exec noctalia-shell ipc call launcher toggle
       bindsym alt+space exec anyrun
       bindsym $mod+grave exec fuzzel
 

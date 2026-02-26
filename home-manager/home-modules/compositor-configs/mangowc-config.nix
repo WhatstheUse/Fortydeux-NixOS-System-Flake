@@ -257,7 +257,7 @@ in
       bind=SUPER,Q,killclient,
 
       # Application launchers
-      bind=SUPER,space,spawn,fuzzel
+      bind=SUPER,space,spawn_shell,noctalia-shell ipc call launcher toggle
       bind=ALT,space,spawn,anyrun
 
       # Lock screen

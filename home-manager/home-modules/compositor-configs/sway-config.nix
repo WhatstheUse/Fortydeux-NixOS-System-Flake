@@ -163,7 +163,7 @@ in
 
           # Start your launcher
           bindsym $mod+d exec $menu
-          bindsym $mod+space exec $menu
+          bindsym $mod+space exec noctalia-shell ipc call launcher toggle
           bindsym alt+space exec "anyrun"
           bindsym $mod+grave exec "fuzzel"
           

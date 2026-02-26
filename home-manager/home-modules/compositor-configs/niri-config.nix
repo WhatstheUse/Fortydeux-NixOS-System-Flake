@@ -689,7 +689,7 @@ lib.mkIf sessionEnabled {
         Mod+S { spawn "kitty"; }
         Mod+D { spawn "walker"; }
         Super+Alt+L { spawn "swaylock"; }
-        Mod+Space { spawn "fuzzel"; }
+        Mod+Space { spawn "noctalia-shell" "ipc" "call" "launcher" "toggle"; }
         Alt+Space { spawn "anyrun"; }
         Mod+Y { spawn "bash" "-c" "pgrep footclient && pkill footclient || footclient" ; }
         // Mod+Return { spawn "walker"; }
