@@ -40,7 +40,7 @@ pkgs,
     gnome-calendar # Gnome GUI calendar
     kdePackages.partitionmanager # Manage the disk devices, partitions and file systems on your computer
     kitty-themes # Themes for the kitty terminal emulator
-    krita # A free and open source painting application
+    # krita # A free and open source painting application
     lapce # Lightning-fast and Powerful Code Editor written in Rust
     # librewolf # A fork of Firefox, focused on privacy, security and freedom
     kdePackages.kate # Plasma text editor
