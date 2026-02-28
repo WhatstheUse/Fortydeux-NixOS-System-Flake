@@ -81,6 +81,23 @@ in
 
     programs.wleave = {
       enable = true;
-    }; 
+    };
+
+    # Polkit authentication agent for standalone compositors and COSMIC
+    # KDE Plasma provides its own polkit-kde-agent, so skip it there via ConditionEnvironment
+    systemd.user.services.polkit-agent = {
+      Unit = {
+        Description = "PolicyKit Authentication Agent";
+        After = [ "graphical-session.target" ];
+        PartOf = [ "graphical-session.target" ];
+        ConditionEnvironment = "!KDE_FULL_SESSION";
+      };
+      Service = {
+        ExecStart = "${pkgs.lxqt.lxqt-policykit}/bin/lxqt-policykit-agent";
+        Restart = "on-failure";
+        RestartSec = 1;
+      };
+      Install.WantedBy = [ "graphical-session.target" ];
+    };
   };
 }
