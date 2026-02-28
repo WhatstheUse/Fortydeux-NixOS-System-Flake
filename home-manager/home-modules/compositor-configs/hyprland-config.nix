@@ -37,6 +37,12 @@ in
         wallpaper = [ ",${config.stylix.image}" ];
       };
     };
+
+    # Only start hyprpaper when Hyprland is actually running.
+    # Without this, hyprpaper crashes on every other Wayland compositor
+    # because it can't find the Hyprland IPC socket.
+    systemd.user.services.hyprpaper.Unit.ConditionEnvironment =
+      lib.mkForce [ "WAYLAND_DISPLAY" "HYPRLAND_INSTANCE_SIGNATURE" ];
     
     home.packages = with pkgs; [
       # inputs.hyprland-qtutils.packages.${pkgs.stdenv.hostPlatform.system}.default
