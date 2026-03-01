@@ -232,7 +232,7 @@ in
         "CTRL ALT, T, exec, wezterm"
         "$mainMod SHIFT, T, exec, alacritty"
         "$mainMod, Q, killactive,"
-        "$mainMod SHIFT, E, exit,"
+        "$mainMod SHIFT, E, exec, uwsm stop"  # UWSM: use uwsm stop instead of exit dispatcher for clean session shutdown
         "$mainMod, E, exec, nautilus"
         "$mainMod, Return, togglefloating,"
         "$mainMod, D, exec, rofi -show drun -show-icons"
@@ -425,7 +425,7 @@ in
       env=QT_AUTO_SCREEN_SCALE_FACTOR,1
       # Noctalia QML path (fixes libplasma kirigami override)
       env=QML2_IMPORT_PATH,${kirigamiQmlPath}
-      # KWallet6 configuration
+      # KWallet6 configuration - required for Signal and other apps that use kwallet
       env=KDE_FULL_SESSION,true
       env=KDE_SESSION_VERSION,6
       env=QT_QPA_PLATFORMTHEME,kde
@@ -676,6 +676,11 @@ in
       gesture = 4, right, dispatcher, workspace, e-1
 
       # End Hyprscrolling
+
+      # Window rules - float dialogs and utility apps
+      windowrule=float on,match:class ^(lxqt-policykit)
+      windowrule=float on,match:title ^(Authentication Required)$
+      windowrule=float on,match:class ^(bitwarden)$
     '';
   };
   };

@@ -194,6 +194,7 @@ in
       # Launch Noctalia with QML path set (fixes libplasma kirigami override)
       exec QML2_IMPORT_PATH="${kirigamiQmlPath}" noctalia-shell
       exec pcloud
+      exec lxqt-policykit-agent
 
       ### Floating modifier
       floating_modifier $mod normal
@@ -616,6 +617,11 @@ in
       #############################################################################
       ### Extra user configuration
       #############################################################################
+
+      # Window rules - float dialogs and utility apps
+      for_window [app_id="^lxqt-policykit"] floating enable
+      for_window [title="Authentication Required"] floating enable
+      for_window [app_id="bitwarden"] floating enable
 
       ${cfg.extraConfig}
     '';

@@ -670,6 +670,14 @@ lib.mkIf sessionEnabled {
         }
     }
 
+    // Float dialogs and utility apps
+    window-rule {
+        match app-id=r#"^lxqt-policykit"#
+        match title="^Authentication Required$"
+        match app-id=r#"^bitwarden$"#
+        open-floating true
+    }
+
     binds {
         // Keys consist of modifiers separated by + signs, followed by an XKB key name
         // in the end. To find an XKB name for a particular key, you may use a program

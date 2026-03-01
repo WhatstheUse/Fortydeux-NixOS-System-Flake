@@ -205,21 +205,24 @@ in
         };
         
         # Window rules
+        # Note: the leaf value is the action (e.g. "float", "csd") — do NOT wrap in an outer
+        # "float = { ... }" key, as that would generate "riverctl rule-add float -app-id ..."
+        # with "float" as a spurious positional arg before the flags. Correct form puts
+        # flags first and the action last (as the leaf value).
         rule-add = {
-          float = {
-            "-app-id" = {
-              "'float*'" = {
-                "-title" = {
-                  "'foo'" = "float";
-                };
+          "-app-id" = {
+            "'float*'" = {
+              "-title" = {
+                "'foo'" = "float";
               };
-              "'mpv'" = "float";
             };
+            "'mpv'" = "float";
+            "'lxqt-policykit*'" = "float";
+            "'bitwarden'" = "float";
+            "'bar'" = "csd";
           };
-          csd = {
-            "-app-id" = {
-              "'bar'" = "csd";
-            };
+          "-title" = {
+            "'Authentication Required'" ="float";
           };
         };
         
@@ -230,6 +233,7 @@ in
       extraConfig = ''
         spawn "systemctl --user import-environment DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
         spawn "dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
+        spawn "lxqt-policykit-agent"
 
         # Launch Noctalia desktop shell
         # spawn "noctalia-shell"

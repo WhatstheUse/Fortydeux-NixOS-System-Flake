@@ -41,8 +41,8 @@
     let
       signalDesktopWithKwallet =
         pkgs.symlinkJoin {
-          name = "signal-desktop-bin";
-          paths = [ pkgs.signal-desktop-bin ];
+          name = "signal-desktop";
+          paths = [ pkgs.signal-desktop ];
           buildInputs = [ pkgs.makeWrapper ];
           postBuild = ''
             wrapProgram $out/bin/signal-desktop \
@@ -116,7 +116,7 @@
     retext # Editor for Markdown and reStructuredText
     satty # Modern Screenshot Annotation tool
     # shotcut #Open-source cross-platform video editor
-    # signal-desktop-bin # original package replaced by wrapped version below
+    # signal-desktop # replaced by wrapped version below (adds --password-store=kwallet6)
     # simplex-chat-desktop # SimpleX Chat Desktop Client
     spotify-player # Spotify music client
     ncspot # Spotify music client

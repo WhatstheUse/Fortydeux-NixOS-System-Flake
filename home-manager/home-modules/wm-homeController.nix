@@ -32,6 +32,7 @@ in
       swaybg # Wallpaper setter used by multiple compositors (Sway, River, Niri)
       swaylock-effects # Screen locker used by multiple compositors
       swayidle # Idle management daemon used by multiple compositors
+      lxqt.lxqt-policykit # Polkit authentication agent for standalone compositors
     ]) ++ [
       # Wooz screen magnifier for compositors without built-in zoom (Niri, Sway, River)
       inputs.wooz.packages.${pkgs.stdenv.hostPlatform.system}.default
@@ -83,14 +84,25 @@ in
       enable = true;
     };
 
+    # Suppress the XDG autostart entry for lxqt-policykit-agent.
+    # Without this, compositors that activate xdg-desktop-autostart.target (e.g. Niri)
+    # start a second instance alongside the systemd service below, causing both to fail
+    # to register on D-Bus.
+    xdg.configFile."autostart/lxqt-policykit-agent.desktop".text = ''
+      [Desktop Entry]
+      Hidden=true
+    '';
+
     # Polkit authentication agent for standalone compositors and COSMIC
-    # KDE Plasma provides its own polkit-kde-agent, so skip it there via ConditionEnvironment
+    # KDE Plasma provides its own polkit-kde-agent, so skip it there via ConditionEnvironment.
+    # We check XDG_CURRENT_DESKTOP=KDE rather than KDE_FULL_SESSION because Hyprland sets
+    # KDE_FULL_SESSION=true intentionally (for kwallet), but only real Plasma sets XDG_CURRENT_DESKTOP=KDE.
     systemd.user.services.polkit-agent = {
       Unit = {
         Description = "PolicyKit Authentication Agent";
         After = [ "graphical-session.target" ];
         PartOf = [ "graphical-session.target" ];
-        ConditionEnvironment = "!KDE_FULL_SESSION";
+        ConditionEnvironment = "!XDG_CURRENT_DESKTOP=KDE";
       };
       Service = {
         ExecStart = "${pkgs.lxqt.lxqt-policykit}/bin/lxqt-policykit-agent";

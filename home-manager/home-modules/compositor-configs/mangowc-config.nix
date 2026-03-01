@@ -97,6 +97,7 @@ in
       # ========================================
       exec-once=bash ~/.config/mango/autostart.sh
       exec-once=noctalia-shell
+      exec-once=lxqt-policykit-agent
 
       # ========================================
       # Monitor configuration
@@ -231,12 +232,15 @@ in
       windowrule=isfloating:1,appid:xdg-desktop-portal-gtk
       windowrule=isfloating:1,appid:wleave
       windowrule=isfloating:1,appid:wlogout
+      windowrule=isfloating:1,appid:lxqt-policykit
+      windowrule=isfloating:1,title:Authentication Required
+      windowrule=isfloating:1,appid:bitwarden
 
       # Terminal swallowing (GUI apps launched from terminal absorb it)
-      windowrule=isterm:1,appid:kitty
-      windowrule=isterm:1,appid:foot
-      windowrule=isterm:1,appid:footclient
-      windowrule=isterm:1,appid:Alacritty
+      # windowrule=isterm:1,appid:kitty
+      # windowrule=isterm:1,appid:foot
+      # windowrule=isterm:1,appid:footclient
+      # windowrule=isterm:1,appid:Alacritty
 
       # Float foot as a dropdown-style terminal (matches Niri config)
       windowrule=isfloating:1,appid:foot

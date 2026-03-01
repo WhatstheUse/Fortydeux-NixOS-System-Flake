@@ -67,6 +67,7 @@ in
 
         [autostart]
         autostart0 = pcloud
+        polkit = lxqt-policykit-agent
         # autostart1 = stasis  # Disabled - reverting to swayidle
         autostart_wf_shell = true
         background = wf-background
@@ -566,6 +567,8 @@ in
         toggle_menu = <super>
 
         [window-rules]
+        rule_001 = on created if (app-id contains "lxqt-policykit") then set floating true
+        rule_002 = on created if (app-id is "bitwarden") then set floating true
 
         [winzoom]
         dec_x_binding = <ctrl> <super> KEY_LEFT
