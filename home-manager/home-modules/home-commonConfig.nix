@@ -798,6 +798,8 @@
           pdf = [
             { run = "okular %s"; orphan = true; desc = "Okular (nixpkgs)"; }
             { run = "evince %s"; orphan = true; desc = "Evince (nixpkgs)"; }
+            { run = "pdfarranger %s"; orphan = true; desc = "PDFArranger (nixpkgs)"; }
+            { run = "pdfchain %s"; orphan = true; desc = "PDFChain (nixpkgs)"; }
             { run = "xournalpp %s"; orphan = true; desc = "Xournal++ (nixpkgs)"; }
             { run = "flatpak run com.github.xournalpp.xournalpp %s"; orphan = true; desc = "Xournal++ (flatpak)"; }
             { run = "libreoffice --draw %s"; orphan = true; desc = "LibreOffice Draw (nixpkgs)"; }
