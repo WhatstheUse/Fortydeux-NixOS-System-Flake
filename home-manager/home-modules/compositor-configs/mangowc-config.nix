@@ -64,9 +64,11 @@ in
 
         # Idle management
         swayidle -w \
-          timeout 300 'swaylock -f -c 000000' \
-          timeout 600 'swaymsg "output * power off"' \
-            resume 'swaymsg "output * power on"' \
+          timeout 150 'brightnessctl -s set 10' resume 'brightnessctl -r' \
+          timeout 300 'brightnessctl -sd rgb:kbd_backlight set 0' resume 'brightnessctl -rd rgb:kbd_backlight' \
+          timeout 1500 'swaylock -f -c 000000' \
+          timeout 1600 'wlopm --off \*' resume 'wlopm --on \*' \
+          timeout 2500 'systemctl suspend' \
           before-sleep 'swaylock -f -c 000000' &
 
         # Cloud sync (wait for graphical session)
@@ -97,7 +99,7 @@ in
       # ========================================
       exec-once=bash ~/.config/mango/autostart.sh
       exec-once=noctalia-shell
-      exec-once=lxqt-policykit-agent
+      # exec-once=lxqt-policykit-agent  # UWSM: now managed by polkit-agent systemd service
 
       # ========================================
       # Monitor configuration
@@ -262,16 +264,28 @@ in
 
       # Application launchers
       bind=SUPER,space,spawn_shell,noctalia-shell ipc call launcher toggle
+      bind=SUPER,D,spawn_shell,rofi -show drun -show-icons
       bind=ALT,space,spawn,anyrun
 
-      # Lock screen
-      bind=SUPER,Escape,spawn_shell,swaylock -f -c 000000
+      # Reload config / lock screen
+      bind=SUPER,Escape,spawn,${reloadScript}
+      bind=SUPER+SHIFT,Escape,spawn_shell,swaylock -f -c 000000
 
       # Overview
       bind=SUPER,W,toggleoverview,0
 
+      # Waybar toggle
+      bind=SUPER,B,spawn_shell,pkill waybar || waybar &
+
+      # Dropdown terminal
+      bind=SUPER,Y,spawn_shell,bash -c "pgrep footclient && pkill footclient || footclient"
+
+      # Power off monitors
+      bind=SUPER+SHIFT,P,spawn_shell,wlopm --off \*
+
       # Quit compositor
-      bind=SUPER+SHIFT,E,quit,
+      bind=SUPER+SHIFT,E,spawn_shell,uwsm stop
+      # bind=SUPER+SHIFT,E,quit,  # non-UWSM fallback
 
       # Reload config (uses wrapper script to work around monitor reset bug)
       bind=SUPER,R,spawn,${reloadScript}
@@ -300,14 +314,20 @@ in
       bind=SUPER+SHIFT,Up,exchange_client,up
       bind=SUPER+SHIFT,Right,exchange_client,right
 
-      # Vim-style: Shift+J/K swap in stack, Shift+H/L adjust master count
+      # Vim-style: Shift+J/K swap in stack, Shift+H adjust master count
+      # Shift+L rebound to lock screen; incnmaster,-1 moved to Ctrl+L
       bind=SUPER+SHIFT,J,exchange_client,down
       bind=SUPER+SHIFT,K,exchange_client,up
       bind=SUPER+SHIFT,H,incnmaster,1
-      bind=SUPER+SHIFT,L,incnmaster,-1
+      bind=SUPER+CTRL,L,incnmaster,-1
+      # bind=SUPER+SHIFT,L,incnmaster,-1
 
-      # Swap with master
-      bind=SUPER,grave,zoom,
+      # Window switching / overview (Niri parity: Grave = window switcher)
+      bind=SUPER,grave,toggleoverview,0
+      # Zoom (master swap) moved to Ctrl+Grave
+      bind=SUPER+CTRL,grave,zoom,
+      # Alt+Grave also triggers overview (window switching)
+      bind=ALT,grave,toggleoverview,0
 
       # ---- Window state ----
       bind=SUPER,Return,togglefloating,
@@ -328,7 +348,17 @@ in
       bind=SUPER,8,view,8,0
       bind=SUPER,9,view,9,0
 
-      # Move window to tag
+      # Move window to tag (cross-compositor parity: Super+Shift+#)
+      bind=SUPER+SHIFT,1,tag,1,0
+      bind=SUPER+SHIFT,2,tag,2,0
+      bind=SUPER+SHIFT,3,tag,3,0
+      bind=SUPER+SHIFT,4,tag,4,0
+      bind=SUPER+SHIFT,5,tag,5,0
+      bind=SUPER+SHIFT,6,tag,6,0
+      bind=SUPER+SHIFT,7,tag,7,0
+      bind=SUPER+SHIFT,8,tag,8,0
+      bind=SUPER+SHIFT,9,tag,9,0
+      # Aliases with Ctrl (original binding)
       bind=SUPER+CTRL,1,tag,1,0
       bind=SUPER+CTRL,2,tag,2,0
       bind=SUPER+CTRL,3,tag,3,0
@@ -342,6 +372,10 @@ in
       # Previous/next tag (skip empty tags)
       bind=SUPER+CTRL,Left,viewtoleft_have_client,0
       bind=SUPER+CTRL,Right,viewtoright_have_client,0
+
+      # Move window to adjacent tag (Niri parity: Super+Shift+Ctrl+arrows)
+      bind=SUPER+SHIFT+CTRL,Left,tagtoleft,0
+      bind=SUPER+SHIFT+CTRL,Right,tagtoright,0
 
       # ---- Monitor focus ----
       bind=ALT+CTRL,Left,focusmon,left

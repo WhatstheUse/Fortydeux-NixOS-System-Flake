@@ -95,9 +95,12 @@ in
 
       ### Idle configuration
       exec swayidle -w \
-              timeout 3000 'swaylock -f -c ${if cfg.enableStylix then config.lib.stylix.colors.base00 else "000000"}' \
-              timeout 6000 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
-              before-sleep 'swaylock -f -c ${if cfg.enableStylix then config.lib.stylix.colors.base00 else "000000"}' 
+              timeout 150 'brightnessctl -s set 10' resume 'brightnessctl -r' \
+              timeout 300 'brightnessctl -sd rgb:kbd_backlight set 0' resume 'brightnessctl -rd rgb:kbd_backlight' \
+              timeout 1500 'swaylock -f -c 000000' \
+              timeout 1600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
+              timeout 2500 'systemctl suspend' \
+              before-sleep 'swaylock -f -c 000000'
 
       # This will lock your screen after 300 seconds of inactivity, then turn off
       # your displays after another 300 seconds, and turn your screens back on when
@@ -145,10 +148,14 @@ in
       # Read `man 5 sway-input` for more information about this section.
 
       ### Startup Applications
+          # UWSM: import WAYLAND_DISPLAY/SWAYSOCK into systemd activation environment and
+          # activate graphical-session.target. Must be first exec so polkit-agent and other
+          # graphical-session.target dependents start before other apps need them.
+          exec uwsm finalize
           # Launch Noctalia with QML path set (fixes libplasma kirigami override)
           exec QML2_IMPORT_PATH="${kirigamiQmlPath}" noctalia-shell
           exec pcloud
-          exec lxqt-policykit-agent
+          # exec lxqt-policykit-agent  # UWSM: now managed by polkit-agent systemd service
           # exec stasis  # Disabled - reverting to swayidle
 
       ### Key bindings
@@ -165,8 +172,16 @@ in
           # Start your launcher
           bindsym $mod+d exec $menu
           bindsym $mod+space exec noctalia-shell ipc call launcher toggle
+
+          # Reload config / lock screen
+          bindsym $mod+Escape reload
+          bindsym $mod+Shift+Escape exec swaylock -f -c 000000
           bindsym alt+space exec "anyrun"
-          bindsym $mod+grave exec "fuzzel"
+          # Window switching (rofi window list)
+          bindsym $mod+grave exec rofi -show window
+          bindsym $mod+Tab exec rofi -show window
+          bindsym alt+Tab exec rofi -show window
+          bindsym alt+grave exec rofi -show window
           
           # Voice dictation - Momentary
           bindsym --no-repeat $mod+x exec "dictate-fw-ptt-auto 5"
@@ -182,6 +197,12 @@ in
           # bindsym $mod+Shift+backslash exec "dictate-wc-ptt-start"
           # bindsym --on-release $mod+Shift+backslash exec "dictate-wc-ptt-stop"
 
+          # Dropdown terminal
+          bindsym $mod+y exec bash -c "pgrep footclient && pkill footclient || footclient"
+
+          # Power off monitors
+          bindsym $mod+Shift+p exec swaymsg "output * power off"
+
           # Wooz screen magnifier
           bindsym $mod+z exec "wooz --zoom-in 10% --mouse-track"
 
@@ -196,7 +217,8 @@ in
           bindsym $mod+Shift+c reload
 
           # Exit sway (logs you out of your Wayland session)
-          bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
+          bindsym $mod+Shift+e exec uwsm stop
+          # bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
       #
       # Moving around:
       #
@@ -237,6 +259,22 @@ in
           bindsym $mod+0 workspace number 10
           bindsym $mod+Ctrl+Left workspace prev
           bindsym $mod+Ctrl+Right workspace next
+
+          # Mouse scroll workspace navigation (Super+scroll)
+          bindsym --whole-window $mod+button4 workspace prev
+          bindsym --whole-window $mod+button5 workspace next
+
+          # Focus adjacent monitor (Niri parity: Alt+Ctrl+arrows)
+          bindsym Alt+Ctrl+Left focus output left
+          bindsym Alt+Ctrl+Right focus output right
+          bindsym Alt+Ctrl+Up focus output up
+          bindsym Alt+Ctrl+Down focus output down
+
+          # Move focused container to adjacent monitor (Niri parity: Alt+Shift+Ctrl+arrows)
+          bindsym Alt+Ctrl+Shift+Left move container to output left
+          bindsym Alt+Ctrl+Shift+Right move container to output right
+          bindsym Alt+Ctrl+Shift+Up move container to output up
+          bindsym Alt+Ctrl+Shift+Down move container to output down
 
           bindgesture swipe:4:right workspace prev
           bindgesture swipe:4:left exec ~/.config/sway/scripts/swipe-left.sh
@@ -303,22 +341,29 @@ in
           # You can "split" the current object of your focus with
           # $mod+b or $mod+v, for horizontal and vertical splits
           # respectively.
-          bindsym $mod+b splith
+          # Waybar toggle
+          bindsym $mod+b exec pkill waybar || waybar &
+          # Split horizontal (moved from $mod+b)
+          bindsym $mod+Ctrl+b splith
           bindsym $mod+v splitv
 
           # Switch the current container between different layout styles
           bindsym $mod+Shift+s layout stacking
-          bindsym $mod+w layout tabbed
+          # Window overview (moved layout tabbed to $mod+Ctrl+w)
+          bindsym $mod+w exec rofi -show window
+          bindsym $mod+Ctrl+w layout tabbed
           bindsym $mod+e layout toggle split
 
           # Make the current focus fullscreen
           bindsym $mod+f fullscreen
 
           # Toggle the current focus between tiling and floating mode
-          bindsym $mod+Shift+f floating toggle
+          bindsym $mod+Return floating toggle
+          # Fullscreen (Niri parity: Shift+F = true fullscreen)
+          bindsym $mod+Shift+f fullscreen
 
           # Swap focus between the tiling area and the floating area
-          bindsym $mod+Return focus mode_toggle
+          bindsym $mod+Shift+Return focus mode_toggle
 
           # Move focus to the parent container
           bindsym $mod+a focus parent

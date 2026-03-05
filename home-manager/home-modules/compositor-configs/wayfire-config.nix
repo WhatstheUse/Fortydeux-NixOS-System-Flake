@@ -67,7 +67,7 @@ in
 
         [autostart]
         autostart0 = pcloud
-        polkit = lxqt-policykit-agent
+        # polkit = lxqt-policykit-agent  # UWSM: now managed by polkit-agent systemd service
         # autostart1 = stasis  # Disabled - reverting to swayidle
         autostart_wf_shell = true
         background = wf-background
@@ -116,14 +116,19 @@ in
         [command]
         binding_launcher = <super> KEY_SPACE
         command_launcher = fuzzel
+        binding_drun = <super> KEY_D
+        command_drun = rofi -show drun -show-icons
         binding_anyrun = <alt> KEY_SPACE
         command_anyrun = anyrun
-        binding_lock = <super> KEY_L
+        binding_lock = <super> <shift> KEY_ESC
         command_lock = swaylock
-        binding_logout = <super> <shift> KEY_L
+        # binding_lock = <super> KEY_L
+        binding_logout = <super> <alt> KEY_L
+        # binding_logout = <super> <shift> KEY_L  # rebound to lock
         command_logout = wleave
         binding_exit = <super> <shift> KEY_E
-        command_exit = pkill -KILL wayfire
+        command_exit = uwsm stop
+        # command_exit = pkill -KILL wayfire  # non-UWSM fallback
         binding_mute = KEY_MUTE
         binding_screenshot_region = KEY_SYSRQ
         command_screenshot_region = screenshot-region
@@ -148,6 +153,10 @@ in
         command_media_next = playerctl next
         binding_media_prev = KEY_PREVIOUSSONG
         command_media_prev = playerctl previous
+        binding_footclient = <super> KEY_Y
+        command_footclient = bash -c "pgrep footclient && pkill footclient || footclient"
+        binding_monitors_off = <super> <shift> KEY_P
+        command_monitors_off = wlopm --off '*'
         binding_dictate_fw_auto = <super> KEY_X
         command_dictate_fw_auto = dictate-fw-ptt-auto 5
         binding_dictate_wc_auto = <super> <shift> KEY_X
@@ -471,8 +480,9 @@ in
         title_font_size = 16
         title_overlay = all
         title_position = center
-        toggle = <super> KEY_P
-        toggle_all = 
+        toggle = <super> KEY_W | <super> KEY_GRAVE
+        # toggle = <super> KEY_P  # rebound to window overview
+        toggle_all =
 
         [scale-title-filter]
         bg_color = \#00000080
@@ -510,7 +520,7 @@ in
         tile_by_default = all
 
         [switcher]
-        next_view = <alt> KEY_TAB
+        next_view = <alt> KEY_TAB | <alt> KEY_GRAVE
         prev_view = <alt> <shift> KEY_TAB
         speed = 500
         view_thumbnail_rotation = 30

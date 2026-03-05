@@ -85,8 +85,10 @@ in
         # Key mappings
         map = {
           normal = {
-            # Reload config
+            # Reload config / lock screen
             "Super+Shift C" = "spawn 'kill -SIGUSR1 $(pidof river)'";
+            "Super Escape" = "spawn 'kill -SIGUSR1 $(pidof river)'";
+            "Super+Shift Escape" = "spawn 'swaylock -f -c 000000'";
             
             # Terminal
             "Control+Alt T" = "spawn foot";
@@ -94,15 +96,27 @@ in
             
             # Window management
             "Super Q" = "close";
-            "Super+Shift E" = "exit";
+            "Super+Shift E" = "spawn 'uwsm stop'";
+            # "Super+Shift E" = "exit";  # non-UWSM fallback
             "Super Return" = "toggle-float";
             "Super F" = "toggle-fullscreen";
-            "Super grave" = "zoom";
-            
+            "Super+Shift F" = "toggle-fullscreen";
+            # Window switching (rofi window list; Niri parity: Grave/Tab = window switcher)
+            "Super grave" = "spawn 'rofi -show window'";
+            "Super Tab" = "spawn 'rofi -show window'";
+            "Alt Tab" = "spawn 'rofi -show window'";
+            "Alt grave" = "spawn 'rofi -show window'";
+            # Zoom (master swap) moved to Ctrl+Grave
+            "Super Ctrl grave" = "zoom";
+
             # Launchers
             "Super Space" = "spawn 'fuzzel -w 80 -b 181818ef -t ccccccff'";
-            "Super W" = "spawn 'rofi -show drun -show-icons'";
+            "Super D" = "spawn 'rofi -show drun -show-icons'";
+            "Alt Space" = "spawn anyrun";
             "Control+Super P" = "spawn wleave";
+
+            # Window overview (Super+W - matches Niri/MangoWC/Scroll)
+            "Super W" = "spawn 'rofi -show window'";
             
             # Navigation
             "Super J" = "focus-view next";
@@ -120,6 +134,15 @@ in
             "Super backslash" = "spawn dictate-fw-ptt-toggle";
             "Super+Shift backslash" = "spawn dictate-wc-ptt-toggle";
 
+            # Dropdown terminal
+            "Super Y" = "spawn 'bash -c \"pgrep footclient && pkill footclient || footclient\"'";
+
+            # Waybar toggle
+            "Super B" = "spawn 'pkill waybar || waybar'";
+
+            # Power off monitors
+            "Super+Shift P" = "spawn 'wlopm --off \\*'";
+
             # Wooz screen magnifier
             "Super Z" = "spawn 'wooz --zoom-in 10% --mouse-track'";
 
@@ -127,6 +150,9 @@ in
             "Super H" = "send-layout-cmd rivertile 'main-ratio -0.05'";
             "Super L" = "send-layout-cmd rivertile 'main-ratio +0.05'";
             "Super+Shift H" = "send-layout-cmd rivertile 'main-count +1'";
+            "Super+Ctrl L" = "send-layout-cmd rivertile 'main-count -1'";
+
+            # Lock screen (moved to Super+Shift+Escape; Super+Shift+L now moves column right)
             "Super+Shift L" = "send-layout-cmd rivertile 'main-count -1'";
             
             # Layout orientation
@@ -161,9 +187,9 @@ in
             "Super Print" = "spawn screenshot-output";
             "Super+Shift Print" = "spawn screenshot-window";
             
-            # Scratchpad
+            # Scratchpad (Super+Shift+P rebound to power-off; send-to-scratch moved to Super+Alt+P)
             "Super P" = "toggle-focused-tags 1048576";
-            "Super+Shift P" = "set-view-tags 1048576";
+            "Super+Alt P" = "set-view-tags 1048576";
             
             # Media controls
             "None XF86AudioRaiseVolume" = "spawn 'amixer sset Master 2%+'";
@@ -231,12 +257,21 @@ in
       };
       
       extraConfig = ''
-        spawn "systemctl --user import-environment DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
-        spawn "dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
-        spawn "lxqt-policykit-agent"
+        # UWSM: environment import is handled by UWSM at session start
+        # spawn "systemctl --user import-environment DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
+        # spawn "dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
+        # UWSM: polkit agent is now managed by the polkit-agent systemd service
+        # spawn "lxqt-policykit-agent"
 
         # Launch Noctalia desktop shell
         # spawn "noctalia-shell"
+
+        # Idle management
+        swayidle -w \
+          timeout 1200 'swaylock -f -c 000000' \
+          timeout 1500 'wlopm --off \*' resume 'wlopm --on \*' \
+          timeout 2100 'systemctl suspend' \
+          before-sleep 'swaylock -f -c 000000' &
 
         # auto starting apps
         bash $HOME/.config/river/scripts/autostart.sh
@@ -275,8 +310,9 @@ in
         rivertile -view-padding 2 -outer-padding 2 -main-ratio 0.5 &
 
         ${cfg.extraConfig}
-        spawn "systemctl --user import-environment DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
-        spawn "dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
+        # UWSM: environment import is handled by UWSM at session start
+        # spawn "systemctl --user import-environment DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
+        # spawn "dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
         spawn "systemctl --user start --no-block xdg-desktop-portal-kde.service"
       '';
     };

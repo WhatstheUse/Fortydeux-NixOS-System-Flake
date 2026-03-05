@@ -186,15 +186,18 @@ in
 
       ### Idle configuration
       exec swayidle -w \
-              timeout 3000 'swaylock -f -c ${if cfg.enableStylix then config.lib.stylix.colors.base00 else "000000"}' \
-              timeout 6000 'scrollmsg "output * power off"' resume 'scrollmsg "output * power on"' \
-              before-sleep 'swaylock -f -c ${if cfg.enableStylix then config.lib.stylix.colors.base00 else "000000"}'
+              timeout 150 'brightnessctl -s set 10' resume 'brightnessctl -r' \
+              timeout 300 'brightnessctl -sd rgb:kbd_backlight set 0' resume 'brightnessctl -rd rgb:kbd_backlight' \
+              timeout 1500 'swaylock -f -c 000000' \
+              timeout 1600 'scrollmsg "output * power off"' resume 'scrollmsg "output * power on"' \
+              timeout 2500 'systemctl suspend' \
+              before-sleep 'swaylock -f -c 000000'
 
       ### Startup applications
       # Launch Noctalia with QML path set (fixes libplasma kirigami override)
       exec QML2_IMPORT_PATH="${kirigamiQmlPath}" noctalia-shell
       exec pcloud
-      exec lxqt-policykit-agent
+      # exec lxqt-policykit-agent  # UWSM: now managed by polkit-agent systemd service
 
       ### Floating modifier
       floating_modifier $mod normal
@@ -211,17 +214,33 @@ in
 
       # Application launchers
       bindsym $mod+space exec noctalia-shell ipc call launcher toggle
+      bindsym $mod+d exec rofi -show drun -show-icons
       bindsym alt+space exec anyrun
-      bindsym $mod+grave exec fuzzel
+      # Window switching (overview = Mod+W, secondary via Mod+Grave)
+      bindsym $mod+grave scale_workspace overview
+      # Alt window switcher (rofi)
+      bindsym alt+Tab exec rofi -show window
+      bindsym alt+grave exec rofi -show window
 
-      # Lock screen
-      bindsym $mod+Escape exec swaylock -f -c ${if cfg.enableStylix then config.lib.stylix.colors.base00 else "000000"}
+      # Reload config / lock screen
+      bindsym $mod+Escape reload
+      bindsym $mod+Shift+Escape exec swaylock -f -c 000000
+
+      # Waybar toggle
+      bindsym $mod+b exec pkill waybar || waybar &
+
+      # Dropdown terminal
+      bindsym $mod+y exec bash -c "pgrep footclient && pkill footclient || footclient"
+
+      # Power off monitors
+      bindsym $mod+Shift+p exec scrollmsg "output * power off"
 
       # Reload config
       bindsym $mod+Shift+c reload
 
       # Exit Scroll
-      bindsym $mod+Shift+e exec scrollnag -t warning -m 'Exit Scroll? This will end your Wayland session.' -B 'Yes, exit' 'scrollmsg exit'
+      bindsym $mod+Shift+e exec uwsm stop
+      # bindsym $mod+Shift+e exec scrollnag -t warning -m 'Exit Scroll? This will end your Wayland session.' -B 'Yes, exit' 'scrollmsg exit'
 
       #############################################################################
       ### Focus navigation
@@ -246,8 +265,9 @@ in
       # Focus parent/child
       bindsym $mod+a focus parent
 
-      # Toggle focus between tiling and floating
-      bindsym $mod+Return focus mode_toggle
+      # Toggle floating (Niri parity: Return = float, Shift+Return = focus mode)
+      bindsym $mod+Return floating toggle
+      bindsym $mod+Shift+Return focus mode_toggle
 
       #############################################################################
       ### Window movement
@@ -259,7 +279,7 @@ in
       bindsym $mod+Shift+Up move up
       bindsym $mod+Shift+Down move down
 
-      # Vim keys
+      # Vim keys (Shift+l = move right, no longer conflicts with lock)
       bindsym $mod+Shift+$left move left
       bindsym $mod+Shift+$right move right
       bindsym $mod+Shift+$up move up
@@ -301,16 +321,32 @@ in
       bindsym $mod+Ctrl+Left workspace prev
       bindsym $mod+Ctrl+Right workspace next
 
+      # Mouse scroll workspace navigation (Super+scroll)
+      bindsym --whole-window $mod+button4 workspace prev
+      bindsym --whole-window $mod+button5 workspace next
+
       # Move container to next/prev workspace
       bindsym $mod+Ctrl+Shift+Left move container to workspace prev; workspace prev
       bindsym $mod+Ctrl+Shift+Right move container to workspace next; workspace next
+
+      # Focus adjacent monitor (Niri parity: Alt+Ctrl+arrows)
+      bindsym Alt+Ctrl+Left focus output left
+      bindsym Alt+Ctrl+Right focus output right
+      bindsym Alt+Ctrl+Up focus output up
+      bindsym Alt+Ctrl+Down focus output down
+
+      # Move focused container to adjacent monitor (Niri parity: Alt+Shift+Ctrl+arrows)
+      bindsym Alt+Ctrl+Shift+Left move container to output left
+      bindsym Alt+Ctrl+Shift+Right move container to output right
+      bindsym Alt+Ctrl+Shift+Up move container to output up
+      bindsym Alt+Ctrl+Shift+Down move container to output down
 
       #############################################################################
       ### Floating and fullscreen
       #############################################################################
 
-      # Toggle floating
-      bindsym $mod+Shift+Return floating toggle
+      # Toggle floating (also on $mod+Return - see basics section)
+      # bindsym $mod+Shift+Return floating toggle
 
       # Fullscreen modes (Scroll has multiple types)
       # Layout fullscreen: fills the visible area while respecting layout
@@ -323,8 +359,15 @@ in
       #############################################################################
 
       # Toggle horizontal/vertical layout (like Hyprscroller setmode)
-      bindsym $mod+bracketleft set_mode h
-      bindsym $mod+bracketright set_mode v
+      # Moved to Ctrl+bracket to free up bracket for column admit/expel (Niri parity)
+      bindsym $mod+Ctrl+bracketleft set_mode h
+      bindsym $mod+Ctrl+bracketright set_mode v
+
+      # Column admit/expel (Niri parity: Mod+[/])
+      # [ = consume focused window into column to the left
+      # ] = expel focused window out of its column to the right
+      bindsym $mod+bracketleft admit
+      bindsym $mod+bracketright expel
       bindsym $mod+n layout_transpose
 
       #############################################################################
@@ -405,7 +448,7 @@ in
 
       # Pin column to beginning/end of workspace
       bindsym $mod+p pin beginning
-      bindsym $mod+Shift+p pin end
+      bindsym $mod+Alt+p pin end
 
       #############################################################################
       ### Scroll-specific: Selection (from Hyprscroller selection)
@@ -527,9 +570,9 @@ in
       ### Content scaling (Scroll extension)
       #############################################################################
 
-      # Uses Ctrl+bracketright/left to avoid conflict with scratchpad on Ctrl+minus
-      bindsym $mod+Ctrl+bracketright scale_content incr 0.1
-      bindsym $mod+Ctrl+bracketleft scale_content incr -0.1
+      # Uses Alt+bracketright/left (Ctrl+bracket now used for set_mode h/v)
+      bindsym $mod+Alt+bracketright scale_content incr 0.1
+      bindsym $mod+Alt+bracketleft scale_content incr -0.1
       bindsym $mod+Ctrl+0 scale_content reset
 
       #############################################################################
@@ -543,8 +586,8 @@ in
       # 3-finger swipe for focus navigation (scrolling through columns)
       bindgesture swipe:3:left focus right
       bindgesture swipe:3:right focus left
-      bindgesture swipe:3:up scale_workspace overview
-      bindgesture swipe:3:down scale_workspace overview
+      bindgesture swipe:3:up focus up
+      bindgesture swipe:3:down focus down
 
       #############################################################################
       ### Screenshots with Satty

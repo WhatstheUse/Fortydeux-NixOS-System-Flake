@@ -56,7 +56,7 @@ in
     ];
     wayland.windowManager.hyprland = {
       enable = true;
-    # systemd.enable = false;
+      systemd.enable = false; # UWSM manages the session; HM's own systemd integration conflicts with it
     package = pkgs.hyprland;
     # package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.default;
     # systemd.variables = ["--all"];
@@ -102,7 +102,7 @@ in
       "$hyprlock" = "hyprlock";
       # "source" = "$HOME/.config/hypr/device-specific.conf";
       exec-once = [
-        "dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY"
+        # "dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY"  # UWSM handles env import
         "hyprctl setcursor ${if cfg.enableStylix then config.stylix.cursor.name else "phinger-cursors"} ${if cfg.enableStylix then toString config.stylix.cursor.size else "32"}"
         # "emacs --daemon"
         "foot -s"
@@ -236,9 +236,17 @@ in
         "$mainMod, E, exec, nautilus"
         "$mainMod, Return, togglefloating,"
         "$mainMod, D, exec, rofi -show drun -show-icons"
-        "$mainMod, W, exec, pkill wofi || $wofi"
+        "$mainMod, W, hyprexpo:expo, toggleoverview"
+        # "$mainMod, W, exec, pkill wofi || $wofi"  # rebound: use $mainMod+Ctrl+W for wofi
+        "$mainMod CTRL, W, exec, pkill wofi || $wofi"
+        # Window switching (overview overlap with Mod+W intentional)
+        "$mainMod, Tab, hyprexpo:expo, toggleoverview"
+        # Alt window switcher (rofi)
+        "ALT, Tab, exec, rofi -show window"
+        "ALT, grave, exec, rofi -show window"
         "$mainMod, P, pseudo, "
         "$mainMod, L, exec, $hyprlock"
+        "$mainMod SHIFT, Escape, exec, $hyprlock"
         "$mainMod, J, togglesplit, "
         "$mainMod SHIFT, F, fullscreen, 0"
         "$mainMod, F, fullscreen, 1"
@@ -247,6 +255,12 @@ in
         "$mainMod, K, exec, kate"
         "$mainMod, R, exec, hyprctl seterror disable"
         # "$mainMod, slash, exec, $show_binds"
+
+        # Dropdown terminal
+        "$mainMod, Y, exec, bash -c 'pgrep footclient && pkill footclient || footclient'"
+
+        # Power off monitors
+        "$mainMod SHIFT, P, exec, hyprctl dispatch dpms off"
 
         # Voice dictation - Momentary
         "$mainMod, X, exec, dictate-fw-ptt-auto 5"
@@ -315,6 +329,26 @@ in
         # Scroll through existing workspaces with mainMod + CTRL + right/left
         "$mainMod + CTRL, right, workspace, e+1"
         "$mainMod + CTRL, left, workspace, e-1"
+
+        # Focus adjacent monitor (Niri parity: Alt+Ctrl+arrows/HJKL)
+        "ALT CTRL, left, focusmonitor, l"
+        "ALT CTRL, right, focusmonitor, r"
+        "ALT CTRL, up, focusmonitor, u"
+        "ALT CTRL, down, focusmonitor, d"
+        "ALT CTRL, h, focusmonitor, l"
+        "ALT CTRL, j, focusmonitor, d"
+        "ALT CTRL, k, focusmonitor, u"
+        "ALT CTRL, l, focusmonitor, r"
+
+        # Move focused window to adjacent monitor (Niri parity: Alt+Shift+Ctrl+arrows/HJKL)
+        "ALT SHIFT CTRL, left, movewindow, mon:l"
+        "ALT SHIFT CTRL, right, movewindow, mon:r"
+        "ALT SHIFT CTRL, up, movewindow, mon:u"
+        "ALT SHIFT CTRL, down, movewindow, mon:d"
+        "ALT SHIFT CTRL, h, movewindow, mon:l"
+        "ALT SHIFT CTRL, j, movewindow, mon:d"
+        "ALT SHIFT CTRL, k, movewindow, mon:u"
+        "ALT SHIFT CTRL, l, movewindow, mon:r"
         "$mainMod + CTRL, down, workspace, empty"
         ", mouse_right, workspace, e+1"
         ", mouse_left, workspace, e-1"
@@ -665,6 +699,12 @@ in
       
       # Window promotion (move to new column)
       bind = $mainMod, o, layoutmsg, promote
+
+      # Column admit/expel (Niri parity: Mod+[/])
+      # [ = admit window from right into current column (consume)
+      # ] = expel focused window from its column (promote to standalone)
+      bind = $mainMod, bracketleft, layoutmsg, admitwindow
+      bind = $mainMod, bracketright, layoutmsg, expelwindow
 
       # Zoom (using Hyprland's built-in cursor zoom)
       bind = $mainMod, z, exec, hyprctl keyword cursor:zoom_factor 2.0

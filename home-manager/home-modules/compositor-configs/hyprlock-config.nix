@@ -1,6 +1,9 @@
 {config, lib, username, ...}:
 
-{
+let
+  sessionEnabled = config.sessionProfiles.hyprland.enable or false;
+in
+lib.mkIf sessionEnabled {
   programs.hyprlock = {
     enable = true;
     settings = lib.mkForce {

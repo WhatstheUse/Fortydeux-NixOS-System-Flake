@@ -307,8 +307,7 @@ lib.mkIf sessionEnabled {
     spawn-at-startup "bash" "-c" "systemctl --user import-environment DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP && dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP && systemctl --user start --no-block xdg-desktop-portal-kde.service"
     // spawn-at-startup "xwayland-satellite"
     spawn-at-startup "bash" "-c" "while ! systemctl --user is-active graphical-session.target; do sleep 0.5; done && pcloud"
-    // spawn-at-startup "stasis"  // Disabled - reverting to swayidle
-    spawn-at-startup "bash" "-c" "swayidle -w timeout 300 'swaylock -f -c 000000' timeout 600 'swaymsg \"output * power off\"' resume 'swaymsg \"output * power on\"' before-sleep 'swaylock -f -c 000000' "
+    spawn-at-startup "bash" "-c" "swayidle -w timeout 150 'brightnessctl -s set 10' resume 'brightnessctl -r' timeout 300 'brightnessctl -sd rgb:kbd_backlight set 0' resume 'brightnessctl -rd rgb:kbd_backlight' timeout 1500 'swaylock -f -c 000000' timeout 1600 'niri msg action power-off-monitors' timeout 2500 'systemctl suspend' before-sleep 'swaylock -f -c 000000'"
 
     environment {
         QML2_IMPORT_PATH "${kirigamiQmlPath}"
@@ -696,14 +695,15 @@ lib.mkIf sessionEnabled {
         // Suggested binds for running programs: terminal, app launcher, screen locker.
         Mod+S { spawn "kitty"; }
         Mod+D { spawn "walker"; }
-        Super+Alt+L { spawn "swaylock"; }
+        Super+Alt+L { spawn "swaylock" "-f" "-c" "000000"; }
         Mod+Space { spawn "noctalia-shell" "ipc" "call" "launcher" "toggle"; }
         Alt+Space { spawn "anyrun"; }
         Mod+Y { spawn "bash" "-c" "pgrep footclient && pkill footclient || footclient" ; }
         // Mod+Return { spawn "walker"; }
         // Mod+T { spawn "foot"; }
         // Mod+R { spawn "wofi"; }
-        Mod+Escape { spawn "bash" "-c" "swaylock -f -c 000000"; }
+        Mod+Escape { spawn "niri" "msg" "action" "reload-config"; }
+        Mod+Shift+Escape { spawn "swaylock" "-f" "-c" "000000"; }
 
         // Wooz screen magnifier
         Mod+Z { spawn "wooz" "--zoom-in" "10%" "--mouse-track"; }
@@ -748,7 +748,10 @@ lib.mkIf sessionEnabled {
         // You can also move the mouse into the top-left hot corner,
         // or do a four-finger swipe up on a touchpad.
         Mod+W repeat=false { toggle-overview; }
-        Mod+Grave repeat=false { toggle-overview; }
+        // Window switcher popup (niriswitcher)
+        Mod+Grave repeat=false { spawn "niriswitcherctl" "show" "--window"; }
+        // Overview as window switcher (overlap with Mod+W intentional)
+        Mod+Tab repeat=false { toggle-overview; }
 
         Mod+Q repeat=false { close-window; }
 
@@ -768,6 +771,7 @@ lib.mkIf sessionEnabled {
         Mod+Shift+H     { move-column-left; }
         Mod+Shift+J     { move-window-down; }
         Mod+Shift+K     { move-window-up; }
+        // Mod+Shift+L: rebound away from lock (lock moved to Mod+Shift+Escape)
         Mod+Shift+L     { move-column-right; }
 
         // Alternative commands that move across workspaces when reaching
@@ -875,6 +879,17 @@ lib.mkIf sessionEnabled {
         Mod+7 { focus-workspace 7; }
         Mod+8 { focus-workspace 8; }
         Mod+9 { focus-workspace 9; }
+        // Move single window to workspace (cross-compositor parity: Super+Shift+#)
+        Mod+Shift+1 { move-window-to-workspace 1; }
+        Mod+Shift+2 { move-window-to-workspace 2; }
+        Mod+Shift+3 { move-window-to-workspace 3; }
+        Mod+Shift+4 { move-window-to-workspace 4; }
+        Mod+Shift+5 { move-window-to-workspace 5; }
+        Mod+Shift+6 { move-window-to-workspace 6; }
+        Mod+Shift+7 { move-window-to-workspace 7; }
+        Mod+Shift+8 { move-window-to-workspace 8; }
+        Mod+Shift+9 { move-window-to-workspace 9; }
+        // Move entire column to workspace (Niri-specific: Super+Ctrl+#)
         Mod+Ctrl+1 { move-column-to-workspace 1; }
         Mod+Ctrl+2 { move-column-to-workspace 2; }
         Mod+Ctrl+3 { move-column-to-workspace 3; }
@@ -967,7 +982,7 @@ lib.mkIf sessionEnabled {
         //
         // The allow-inhibiting=false property can be applied to other binds as well,
         // which ensures niri always processes them, even when an inhibitor is active.
-        Mod+Shift+Escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
+        Mod+Ctrl+Escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
 
         // The quit action will show a confirmation dialog to avoid accidental exits.
         Mod+Shift+E { quit; }

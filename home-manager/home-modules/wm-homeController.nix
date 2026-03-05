@@ -32,6 +32,7 @@ in
       swaybg # Wallpaper setter used by multiple compositors (Sway, River, Niri)
       swaylock-effects # Screen locker used by multiple compositors
       swayidle # Idle management daemon used by multiple compositors
+      wlopm # Wayland output power management (used by River for screen-off)
       lxqt.lxqt-policykit # Polkit authentication agent for standalone compositors
     ]) ++ [
       # Wooz screen magnifier for compositors without built-in zoom (Niri, Sway, River)
@@ -105,6 +106,10 @@ in
         ConditionEnvironment = "!XDG_CURRENT_DESKTOP=KDE";
       };
       Service = {
+        # Kill any stale instance before starting (e.g. left over from a previous session
+        # that didn't clean up cleanly). The '-' prefix tells systemd to ignore non-zero
+        # exit (pkill returns 1 when no matching process is found, which is fine).
+        ExecStartPre = "-${pkgs.procps}/bin/pkill -x lxqt-policykit-agent";
         ExecStart = "${pkgs.lxqt.lxqt-policykit}/bin/lxqt-policykit-agent";
         Restart = "on-failure";
         RestartSec = 1;

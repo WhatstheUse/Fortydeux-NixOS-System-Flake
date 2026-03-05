@@ -86,15 +86,55 @@ in
 
   config = {
     # UWSM - Universal Wayland Session Manager
+    # Niri is intentionally excluded: it has built-in systemd session integration
+    # equivalent to UWSM (activates graphical-session.target, imports env, etc.).
+    # Adding UWSM on top of Niri would double-initialise the session and cause conflicts.
     programs.uwsm = {
       enable = true;
-      waylandCompositors = optionalAttrs cfg.hyprland.enable {
-        hyprland = {
-          prettyName = "Hyprland";
-          comment = "Hyprland compositor managed by UWSM";
-          binPath = mkDefault "/run/current-system/sw/bin/Hyprland";
-        };
-      };
+      waylandCompositors =
+        (optionalAttrs cfg.hyprland.enable {
+          hyprland = {
+            prettyName = "Hyprland";
+            comment = "Hyprland compositor managed by UWSM";
+            binPath = mkDefault "/run/current-system/sw/bin/Hyprland";
+          };
+        }) //
+        (optionalAttrs cfg.sway.enable {
+          sway = {
+            prettyName = "Sway";
+            comment = "Sway compositor managed by UWSM";
+            binPath = mkDefault "/run/current-system/sw/bin/sway";
+          };
+        }) //
+        (optionalAttrs cfg.river.enable {
+          river = {
+            prettyName = "River";
+            comment = "River compositor managed by UWSM";
+            binPath = mkDefault "/run/current-system/sw/bin/river";
+          };
+        }) //
+        (optionalAttrs cfg.wayfire.enable {
+          wayfire = {
+            prettyName = "Wayfire";
+            comment = "Wayfire compositor managed by UWSM";
+            binPath = mkDefault "/run/current-system/sw/bin/wayfire";
+          };
+        }) //
+        (optionalAttrs cfg.mangowc.enable {
+          mangowc = {
+            prettyName = "MangoWC";
+            comment = "MangoWC compositor managed by UWSM";
+            # The nixpkgs mangowc package installs the binary as 'mango', not 'mangowc'
+            binPath = mkDefault "/run/current-system/sw/bin/mango";
+          };
+        }) //
+        (optionalAttrs cfg.scroll.enable {
+          scroll = {
+            prettyName = "Scroll";
+            comment = "Scroll compositor managed by UWSM";
+            binPath = mkDefault "/run/current-system/sw/bin/scroll";
+          };
+        });
     };
 
     # XDG Desktop Portal - Common configuration with compositor contributions

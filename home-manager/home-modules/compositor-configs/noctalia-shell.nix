@@ -21,6 +21,16 @@ in
       general = {
         radiusRatio = 0.4;   # container radius 40%
         iRadiusRatio = 0.6;  # input radius 60%
+        lockOnSuspend = true;
+        lockScreenBlur = 30;
+        lockScreenTint = 0.4;
+      };
+      idle = {
+        enabled = false;  # Idle/lock managed by swayidle + swaylock instead
+        lockTimeout = 20;       # 20 min
+        screenOffTimeout = 50;  # 25 min
+        suspendTimeout = 70;    # 35 min
+        fadeDuration = 5;       # 2 min fade before screen off
       };
       bar.widgets = {
         left = [
