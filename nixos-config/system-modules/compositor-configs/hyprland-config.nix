@@ -8,8 +8,8 @@ in
     programs.hyprland = {
       enable = true;
       withUWSM = true;
-      package = pkgs.hyprland;
-      # package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+      # package = pkgs.hyprland;
+      package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
     };
 
     environment.systemPackages = with pkgs; [

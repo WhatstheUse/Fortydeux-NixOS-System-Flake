@@ -57,8 +57,8 @@ in
     wayland.windowManager.hyprland = {
       enable = true;
       systemd.enable = false; # UWSM manages the session; HM's own systemd integration conflicts with it
-    package = pkgs.hyprland;
-    # package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.default;
+    # package = pkgs.hyprland;
+    package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.default;
     # systemd.variables = ["--all"];
     plugins = [
       # Use system packages instead of flake inputs to avoid NIX_MAIN_PROGRAM conflicts
@@ -68,11 +68,11 @@ in
       # Hyprscroller plugin - commented out, switching to hyprscrolling
       # pkgs.hyprlandPlugins.hyprscroller
       # HyprExpo
-      pkgs.hyprlandPlugins.hyprexpo
-      # inputs.hyprland-plugins.packages.${pkgs.stdenv.hostPlatform.system}.hyprexpo
+      # pkgs.hyprlandPlugins.hyprexpo
+      inputs.hyprland-plugins.packages.${pkgs.stdenv.hostPlatform.system}.hyprexpo
       # inputs.hyprscroller.packages.${pkgs.stdenv.hostPlatform.system}.default
       # New official hyprscrolling plugin from hyprland-plugins flake input
-      pkgs.hyprlandPlugins.hyprscrolling
+      # pkgs.hyprlandPlugins.hyprscrolling
       # inputs.hyprland-plugins.packages.${pkgs.stdenv.hostPlatform.system}.hyprscrolling
     ];
     settings = let
