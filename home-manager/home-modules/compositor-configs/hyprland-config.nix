@@ -152,7 +152,7 @@ in
       # Reserve space for Noctalia bar at the bottom
       workspace = [
         # Reserve 60px at the bottom for Noctalia bar (adjust if needed)
-        "w[1-10], gapsout:100 9 100 9"
+        # "w[1-10], gapsout:30 9 9 9"
       ];
 
       decoration = {
@@ -398,10 +398,7 @@ in
           bg_col = "${stylixColorOr "base00" "0xff111111"}";
           workspace_method = "center current"; # [center/first] [workspace] e.g. first 1 or center m+1
 
-          enable_gesture = true; # laptop touchpad
-          gesture_fingers = 4;  # 3 or 4
           gesture_distance = 300; # how far is the "max"
-          gesture_positive = true; # positive = swipe down. Negative = swipe up.
         };
         # New official hyprscrolling plugin configuration
         hyprscrolling = {
@@ -709,7 +706,7 @@ in
       # Zoom (using Hyprland's built-in cursor zoom)
       bind = $mainMod, z, exec, hyprctl keyword cursor:zoom_factor 2.0
       bind = $mainMod SHIFT, z, exec, hyprctl keyword cursor:zoom_factor 1.0
-
+     
       gesture = 3, right, dispatcher, layoutmsg, move -col
       gesture = 3, left, dispatcher, layoutmsg, move +col
       gesture = 4, left, dispatcher, workspace, e+1
