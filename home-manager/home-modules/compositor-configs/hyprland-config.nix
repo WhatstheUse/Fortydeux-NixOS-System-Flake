@@ -57,8 +57,8 @@ in
     wayland.windowManager.hyprland = {
       enable = true;
       systemd.enable = false; # UWSM manages the session; HM's own systemd integration conflicts with it
-    # package = pkgs.hyprland;
-    package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.default;
+    package = pkgs.hyprland;
+    # package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.default;
     # systemd.variables = ["--all"];
     plugins = [
       # Use system packages instead of flake inputs to avoid NIX_MAIN_PROGRAM conflicts
@@ -69,7 +69,7 @@ in
       # pkgs.hyprlandPlugins.hyprscroller
       # HyprExpo
       # pkgs.hyprlandPlugins.hyprexpo
-      inputs.hyprland-plugins.packages.${pkgs.stdenv.hostPlatform.system}.hyprexpo
+      # inputs.hyprland-plugins.packages.${pkgs.stdenv.hostPlatform.system}.hyprexpo
       # inputs.hyprscroller.packages.${pkgs.stdenv.hostPlatform.system}.default
       # New official hyprscrolling plugin from hyprland-plugins flake input
       # pkgs.hyprlandPlugins.hyprscrolling
@@ -138,7 +138,7 @@ in
 
       general = {
         # See https://wiki.hyprland.org/Configuring/Variables/ for more
-        gaps_in = 9;
+        gaps_in = 4;
         gaps_out = 9;
         border_size = 2;
         # "col.active_border" =  "$activeBorderColor1 $activeBorderColor2 8deg";
@@ -236,11 +236,11 @@ in
         "$mainMod, E, exec, nautilus"
         "$mainMod, Return, togglefloating,"
         "$mainMod, D, exec, rofi -show drun -show-icons"
-        "$mainMod, W, hyprexpo:expo, toggleoverview"
+        # "$mainMod, W, hyprexpo:expo, toggleoverview"
         # "$mainMod, W, exec, pkill wofi || $wofi"  # rebound: use $mainMod+Ctrl+W for wofi
         "$mainMod CTRL, W, exec, pkill wofi || $wofi"
         # Window switching (overview overlap with Mod+W intentional)
-        "$mainMod, Tab, hyprexpo:expo, toggleoverview"
+        # "$mainMod, Tab, hyprexpo:expo, toggleoverview"
         # Alt window switcher (rofi)
         "ALT, Tab, exec, rofi -show window"
         "ALT, grave, exec, rofi -show window"
@@ -392,14 +392,14 @@ in
         
 
         # HyprExpo
-        hyprexpo = {
-          columns = 3;
-          gap_size = 5;
-          bg_col = "${stylixColorOr "base00" "0xff111111"}";
-          workspace_method = "center current"; # [center/first] [workspace] e.g. first 1 or center m+1
+        # hyprexpo = {
+        #   columns = 3;
+        #   gap_size = 5;
+        #   bg_col = "${stylixColorOr "base00" "0xff111111"}";
+        #   workspace_method = "center current"; # [center/first] [workspace] e.g. first 1 or center m+1
 
-          gesture_distance = 300; # how far is the "max"
-        };
+        #   gesture_distance = 300; # how far is the "max"
+        # };
         # New official hyprscrolling plugin configuration
         hyprscrolling = {
           # Column configuration
@@ -577,7 +577,7 @@ in
       # # bind key to toggle overview (normal)
       # bind = $mainMod, grave, scroller:toggleoverview
       # bind = ,mouse:275, scroller:toggleoverview
-      bind = $mainMod, grave, hyprexpo:expo, toggle
+      # bind = $mainMod, grave, hyprexpo:expo, toggle
 
       # # Marks
       # bind = $mainMod, M, exec, notify-send "Scroller Submap" "Add Marks Mode - Use A/B/C to mark, ESC to exit"

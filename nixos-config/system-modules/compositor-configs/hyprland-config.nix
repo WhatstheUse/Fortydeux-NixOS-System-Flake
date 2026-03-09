@@ -8,8 +8,8 @@ in
     programs.hyprland = {
       enable = true;
       withUWSM = true;
-      # package = pkgs.hyprland;
-      package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+      package = pkgs.hyprland;
+      # package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
     };
 
     environment.systemPackages = with pkgs; [
@@ -34,7 +34,7 @@ in
         }
       ];
       extraPortals = [
-        # pkgs.xdg-desktop-portal-hyprland
+        pkgs.xdg-desktop-portal-hyprland
         # Commented out: when using the Hyprland flake input, its NixOS module
         # adds xdg-desktop-portal-hyprland automatically, causing a file collision.
       ];
