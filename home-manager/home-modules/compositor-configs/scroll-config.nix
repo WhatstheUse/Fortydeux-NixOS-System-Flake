@@ -66,7 +66,7 @@ in
       ${if cfg.enableStylix then "seat * xcursor_theme ${config.stylix.cursor.name} ${toString config.stylix.cursor.size}" else ""}
 
       ### Scroll-specific layout settings
-      layout_default_width 0.5
+      layout_default_width 0.9
       layout_default_height 1.0
       layout_widths [0.333 0.5 0.667 0.75 0.8 0.9 1.0]
       layout_heights [0.333 0.5 0.667 0.75 1.0]
@@ -108,9 +108,9 @@ in
 
       ### Decorations
       ${if cfg.enableStylix then ''
-      default_decoration border_radius 6 shadow true shadow_dynamic true shadow_size 6 shadow_blur 20 shadow_offset 5 5 shadow_color #${config.lib.stylix.colors.base01}70 dim false
+      default_decoration border_radius 6 shadow true shadow_dynamic false shadow_size 4 shadow_blur 10 shadow_offset 2 2 shadow_color #${config.lib.stylix.colors.base01}70 dim false
       '' else ''
-      default_decoration border_radius 6 shadow true shadow_dynamic true shadow_size 6 shadow_blur 20 shadow_offset 5 5 shadow_color #00000070 dim false
+      default_decoration border_radius 6 shadow true shadow_dynamic false shadow_size 4 shadow_blur 10 shadow_offset 2 2 shadow_color #00000070 dim false
       ''}
       titlebar_border_radius 6
 
@@ -298,6 +298,14 @@ in
       bindsym $mod+Shift+Home move beginning
       bindsym $mod+Shift+End move end
 
+      # nomode
+      bindsym $mod+Alt+Left move left nomode
+      bindsym $mod+Alt+Down move down nomode
+      bindsym $mod+Alt+Up move up nomode
+      bindsym $mod+Alt+Right move right nomode
+      bindsym $mod+Alt+home move beginning nomode
+      bindsym $mod+Alt+end move end nomode
+
       #############################################################################
       ### Workspaces
       #############################################################################
@@ -359,9 +367,10 @@ in
 
       # Fullscreen modes (Scroll has multiple types)
       # Layout fullscreen: fills the visible area while respecting layout
-      bindsym $mod+f fullscreen toggle layout
+      bindsym $mod+f toggle_size this 1.0 1.0
+      bindsym Alt+f toggle_size active 1.0 1.0
       # Global fullscreen: covers entire output
-      bindsym $mod+Shift+f fullscreen toggle global
+      bindsym $mod+Shift+f fullscreen toggle layout
 
       #############################################################################
       ### Scroll-specific: Layout mode (from Hyprscroller)
@@ -375,8 +384,8 @@ in
       # Column admit/expel (Niri parity: Mod+[/])
       # [ = consume focused window into column to the left
       # ] = expel focused window out of its column to the right
-      bindsym $mod+bracketleft admit
-      bindsym $mod+bracketright expel
+      bindsym $mod+bracketleft move left nomode
+      bindsym $mod+bracketright move right nomode
       bindsym $mod+n layout_transpose
 
       #############################################################################
