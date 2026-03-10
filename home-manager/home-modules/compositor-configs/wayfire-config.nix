@@ -4,6 +4,15 @@ let
   cfg = config.programs.wayfire;
   sessionEnabled = config.sessionProfiles.wayfire.enable or false;
   inherit (lib) mkEnableOption mkIf mkOption types;
+
+  # Script to turn off monitors with automatic wake on input
+  monitorOffScript = pkgs.writeShellScript "wayfire-monitor-off" ''
+    pkill -f "swayidle.*wayfire-monitor-off" || true
+    wlopm --off \*
+    swayidle \
+      timeout 1 'true' \
+      resume 'wlopm --on \*; pkill -f "swayidle.*wayfire-monitor-off"' &
+  '';
 in
 {
   options.programs.wayfire = {
@@ -156,7 +165,7 @@ in
         binding_footclient = <super> KEY_Y
         command_footclient = bash -c "pgrep footclient && pkill footclient || footclient"
         binding_monitors_off = <super> <shift> KEY_P
-        command_monitors_off = wlopm --off '*'
+        command_monitors_off = ${monitorOffScript}
         binding_dictate_fw_auto = <super> KEY_X
         command_dictate_fw_auto = dictate-fw-ptt-auto 5
         binding_dictate_wc_auto = <super> <shift> KEY_X

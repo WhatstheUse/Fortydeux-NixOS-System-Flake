@@ -7,6 +7,15 @@ let
 
   # Kirigami QML path for Noctalia (workaround for libplasma override issue)
   kirigamiQmlPath = "${lib.getLib pkgs.kdePackages.kirigami}/lib/qt-6/qml";
+
+  # Script to turn off monitors with automatic wake on input
+  monitorOffScript = pkgs.writeShellScript "hypr-monitor-off" ''
+    pkill -f "swayidle.*hypr-monitor-off" || true
+    hyprctl dispatch dpms off
+    swayidle \
+      timeout 1 'true' \
+      resume 'hyprctl dispatch dpms on; pkill -f "swayidle.*hypr-monitor-off"' &
+  '';
 in
 {
   options.programs.hyprland = {
@@ -259,8 +268,8 @@ in
         # Dropdown terminal
         "$mainMod, Y, exec, bash -c 'pgrep footclient && pkill footclient || footclient'"
 
-        # Power off monitors
-        "$mainMod SHIFT, P, exec, hyprctl dispatch dpms off"
+        # Power off monitors (with automatic wake on input)
+        "$mainMod SHIFT, P, exec, ${monitorOffScript}"
 
         # Voice dictation - Momentary
         "$mainMod, X, exec, dictate-fw-ptt-auto 5"
@@ -299,6 +308,11 @@ in
         # "$mainMod, right, movefocus, r"
         "$mainMod, up, movefocus, u"
         "$mainMod, down, movefocus, d"
+
+        # Move focused window to left/right column
+        "$mainMod SHIFT, right, layoutmsg, swapcol r"
+        "$mainMod SHIFT, left, layoutmsg, swapcol l"
+        
 
         # Switch workspaces with mainMod + [0-9]
         "$mainMod, 1, workspace, 1"
@@ -423,8 +437,8 @@ in
          #     " , swipe:3:r, movefocus, l"
          #     " , swipe:3:u, movefocus, d"
          #     " , swipe:3:d, movefocus, u"
-         #     " , swipe:4:u, hyprexpo:expo, toggle"
-         #     " , swipe:4:d, hyprexpo:expo, toggle"
+         #     # " , swipe:4:u, hyprexpo:expo, toggle"
+         #     # " , swipe:4:d, hyprexpo:expo, toggle"
          #     " , swipe:3:ld, killactive"
          #     " , swipe:3:ru, exec, $wofi"
          #     " , swipe:3:lu, exec, wvkbd-mobintl"

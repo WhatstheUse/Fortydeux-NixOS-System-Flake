@@ -7,6 +7,15 @@ let
 
   # Kirigami QML path for Noctalia (workaround for libplasma override issue)
   # kirigamiQmlPath = "${lib.getLib pkgs.kdePackages.kirigami}/lib/qt-6/qml";
+
+  # Script to turn off monitors with automatic wake on input
+  monitorOffScript = pkgs.writeShellScript "river-monitor-off" ''
+    pkill -f "swayidle.*river-monitor-off" || true
+    wlopm --off \*
+    swayidle \
+      timeout 1 'true' \
+      resume 'wlopm --on \*; pkill -f "swayidle.*river-monitor-off"' &
+  '';
 in
 {
   options.programs.river = {
@@ -140,8 +149,8 @@ in
             # Waybar toggle
             "Super B" = "spawn 'pkill waybar || waybar'";
 
-            # Power off monitors
-            "Super+Shift P" = "spawn 'wlopm --off \\*'";
+            # Power off monitors (with automatic wake on input)
+            "Super+Shift P" = "spawn '${monitorOffScript}'";
 
             # Wooz screen magnifier
             "Super Z" = "spawn 'wooz --zoom-in 10% --mouse-track'";

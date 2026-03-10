@@ -7,6 +7,15 @@ let
 
   # Kirigami QML path for Noctalia (workaround for libplasma override issue)
   kirigamiQmlPath = "${lib.getLib pkgs.kdePackages.kirigami}/lib/qt-6/qml";
+
+  # Script to turn off monitors with automatic wake on input
+  monitorOffScript = pkgs.writeShellScript "sway-monitor-off" ''
+    pkill -f "swayidle.*sway-monitor-off" || true
+    swaymsg "output * power off"
+    swayidle \
+      timeout 1 'true' \
+      resume 'swaymsg "output * power on"; pkill -f "swayidle.*sway-monitor-off"' &
+  '';
 in
 {
   options.programs.sway = {
@@ -200,8 +209,8 @@ in
           # Dropdown terminal
           bindsym $mod+y exec bash -c "pgrep footclient && pkill footclient || footclient"
 
-          # Power off monitors
-          bindsym $mod+Shift+p exec swaymsg "output * power off"
+          # Power off monitors (with automatic wake on input)
+          bindsym $mod+Shift+p exec ${monitorOffScript}
 
           # Wooz screen magnifier
           bindsym $mod+z exec "wooz --zoom-in 10% --mouse-track"

@@ -19,6 +19,23 @@ let
       wlr-randr --output eDP-1 --scale 2
     fi
   '';
+
+  # Script to turn off monitors with automatic wake on input
+  # Uses swayidle to detect input and turn monitors back on
+  monitorOffScript = pkgs.writeShellScript "mango-monitor-off" ''
+    # Kill any existing monitor-off swayidle instance
+    pkill -f "swayidle.*mango-monitor-off" || true
+
+    # Turn off monitors immediately
+    wlopm --off \*
+
+    # Start swayidle (without -w) to detect next input and wake monitors.
+    # timeout 1 fires ~1s after the hotkey press (last input); resume then
+    # runs on the next keypress/mouse event, turning monitors back on.
+    swayidle \
+      timeout 1 'true' \
+      resume 'wlopm --on \*; pkill -f "swayidle.*mango-monitor-off"' &
+  '';
 in
 {
   options.programs.mangowc = {
@@ -154,7 +171,7 @@ in
       smartgaps=0
       new_is_master=1
       no_border_when_single=1
-      circle_layout=tile,scroller,monocle,grid
+      circle_layout=center_tile,tile,right_tile,vertical_tile,scroller,vertical_scroller,grid,vertical_grid,deck,vertical_deck,monocle,tgmix
 
       # Scroller layout settings
       scroller_default_proportion=0.9
@@ -280,8 +297,8 @@ in
       # Dropdown terminal
       bind=SUPER,Y,spawn_shell,bash -c "pgrep footclient && pkill footclient || footclient"
 
-      # Power off monitors
-      bind=SUPER+SHIFT,P,spawn_shell,wlopm --off \*
+      # Power off monitors (with automatic wake on input)
+      bind=SUPER+SHIFT,P,spawn,${monitorOffScript}
 
       # Quit compositor
       bind=SUPER+SHIFT,E,spawn_shell,uwsm stop
@@ -391,7 +408,7 @@ in
 
       # ---- Layout ----
       bind=SUPER,N,switch_layout,
-      bind=SUPER+SHIFT,N,setlayout,tile
+      bind=SUPER+SHIFT,N,setlayout,center_tile
 
       # Scroller layout controls
       bind=SUPER,E,switch_proportion_preset,
@@ -403,8 +420,8 @@ in
       bind=SUPER+SHIFT,equal,togglegaps,
 
       # ---- Scratchpad ----
-      bind=SUPER,P,toggle_scratchpad,
-      bind=SUPER+SHIFT,P,minimized,
+      bind=ALT,Z,toggle_scratchpad,
+      bind=SUPER+I,minimized,
       bind=SUPER+SHIFT,I,restore_minimized,
 
       # ---- Voice dictation - Momentary ----
