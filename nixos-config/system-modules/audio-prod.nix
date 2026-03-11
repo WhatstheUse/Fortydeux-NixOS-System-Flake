@@ -141,7 +141,7 @@
   environment.systemPackages = with pkgs; [
     # Core audio tools
     qjackctl           # JACK control GUI
-    helvum             # PipeWire patchbay
+    crosspipe          # PipeWire graph GTK4/Libadwaita GUI
     pavucontrol        # PulseAudio/PipeWire volume control
     
     # JACK ecosystem
