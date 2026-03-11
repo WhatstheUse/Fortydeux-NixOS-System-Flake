@@ -23,8 +23,8 @@ wlsunset -l 57.4 -L -1.9 &
 pkill -f i3bar-river
 i3bar-river &
 
-pkill -f pcloud
-pcloud & 
+# pkill -f pcloud  # XDG autostart handles this (~/.config/autostart/pcloud.desktop)
+# pcloud &
 
 export wallpaper='~/.config/wallpapers/balloon-wp.jpg'
 

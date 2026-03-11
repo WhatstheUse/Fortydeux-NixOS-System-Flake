@@ -88,8 +88,8 @@ in
           timeout 2500 'systemctl suspend' \
           before-sleep 'swaylock -f -c 000000' &
 
-        # Cloud sync (wait for graphical session)
-        (while ! systemctl --user is-active graphical-session.target; do sleep 0.5; done && pcloud) &
+        # Cloud sync (wait for graphical session) - XDG autostart handles this (~/.config/autostart/pcloud.desktop)
+        # (while ! systemctl --user is-active graphical-session.target; do sleep 0.5; done && pcloud) &
       '';
     };
 

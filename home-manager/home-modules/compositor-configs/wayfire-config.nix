@@ -75,7 +75,7 @@ in
         rotate_up = <ctrl> <super> KEY_UP
 
         [autostart]
-        autostart0 = pcloud
+        # autostart0 = pcloud  # XDG autostart handles this (~/.config/autostart/pcloud.desktop)
         # polkit = lxqt-policykit-agent  # UWSM: now managed by polkit-agent systemd service
         # autostart1 = stasis  # Disabled - reverting to swayidle
         autostart_wf_shell = true

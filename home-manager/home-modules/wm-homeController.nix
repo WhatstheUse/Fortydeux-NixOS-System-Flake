@@ -42,6 +42,52 @@ in
     wayland.windowManager = {
       labwc = {
         enable = true;
+
+        rc = {
+          focus.followMouse = "yes";
+
+          keyboard = {
+            default = true;
+            keybind = [
+              {
+                "@key" = "W-space";
+                action = {
+                  "@name" = "Execute";
+                  "@command" = "bemenu-run";
+                };
+              }
+              {
+                "@key" = "W-s";
+                action = {
+                  "@name" = "Execute";
+                  "@command" = "kitty";
+                };
+              }
+              {
+                "@key" = "W-q";
+                action = {
+                  "@name" = "Close";
+                };
+              }
+              {
+                "@key" = "A-space";
+                action = {
+                  "@name" = "Execute";
+                  "@command" = "anyrun";
+                };
+              }
+            ];
+          };
+        };
+
+        extraConfig = ''
+          <libinput>
+            <device category="default">
+              <naturalScroll>yes</naturalScroll>
+            </device>
+          </libinput>
+        '';
+
         menu = [
           {
             menuId = "root-menu";

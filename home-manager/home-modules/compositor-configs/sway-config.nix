@@ -163,7 +163,7 @@ in
           exec uwsm finalize
           # Launch Noctalia with QML path set (fixes libplasma kirigami override)
           exec QML2_IMPORT_PATH="${kirigamiQmlPath}" noctalia-shell
-          exec pcloud
+          # exec pcloud  # XDG autostart handles this (~/.config/autostart/pcloud.desktop)
           # exec lxqt-policykit-agent  # UWSM: now managed by polkit-agent systemd service
           # exec stasis  # Disabled - reverting to swayidle
 

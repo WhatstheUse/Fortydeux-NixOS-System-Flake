@@ -121,7 +121,7 @@ in
         "nm-applet --indicator"
         "blueman-applet"
         "iio-hyprland"
-        "pcloud"
+        # "pcloud"  # XDG autostart handles this (~/.config/autostart/pcloud.desktop)
         "wlsunset -l 40.6 -L -75.4 -t 2300 -T 6500"
         # Add this line to start KWallet daemon
         "kwalletd6"
