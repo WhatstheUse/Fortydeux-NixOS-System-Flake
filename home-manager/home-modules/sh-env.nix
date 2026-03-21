@@ -49,7 +49,7 @@
       DEFAULT_BROWSER = "firefox";
     };
     shellAliases = {
-      ls = "lsd -lh --group-directories-first --color always --icon always";
+      # ls = "lsd -lh --group-directories-first --color always --icon always";
       rrr = "ranger";
       yyy = "yazi";
       fast = "fastfetch";
