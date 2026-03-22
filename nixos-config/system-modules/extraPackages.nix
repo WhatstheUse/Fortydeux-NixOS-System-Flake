@@ -36,6 +36,7 @@ pkgs,
     fish # Smart and user-friendly command line shell
     # gnome-calculator # Gnome GUI calculator
     kdePackages.kcalc # KDE Calculator
+    kdePackages.krdc  # KDE Remote Desktop Client
     qalculate-qt # QT-based Desktop Calculator
     gnome-calendar # Gnome GUI calendar
     kdePackages.partitionmanager # Manage the disk devices, partitions and file systems on your computer
