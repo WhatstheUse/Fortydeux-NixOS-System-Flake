@@ -9,7 +9,7 @@ in
       enable = true;
     systemd = {
       enable = false;
-      target = "hyprland-session.target";
+      targets = "hyprland-session.target";
     };
     
     settings = {
