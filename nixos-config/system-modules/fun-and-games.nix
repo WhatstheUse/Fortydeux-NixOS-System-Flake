@@ -9,6 +9,34 @@
     dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
   };
 
+  # 32-bit graphics support - required for SteamVR and many Steam games
+  hardware.graphics.enable32Bit = true;
+
+  # SteamVR udev rules - NixOS fix for "requires superuser privileges" error.
+  # SteamVR's setup script tries to write udev rules to /etc/udev/rules.d/,
+  # which is read-only on NixOS. This declares them properly instead.
+  hardware.steam-hardware.enable = true;
+
+  # Extra packages for Intel QuickSync
+  hardware.opengl.extraPackages = with pkgs; [
+    intel-media-driver
+    intel-vaapi-driver
+  ];
+
+  # Enable sunshine for streaming to Moonlight client
+  services.sunshine = {
+    enable = true;
+
+    openFirewall = true;
+
+    capSysAdmin = true; # required for input control
+  };
+  
+  # Open firewall for iVRy (iPhone as SteamVR headset over WiFi)
+  # iVRy uses UDP 5555 for video streaming and TCP 5556 for control
+  networking.firewall.allowedUDPPorts = [ 5555 ];
+  networking.firewall.allowedTCPPorts = [ 5556 ];
+
   environment.systemPackages = with pkgs; [
     ## Games support
     lutris #Open Source gaming platform for GNU/Linux
