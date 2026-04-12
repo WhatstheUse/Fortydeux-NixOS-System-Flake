@@ -18,25 +18,22 @@ let
   kirigamiQmlPath = "${lib.getLib pkgs.kdePackages.kirigami}/lib/qt-6/qml";
 in
 lib.mkIf sessionEnabled {
-  programs = {
-    niriswitcher = {
-      enable = true;
-      settings = {
-        keys = {
-          modifier = "Alt";
-          switch = {
-            next = "Tab";
-            prev = "Shift+Tab";
-          };
-        };
-        center_on_focus = true;
-        appearance = {
-          system_theme = "dark";
-          icon_size = 64;
-        };
-      };
-    };
-  };
+  # programs.niriswitcher was removed from home-manager (upstream project archived)
+  # Config is now written directly as a file
+  xdg.configFile."niriswitcher/config.toml".text = ''
+    center_on_focus = true
+
+    [keys]
+    modifier = "Alt"
+
+    [keys.switch]
+    next = "Tab"
+    prev = "Shift+Tab"
+
+    [appearance]
+    system_theme = "dark"
+    icon_size = 64
+  '';
 
   home.file.".config/niri/config.kdl".text = ''
     // This config is in the KDL format: https://kdl.dev

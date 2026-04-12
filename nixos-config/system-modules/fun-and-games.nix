@@ -17,27 +17,16 @@
   # which is read-only on NixOS. This declares them properly instead.
   hardware.steam-hardware.enable = true;
 
-  # Extra packages for AMD Radeon 680M (RDNA2) - required for ALVR/SteamVR
-  # RADV (Vulkan) is included in mesa by default; rocm provides OpenCL compute
-  hardware.graphics.extraPackages = with pkgs; [
-    rocmPackages.clr   # ROCm OpenCL runtime for compute
-    mesa               # Includes radeonsi VAAPI driver for hardware video encode/decode
-  ];
+  programs.immersed = {
+    enable = true;
+  };
 
-  # Enable ALVR
+  # Enable ALVR - wireless PC VR streaming via SteamVR
   programs.alvr = {
     enable = true;
     openFirewall = true;
   };
 
-  # VAAPI environment for ALVR/SteamVR hardware video encoding on AMD
-  # NixOS puts VAAPI drivers in /run/opengl-driver/lib/dri rather than /usr/lib/dri
-  environment.sessionVariables = {
-    LIBVA_DRIVER_NAME = "radeonsi";
-    LIBVA_DRIVERS_PATH = "/run/opengl-driver/lib/dri";
-  };
-  
-  
   # Enable sunshine for streaming to Moonlight client
   services.sunshine = {
     enable = true;
@@ -45,14 +34,29 @@
     capSysAdmin = true; # required for input control
   };
 
-  services.monado = {
+  # Enable WiVRN - wireless PC VR streaming (native OpenXR, wraps Monado internally)
+  # Both ALVR and WiVRN can coexist; switch active runtime via XR_RUNTIME_JSON
+  services.wivrn = {
     enable = true;
-    highPriority = true;
+    openFirewall = true;  # opens TCP/UDP 9757
+    highPriority = true;  # CAP_SYS_NICE for async reprojection
+    steam.enable = true;  # integrate with Steam OpenXR discovery
   };
 
+  # Monado - standalone OpenXR runtime (for directly-connected headsets, no streaming)
+  # Re-enable if you want Monado instead of / alongside WiVRN.
+  # Note: disable services.wivrn above first, or they will conflict on the OpenXR runtime.
+  # services.monado = {
+  #   enable = true;
+  #   highPriority = true;
+  # };
+
   # Explicitly set XR_RUNTIME_JSON in /etc/environment so Wayland compositors
-  # like Niri (which don't source shell profiles) can find Monado
-  environment.variables.XR_RUNTIME_JSON = "${pkgs.monado}/share/openxr/1/openxr_monado.json";
+  # like Niri (which don't source shell profiles) can find the active OpenXR runtime.
+  # WiVRN:  "${pkgs.wivrn}/share/openxr/1/openxr_wivrn.json"
+  # Monado: "${pkgs.monado}/share/openxr/1/openxr_monado.json"
+  # ALVR uses the SteamVR OpenXR layer rather than XR_RUNTIME_JSON
+  environment.variables.XR_RUNTIME_JSON = "${pkgs.wivrn}/share/openxr/1/openxr_wivrn.json";
   
   # Open firewall for iVRy (iPhone as SteamVR headset over WiFi)
   # iVRy uses UDP 5555 for video streaming and TCP 5556 for control
