@@ -25,6 +25,8 @@
     #   url = "github:nix-community/NUR";
     #   inputs.nixpkgs.follows = "nixpkgs";
     # };
+    # Nixpkgs-XR Flake
+    nixpkgs-xr.url = "github:nix-community/nixpkgs-xr";
     # Stylix theming
     # stylix.url = "https://flakehub.com/f/danth/stylix/0.1";
     stylix.url = "github:nix-community/stylix";

@@ -1,13 +1,20 @@
-{ config, pkgs, ... }: 
+{ config, pkgs, inputs, ... }: 
 
 { # Fun-and-games.nix
+
+  # Modules
+  # imports = [
+  #   inputs.nixpkgs-xr.nixosModules.nixpkgs-xr
+  # ]; 
+
+
 	
   # Enable Steam - Steam games distribution
-  # programs.steam = {
-  #   enable = true;
-  #   remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
-  #   dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
-  # };
+  programs.steam = {
+    enable = true;
+    remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
+    dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
+  };
 
   # 32-bit graphics support - required for SteamVR and many Steam games
   hardware.graphics.enable32Bit = true;
@@ -25,6 +32,11 @@
   programs.alvr = {
     enable = true;
     openFirewall = true;
+  };
+
+  programs.envision = {
+    enable = true;
+    openFirewall = true; # This is set true by default
   };
 
   # Enable sunshine for streaming to Moonlight client
@@ -56,7 +68,7 @@
   # WiVRN:  "${pkgs.wivrn}/share/openxr/1/openxr_wivrn.json"
   # Monado: "${pkgs.monado}/share/openxr/1/openxr_monado.json"
   # ALVR uses the SteamVR OpenXR layer rather than XR_RUNTIME_JSON
-  environment.variables.XR_RUNTIME_JSON = "${pkgs.wivrn}/share/openxr/1/openxr_wivrn.json";
+  # environment.variables.XR_RUNTIME_JSON = "${pkgs.wivrn}/share/openxr/1/openxr_wivrn.json";
   
   # Open firewall for iVRy (iPhone as SteamVR headset over WiFi)
   # iVRy uses UDP 5555 for video streaming and TCP 5556 for control
@@ -68,17 +80,20 @@
     lutris #Open Source gaming platform for GNU/Linux
  
     ## Candy - not necessary
-    cava #Console-based Audio Visualizer for Alsa
-    cbonsai #Grow bonsai trees in your terminal
-    cmatrix #Simulates the falling characters theme from The Matrix movie
-    cool-retro-term #erminal emulator which mimics the old cathode display
+    cava # Console-based Audio Visualizer for Alsa
+    cbonsai # Grow bonsai trees in your terminal
+    cmatrix # Simulates the falling characters theme from The Matrix movie
+    cool-retro-term # Terminal emulator which mimics the old cathode display
     distrobox
-    hollywood #Fill your console with Hollywood melodrama technobabble
+    hollywood # Fill your console with Hollywood melodrama technobabble
     lolcat # A rainbow for your text output
     nms #A command line tool that recreates the famous data decryption effect seen in the 1992 movie Sneakers.
-    pipes #Animated pipes terminal screensaver
-    tty-clock #Digital clock in ncurses
-    vitetris #Terminal-based Tetris clone by Victor Nilsson
+    pipes # Animated pipes terminal screensaver
+    tty-clock # Digital clock in ncurses
+    vitetris # Terminal-based Tetris clone by Victor Nilsson
+    android-tools # Android SDK platform tools
+    opencomposite # Reimplementation of OpenVR, translating calls to OpenXR Open app store and side-loading tool for Android-based VR devices
+    sidequest # 
     wayvr  # VR on Linux
     wl-mirror # Mirror Wayland outputs into WayVR for desktop-in-VR
   ];
