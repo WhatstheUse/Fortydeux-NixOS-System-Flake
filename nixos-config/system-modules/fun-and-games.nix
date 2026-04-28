@@ -7,6 +7,10 @@
   #   inputs.nixpkgs-xr.nixosModules.nixpkgs-xr
   # ]; 
 
+  # Graphics Card Control
+  services.lact = {
+    enable = true;
+  };
 
 	
   # Enable Steam - Steam games distribution

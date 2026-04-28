@@ -18,7 +18,7 @@
     ../../system-modules/extraFonts.nix
     ../../system-modules/audio-prod.nix
     ../../system-modules/screen-recording.nix
-    # ../../system-modules/fun-and-games.nix
+    ../../system-modules/fun-and-games.nix
     
     # Compositor and Desktop Environment configurations - Enable/disable as needed
     ../../system-modules/compositor-configs/plasma.nix
