@@ -101,7 +101,7 @@
       #   measured-dark, mocha, moonlight, paraiso, phd, precious-dark-eleven, kanagawa,
       #   kanagawa-dragon, everforest-dark-hard, silk-dark, vice
       # Recommended light: da-one-paper, gruvbox-light/-soft/-material-light-soft, precious-light-warm
-      base16Theme = "darkmoss.yaml";  # Named theme
+      base16Theme = "ayu-dark.yaml";  # Named theme
       # base16Theme = ./themes/custom-gruvyrails.yaml;  # Custom theme file
       # base16Theme = null;  # Wallpaper-derived colors
 

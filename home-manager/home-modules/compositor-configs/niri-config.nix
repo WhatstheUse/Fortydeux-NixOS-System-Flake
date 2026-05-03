@@ -231,6 +231,8 @@ lib.mkIf sessionEnabled {
             active-color "#${config.lib.stylix.colors.base0D}"
             inactive-color "#${config.lib.stylix.colors.base03}"
             urgent-color "#${config.lib.stylix.colors.base08}"
+            active-gradient from="#${config.lib.stylix.colors.base0D}" to="#${config.lib.stylix.colors.base0E}" angle=45 relative-to="workspace-view"
+            inactive-gradient from="#${config.lib.stylix.colors.base02}" to="#${config.lib.stylix.colors.base03}" angle=45 relative-to="workspace-view"            
             // active-gradient from="#80c8ff" to="#bbddff" angle=45
             // inactive-gradient from="#505050" to="#808080" angle=45 relative-to="workspace-view"
             // urgent-gradient from="#800" to="#a33" angle=45
@@ -238,13 +240,10 @@ lib.mkIf sessionEnabled {
 
         border {
             off
-            width 4
-            active-color "#${config.lib.stylix.colors.base09}"
-            inactive-color "#${config.lib.stylix.colors.base03}"
+            width 2
+            active-gradient from="#${config.lib.stylix.colors.base0D}" to="#${config.lib.stylix.colors.base0E}" angle=45 relative-to="workspace-view"
+            inactive-gradient from="#${config.lib.stylix.colors.base02}" to="#${config.lib.stylix.colors.base03}" angle=45 relative-to="workspace-view"
             urgent-color "#${config.lib.stylix.colors.base08}"
-            // active-gradient from="#ffbb66" to="#ffc880" angle=45 relative-to="workspace-view"
-            // inactive-gradient from="#505050" to="#808080" angle=45 relative-to="workspace-view" in="srgb-linear"
-            // urgent-gradient from="#800" to="#a33" angle=45
         }
 
         shadow {
@@ -263,13 +262,13 @@ lib.mkIf sessionEnabled {
             place-within-column
             gap 5
             width 12
-            length total-proportion=1.0
+            length total-proportion=0.1
             position "left"
             gaps-between-tabs 2
             corner-radius 8
-            active-color "#${config.lib.stylix.colors.base08}"
+            active-color "#${config.lib.stylix.colors.base0D}"
             inactive-color "#${config.lib.stylix.colors.base03}"
-            urgent-color "#${config.lib.stylix.colors.base0D}"
+            urgent-color "#${config.lib.stylix.colors.base09}"
             // active-gradient from="#80c8ff" to="#bbddff" angle=45
             // inactive-gradient from="#505050" to="#808080" angle=45 relative-to="workspace-view"
             // urgent-gradient from="#800" to="#a33" angle=45
