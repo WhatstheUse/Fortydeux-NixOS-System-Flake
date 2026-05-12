@@ -81,7 +81,7 @@
 
   environment.systemPackages = with pkgs; [
     ## Games support
-    lutris #Open Source gaming platform for GNU/Linux
+    # lutris #Open Source gaming platform for GNU/Linux
  
     ## Candy - not necessary
     cava # Console-based Audio Visualizer for Alsa

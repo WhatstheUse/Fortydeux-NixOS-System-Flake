@@ -72,7 +72,7 @@
     niri.enable = true;
     sway.enable = true;
     river.enable = true;
-    wayfire.enable = true;
+    wayfire.enable = false;
     mangowc.enable = true;
     scroll.enable = true;
   };
