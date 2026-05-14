@@ -966,7 +966,7 @@ lib.mkIf sessionEnabled {
         
         // Satty screenshot bindings for annotation
         Shift+Print { spawn "screenshot-region"; }
-        Super+Shift+Z { spawn "screenshot-region"; }
+        Super+Shift+Z { spawn "screenshot-output"; }
         Super+Print { spawn "screenshot-output"; }
         Super+Shift+Print { spawn "screenshot-window"; }
         
