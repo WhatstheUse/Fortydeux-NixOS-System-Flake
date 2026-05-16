@@ -38,10 +38,10 @@
     openFirewall = true;
   };
 
-  programs.envision = {
-    enable = true;
-    openFirewall = true; # This is set true by default
-  };
+  # programs.envision = {
+  #   enable = true;
+  #   openFirewall = true; # This is set true by default
+  # };
 
   # Enable sunshine for streaming to Moonlight client
   services.sunshine = {
