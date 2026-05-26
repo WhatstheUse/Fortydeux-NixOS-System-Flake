@@ -173,7 +173,7 @@ in
           };
 
           decoration = {
-            rounding = 12;
+            rounding = 5;
             blur = {
               enabled = true;
               size = 3;
@@ -193,6 +193,24 @@ in
 
           master = {
             new_status = "master";
+          };
+
+          # Group / groupbar styling. Hyprland's groupbar always sits
+          # above the window (no side-mount option like Niri), so we just
+          # keep it as a slim horizontal strip with titles. Stylix injects
+          # col.active, col.inactive, text_color etc. separately.
+          group = {
+            groupbar = {
+              stacked = false;
+              render_titles = false;
+              # height = 18;
+              indicator_height = 7;
+              font_size = 11;
+              rounding = 10;
+              gaps_in = 6;
+              gaps_out = 3;
+              keep_upper_gap = false;
+            };
           };
 
           gestures = {
@@ -346,19 +364,17 @@ in
           (bind { key = "SUPER + Escape";       dispatcher = ''hl.dsp.exec_cmd("pkill waybar && sleep 1 && waybar &")''; })
           (bind { key = "SUPER + Escape";       dispatcher = ''hl.dsp.exec_cmd("notify-send 'Config Reloaded'")''; })
 
-          # Move focus with mainMod + arrow keys
-          # (bind { mod = "left";  dispatcher = ''hl.dsp.focus({ direction = "l" })''; })
-          # (bind { mod = "right"; dispatcher = ''hl.dsp.focus({ direction = "r" })''; })
-          (bind { mod = "up";                   dispatcher = ''hl.dsp.focus({ direction = "u" })''; })
-          (bind { mod = "down";                 dispatcher = ''hl.dsp.focus({ direction = "d" })''; })
-
-          # Hyprscrolling - focus movement
-          (bind { mod = "left";  dispatcher = ''hl.dsp.layout("focus l")''; })
-          (bind { mod = "right"; dispatcher = ''hl.dsp.layout("focus r")''; })
-          (bind { mod = "h";     dispatcher = ''hl.dsp.layout("focus l")''; })
-          (bind { mod = "l";     dispatcher = ''hl.dsp.layout("focus r")''; })
-          (bind { mod = "j";     dispatcher = ''hl.dsp.focus({ direction = "d" })''; })
-          (bind { mod = "k";     dispatcher = ''hl.dsp.focus({ direction = "u" })''; })
+          # Group-aware focus: if focused window is in a group, arrow/HJKL
+          # keys cycle through tabs in the group instead of moving focus.
+          # Helper smart_focus() is defined in extraConfig below.
+          (bind { mod = "left";  dispatcher = ''function() smart_focus("l") end''; })
+          (bind { mod = "right"; dispatcher = ''function() smart_focus("r") end''; })
+          (bind { mod = "up";    dispatcher = ''function() smart_focus("u") end''; })
+          (bind { mod = "down";  dispatcher = ''function() smart_focus("d") end''; })
+          (bind { mod = "h";     dispatcher = ''function() smart_focus("l") end''; })
+          (bind { mod = "l";     dispatcher = ''function() smart_focus("r") end''; })
+          (bind { mod = "j";     dispatcher = ''function() smart_focus("d") end''; })
+          (bind { mod = "k";     dispatcher = ''function() smart_focus("u") end''; })
 
           # Hyprscrolling - window movement
           (bind { mod = "SHIFT + left";  dispatcher = ''hl.dsp.layout("swapcol l")''; })
@@ -377,6 +393,7 @@ in
           (bind { mod = "SHIFT + bracketright";  dispatcher = ''hl.dsp.window.move({ into_or_create_group = "r" })''; })
           (bind { mod = "SHIFT + CTRL + bracketleft";   dispatcher = ''hl.dsp.window.move({ direction = "l", group_aware = false })''; })
           (bind { mod = "SHIFT + CTRL + bracketright";  dispatcher = ''hl.dsp.window.move({ direction = "r", group_aware = false })''; })
+
 
           # Switch workspaces with mainMod + [0-9] (per-monitor numbering)
           # Each monitor gets its own block of 10 workspace IDs; helpers are
@@ -559,6 +576,50 @@ in
 
         function move_window_workspace_down()
           move_to_local_workspace((local_workspace_index() % 10) + 1)
+        end
+
+        -- ============================================================
+        -- Group-aware focus movement
+        -- ============================================================
+        --
+        -- When the focused window is in a group, arrow/HJKL keys cycle
+        -- through tabs (group.prev/next). When not in a group, they fall
+        -- back to the original behavior: left/right move between
+        -- hyprscrolling columns, up/down move directional window focus.
+        --
+        -- Hyprland Lua API: `w.group` is `HL.Group` userdata when the
+        -- window is in a group (nil otherwise). The Group exposes:
+        --   g.size           number   total tabs
+        --   g.current        Window   focused tab's window
+        --   g.current_index  number   1-based index of current tab
+        --   g.members        table    list of member windows
+        -- Note: differs from hyprctl JSON, which uses `grouped` as a list
+        -- of addresses.
+
+        function smart_focus(direction)
+          local w = hl.get_active_window()
+          if w == nil then return end
+
+          local g = w.group
+          if g ~= nil then
+            local is_forward = (direction == "r" or direction == "d")
+            if is_forward and g.current_index < g.size then
+              hl.dispatch(hl.dsp.group.next())
+              return
+            elseif (not is_forward) and g.current_index > 1 then
+              hl.dispatch(hl.dsp.group.prev())
+              return
+            end
+            -- Fall through: at edge of group, escape to neighbor.
+          end
+
+          if direction == "l" then
+            hl.dispatch(hl.dsp.layout("focus l"))
+          elseif direction == "r" then
+            hl.dispatch(hl.dsp.layout("focus r"))
+          else
+            hl.dispatch(hl.dsp.focus({ direction = direction }))
+          end
         end
       '';
     };
