@@ -5,17 +5,20 @@ let
 in
 {
   config = lib.mkIf sessionEnabled {
-    wayland.windowManager.hyprland = {
-      extraConfig = ''
-        ### HiDPI XWayland Settings - needed for MS Surface:
-        ### -----------------------------------------------
-        monitor=eDP-1,highres,auto,2
-        monitor=DP-1,preferred,auto,1
-        env = GDK_SCALE,2
-        xwayland {
-            force_zero_scaling = true
-        }
-      '';
+    ### HiDPI XWayland Settings - needed for MS Surface
+    wayland.windowManager.hyprland.settings = {
+      monitor = [
+        { output = "eDP-1"; mode = "highres";   position = "auto"; scale = 2; }
+        { output = "DP-1";  mode = "preferred"; position = "auto"; scale = 1; }
+      ];
+      env = [
+        { _args = [ "GDK_SCALE" "2" ]; }
+      ];
+      config = {
+        xwayland = {
+          force_zero_scaling = true;
+        };
+      };
     };
   };
 }
