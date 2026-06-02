@@ -32,8 +32,9 @@
       name = "phinger-cursors-light";
       size = 32;
     };
-    # targets = {
-    # };
+    targets = {
+      kmscon.enable = false;
+    };
   };
 
   # Fix for Stylix kde6 platformTheme issue
