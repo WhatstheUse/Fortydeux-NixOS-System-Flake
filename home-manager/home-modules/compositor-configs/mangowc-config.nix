@@ -184,6 +184,7 @@ in
       # ========================================
       repeat_rate=50
       repeat_delay=600
+      numlockon=1
       xkb_rules_layout=us
 
       # Touchpad
