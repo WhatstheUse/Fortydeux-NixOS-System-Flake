@@ -180,7 +180,7 @@ in
 
           # Start your launcher
           bindsym $mod+d exec $menu
-          bindsym $mod+space exec noctalia ipc call launcher toggle
+          bindsym $mod+space exec noctalia msg panel-toggle launcher
 
           # Reload config / lock screen
           bindsym $mod+Escape reload

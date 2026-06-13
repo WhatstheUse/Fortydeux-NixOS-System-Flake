@@ -222,7 +222,7 @@ in
       bindsym $mod+q kill
 
       # Application launchers
-      bindsym $mod+space exec noctalia ipc call launcher toggle
+      bindsym $mod+space exec noctalia msg panel-toggle launcher
       bindsym $mod+d exec rofi -show drun -show-icons
       bindsym alt+space exec anyrun
       # Window switching (overview = Mod+W, secondary via Mod+Grave)

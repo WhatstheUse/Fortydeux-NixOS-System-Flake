@@ -281,7 +281,7 @@ in
       bind=SUPER,Q,killclient,
 
       # Application launchers
-      bind=SUPER,space,spawn_shell,noctalia ipc call launcher toggle
+      bind=SUPER,space,spawn_shell,noctalia msg panel-toggle launcher
       bind=SUPER,D,spawn_shell,rofi -show drun -show-icons
       bind=ALT,space,spawn,anyrun
 

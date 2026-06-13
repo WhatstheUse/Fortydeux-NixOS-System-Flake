@@ -332,7 +332,7 @@ in
           (bind { mod = "SHIFT + G";            dispatcher = ''hl.dsp.group.lock()''; })
           (bind { mod = "Tab";                  dispatcher = ''hl.dsp.group.next()''; })
           (bind { mod = "SHIFT + Tab";          dispatcher = ''hl.dsp.group.prev()''; })
-          (bind { mod = "SPACE";                dispatcher = ''hl.dsp.exec_cmd("noctalia ipc call launcher toggle")''; })
+          (bind { mod = "SPACE";                dispatcher = ''hl.dsp.exec_cmd("noctalia msg panel-toggle launcher")''; })
           (bind { mod = "B";                    dispatcher = ''hl.dsp.exec_cmd("pkill waybar || waybar")''; })
           (bind { mod = "K";                    dispatcher = ''hl.dsp.exec_cmd("kate")''; })
           (bind { mod = "R";                    dispatcher = ''hl.dsp.exec_cmd("hyprctl seterror disable")''; })
