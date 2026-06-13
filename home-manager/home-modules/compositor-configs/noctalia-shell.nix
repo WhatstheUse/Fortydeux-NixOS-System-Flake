@@ -11,8 +11,9 @@ in
   ];
 
   # Noctalia desktop shell - shared across compositors
-  programs.noctalia-shell = {
+  programs.noctalia = {
     enable = true;
+    # systemd.enable = true;
     settings = {
       location = {
         name = "Allentown";
