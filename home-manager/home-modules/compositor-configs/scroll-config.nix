@@ -204,7 +204,7 @@ in
 
       ### Startup applications
       # Launch Noctalia with QML path set (fixes libplasma kirigami override)
-      exec QML2_IMPORT_PATH="${kirigamiQmlPath}" noctalia-shell
+      exec QML2_IMPORT_PATH="${kirigamiQmlPath}" noctalia
       # exec pcloud  # XDG autostart handles this (~/.config/autostart/pcloud.desktop)
       # exec lxqt-policykit-agent  # UWSM: now managed by polkit-agent systemd service
 
@@ -222,7 +222,7 @@ in
       bindsym $mod+q kill
 
       # Application launchers
-      bindsym $mod+space exec noctalia-shell ipc call launcher toggle
+      bindsym $mod+space exec noctalia ipc call launcher toggle
       bindsym $mod+d exec rofi -show drun -show-icons
       bindsym alt+space exec anyrun
       # Window switching (overview = Mod+W, secondary via Mod+Grave)

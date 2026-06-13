@@ -281,8 +281,8 @@ in
                   hl.exec_cmd("hyprctl setcursor ${hyprcursorTheme} ${hyprcursorSize}")
                   -- hl.exec_cmd("emacs --daemon")
                   hl.exec_cmd("foot -s")
-                  -- hl.exec_cmd("waybar")  -- Removed - now using noctalia-shell
-                  hl.exec_cmd("noctalia-shell")
+                  -- hl.exec_cmd("waybar")  -- Removed - now using noctalia
+                  hl.exec_cmd("noctalia")
                   hl.exec_cmd("mako")
                   hl.exec_cmd("nm-applet --indicator")
                   hl.exec_cmd("blueman-applet")
@@ -332,7 +332,7 @@ in
           (bind { mod = "SHIFT + G";            dispatcher = ''hl.dsp.group.lock()''; })
           (bind { mod = "Tab";                  dispatcher = ''hl.dsp.group.next()''; })
           (bind { mod = "SHIFT + Tab";          dispatcher = ''hl.dsp.group.prev()''; })
-          (bind { mod = "SPACE";                dispatcher = ''hl.dsp.exec_cmd("noctalia-shell ipc call launcher toggle")''; })
+          (bind { mod = "SPACE";                dispatcher = ''hl.dsp.exec_cmd("noctalia ipc call launcher toggle")''; })
           (bind { mod = "B";                    dispatcher = ''hl.dsp.exec_cmd("pkill waybar || waybar")''; })
           (bind { mod = "K";                    dispatcher = ''hl.dsp.exec_cmd("kate")''; })
           (bind { mod = "R";                    dispatcher = ''hl.dsp.exec_cmd("hyprctl seterror disable")''; })

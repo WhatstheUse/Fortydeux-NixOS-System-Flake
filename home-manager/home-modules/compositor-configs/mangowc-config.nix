@@ -115,7 +115,7 @@ in
       # Autostart
       # ========================================
       exec-once=bash ~/.config/mango/autostart.sh
-      exec-once=noctalia-shell
+      exec-once=noctalia
       # exec-once=lxqt-policykit-agent  # UWSM: now managed by polkit-agent systemd service
 
       # ========================================
@@ -281,7 +281,7 @@ in
       bind=SUPER,Q,killclient,
 
       # Application launchers
-      bind=SUPER,space,spawn_shell,noctalia-shell ipc call launcher toggle
+      bind=SUPER,space,spawn_shell,noctalia ipc call launcher toggle
       bind=SUPER,D,spawn_shell,rofi -show drun -show-icons
       bind=ALT,space,spawn,anyrun
 

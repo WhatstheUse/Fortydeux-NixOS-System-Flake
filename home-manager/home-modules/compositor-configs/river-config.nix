@@ -273,7 +273,7 @@ in
         # spawn "lxqt-policykit-agent"
 
         # Launch Noctalia desktop shell
-        # spawn "noctalia-shell"
+        # spawn "noctalia"
 
         # Idle management
         swayidle -w \

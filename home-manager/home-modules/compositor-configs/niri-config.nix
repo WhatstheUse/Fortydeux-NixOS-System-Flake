@@ -10,7 +10,7 @@ let
   sessionEnabled = config.sessionProfiles.niri.enable or false;
 
   # Kirigami QML path for Noctalia (workaround for libplasma override issue)
-  # NOTE: programs.noctalia-shell is configured in wm-homeController.nix (shared)
+  # NOTE: programs.noctalia is configured in wm-homeController.nix (shared)
   # Each compositor needs to set this environment variable in their own way:
   # - Niri: environment { QML2_IMPORT_PATH "path" } (below)
   # - Hyprland: env = QML2_IMPORT_PATH,path (in hyprland-config.nix)
@@ -297,8 +297,8 @@ lib.mkIf sessionEnabled {
     spawn-at-startup "bash" "-c" "foot --server"
     spawn-at-startup "swaybg" "-m" "fill" "-i" "${config.stylix.image}"
     // spawn-at-startup "bash" "-c" "waybar -c $HOME/.config/niri/waybar/config -s $HOME/.config/niri/waybar/style.css"
-    // Noctalia (wrapped package via programs.noctalia-shell.package override)
-    spawn-at-startup "noctalia-shell"
+    // Noctalia (wrapped package via programs.noctalia.package override)
+    spawn-at-startup "noctalia"
     spawn-at-startup "mako"
     spawn-at-startup "niriswitcher"
     spawn-at-startup "bash" "-c" "systemctl --user import-environment DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP && dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP && systemctl --user start --no-block xdg-desktop-portal-kde.service"
@@ -693,7 +693,7 @@ lib.mkIf sessionEnabled {
         Mod+S { spawn "kitty"; }
         Mod+D { spawn "walker"; }
         Super+Alt+L { spawn "swaylock" "-f" "-c" "000000"; }
-        Mod+Space { spawn "noctalia-shell" "ipc" "call" "launcher" "toggle"; }
+        Mod+Space { spawn "noctalia" "ipc" "call" "launcher" "toggle"; }
         Alt+Space { spawn "anyrun"; }
         Mod+Y { spawn "bash" "-c" "pgrep footclient && pkill footclient || footclient" ; }
         // Mod+Return { spawn "walker"; }

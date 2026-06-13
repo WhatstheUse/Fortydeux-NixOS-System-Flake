@@ -162,7 +162,7 @@ in
           # graphical-session.target dependents start before other apps need them.
           exec uwsm finalize
           # Launch Noctalia with QML path set (fixes libplasma kirigami override)
-          exec QML2_IMPORT_PATH="${kirigamiQmlPath}" noctalia-shell
+          exec QML2_IMPORT_PATH="${kirigamiQmlPath}" noctalia
           # exec pcloud  # XDG autostart handles this (~/.config/autostart/pcloud.desktop)
           # exec lxqt-policykit-agent  # UWSM: now managed by polkit-agent systemd service
           # exec stasis  # Disabled - reverting to swayidle
@@ -180,7 +180,7 @@ in
 
           # Start your launcher
           bindsym $mod+d exec $menu
-          bindsym $mod+space exec noctalia-shell ipc call launcher toggle
+          bindsym $mod+space exec noctalia ipc call launcher toggle
 
           # Reload config / lock screen
           bindsym $mod+Escape reload

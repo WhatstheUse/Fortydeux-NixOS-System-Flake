@@ -7,7 +7,7 @@ in
   imports = [
     ./dotfiles/kanshi.nix
     ./compositor-configs/stasis-config.nix
-    ./compositor-configs/noctalia-shell.nix
+    ./compositor-configs/noctalia.nix
   ];
 
   options.sessionProfiles = {
