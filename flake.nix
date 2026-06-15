@@ -59,7 +59,7 @@
     };
     nixvim = {
       url = "github:nix-community/nixvim";
-      # inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     anyrun.url = "github:anyrun-org/anyrun";
     # Atuin shell history

@@ -385,6 +385,10 @@
     };
     nixvim = {
       enable = true;
+      # Pin nixvim to our flake's nixpkgs (matches inputs.nixvim.inputs.nixpkgs.follows).
+      # Explicitly setting source raises it above the default priority, which silences
+      # nixvim's "default value affected by follows" warning.
+      nixpkgs.source = inputs.nixpkgs;
       # enableMan = false;
       # defaultEditor = true;
       waylandSupport = true;
