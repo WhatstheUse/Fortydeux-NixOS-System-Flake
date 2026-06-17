@@ -158,12 +158,12 @@
     alsa-plugins       # ALSA plugins for compatibility
 
     # Professional audio applications (commented out due to build issues)
-    # yabridge           # Windows VST bridge - Wine 32-bit linking failure in nixpkgs
-    # yabridgectl        # yabridge control utility
+    yabridge           # Windows VST bridge - Wine 32-bit linking failure in nixpkgs
+    yabridgectl        # yabridge control utility
 
     # Development tools (commented out due to build issues)
-    # zrythm           # DAW - currently has build issues due to Cython/Python3.13 incompatibility
-    # carla            # Plugin host - currently has build issues due to Python3.13 incompatibility
+    zrythm           # DAW - currently has build issues due to Cython/Python3.13 incompatibility
+    carla            # Plugin host - currently has build issues due to Python3.13 incompatibility
   ];
 
   # Environment variables for audio applications
