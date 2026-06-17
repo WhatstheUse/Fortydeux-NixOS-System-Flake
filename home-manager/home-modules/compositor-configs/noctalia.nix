@@ -111,6 +111,7 @@ in
         start  = [ "launcher" "wallpaper" "clock" "sysmon" "active_window" ];
         center = [ ];
         end    = [ "media" "tray" "notifications" "battery" "volume" "brightness" "control-center" "session" ];
+        capsule = true;
       };
 
       # Per-widget settings moved to [widget.<name>] (was inline displayMode). The old
