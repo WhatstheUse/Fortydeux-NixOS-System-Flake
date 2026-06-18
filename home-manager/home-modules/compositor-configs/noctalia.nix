@@ -109,11 +109,15 @@ in
       # NotificationHistory -> notifications, ControlCenter -> control-center).
       bar.main = {
         start  = [ "launcher" "wallpaper" "clock" "sysmon" "active_window" ];
-        center = [ ];
-        end    = [ "media" "tray" "notifications" "battery" "volume" "brightness" "control-center" "session" ];
+        center = [ "workspaces" ];
+        end    = [ "media" "tray" "notifications" "clipboard" "network" "bluetooth" "volume" "brightness" "battery" "control-center" "session" ];
         capsule = true;
       };
-
+      dock = {
+        enabled = true;
+        auto_hide = true;
+        reserve_space = false;
+      };
       # Per-widget settings moved to [widget.<name>] (was inline displayMode). The old
       # "icon-always"/"alwaysShow" both map to v5's default of always showing the label, so
       # these are explicit-but-default. (v5 battery.display_mode only accepts glyph|graphic,
