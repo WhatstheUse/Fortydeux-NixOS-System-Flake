@@ -48,7 +48,8 @@
   boot.loader.systemd-boot.configurationLimit = 8;
 
   # Kernel - Turn off when MS-Surface Kernel is enabled
-  boot.kernelPackages = pkgs.linuxPackages_zen;
+  # boot.kernelPackages = pkgs.linuxPackages_zen;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
   # inputs.musnix.kernel.realtime = true;
 
   sessionProfiles = {

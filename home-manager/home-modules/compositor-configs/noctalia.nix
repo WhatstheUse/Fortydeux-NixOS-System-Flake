@@ -108,10 +108,12 @@ in
       # (SystemMonitor -> sysmon, ActiveWindow -> active_window, MediaMini -> media,
       # NotificationHistory -> notifications, ControlCenter -> control-center).
       bar.main = {
-        start  = [ "launcher" "wallpaper" "clock" "sysmon" "active_window" ];
+        start  = [ "launcher" "wallpaper" "clock" "sysmon" "media" "active_window" ];
         center = [ "workspaces" ];
-        end    = [ "media" "tray" "notifications" "clipboard" "network" "bluetooth" "volume" "brightness" "battery" "control-center" "session" ];
+        end    = [ "tray" "notifications" "clipboard" "network" "bluetooth" "volume" "brightness" "battery" "control-center" "session" ];
         capsule = true;
+        margin_ends = 2;
+        margin_edge = 2;
       };
       dock = {
         enabled = true;
