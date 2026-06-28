@@ -113,10 +113,8 @@
     	source = ./dotfiles/micro;
     	recursive = true;
     }; 
-		".config/miracle-wm" = {
-    	source = ./dotfiles/miracle-wm;
-    	recursive = true;
-    }; 
+    # MiracleWM config is now linked by compositor-configs/miraclewm-config.nix
+    # (gated on sessionProfiles.miraclewm.enable).
     # Still write waybar config files for niri
     ".config/niri/waybar" = {
     	source = ./dotfiles/niri/waybar;

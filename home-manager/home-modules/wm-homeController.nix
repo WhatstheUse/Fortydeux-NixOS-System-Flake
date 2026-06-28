@@ -21,6 +21,8 @@ in
     wayfire.enable = mkEnableOption "Wayfire compositor";
     mangowc.enable = mkEnableOption "MangoWC compositor";
     scroll.enable = mkEnableOption "Scroll compositor";
+    miraclewm.enable = mkEnableOption "MiracleWM compositor";
+    labwc.enable = mkEnableOption "Labwc compositor";
   };
 
   config = {
@@ -39,86 +41,8 @@ in
       inputs.wooz.packages.${pkgs.stdenv.hostPlatform.system}.default
     ];
     
-    wayland.windowManager = {
-      labwc = {
-        enable = true;
-
-        rc = {
-          focus.followMouse = "yes";
-
-          keyboard = {
-            default = true;
-            keybind = [
-              {
-                "@key" = "W-space";
-                action = {
-                  "@name" = "Execute";
-                  "@command" = "bemenu-run";
-                };
-              }
-              {
-                "@key" = "W-s";
-                action = {
-                  "@name" = "Execute";
-                  "@command" = "kitty";
-                };
-              }
-              {
-                "@key" = "W-q";
-                action = {
-                  "@name" = "Close";
-                };
-              }
-              {
-                "@key" = "A-space";
-                action = {
-                  "@name" = "Execute";
-                  "@command" = "anyrun";
-                };
-              }
-            ];
-          };
-        };
-
-        extraConfig = ''
-          <libinput>
-            <device category="default">
-              <naturalScroll>yes</naturalScroll>
-            </device>
-          </libinput>
-        '';
-
-        menu = [
-          {
-            menuId = "root-menu";
-            label = "";
-            icon = "";
-            items = [
-              {
-                label = "BeMenu";
-                action = {
-                  name = "Execute";
-                  command = "bemenu-run";
-                };
-              }
-              {
-                label = "Reconfigure";
-                action = {
-                  name = "Reconfigure";
-                };
-              }
-              {
-                label = "Exit";
-                action = {
-                  name = "Exit";
-                };
-              }
-              
-            ];
-          }
-        ];      
-      };
-    };
+    # Labwc home config lives in compositor-configs/labwc-config.nix (gated on
+    # sessionProfiles.labwc.enable), consistent with the other compositors.
 
     services.stalonetray = {
       enable = true;

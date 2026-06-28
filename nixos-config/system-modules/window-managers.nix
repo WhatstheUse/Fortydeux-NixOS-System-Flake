@@ -50,7 +50,8 @@ let
     || cfg.sway.enable
     || cfg.wayfire.enable
     || cfg.mangowc.enable
-    || cfg.scroll.enable;
+    || cfg.scroll.enable
+    || cfg.labwc.enable;
 in
 {
   options.sessionProfiles = {
@@ -64,6 +65,8 @@ in
     wayfire.enable = mkEnableOption "Wayfire compositor";
     mangowc.enable = mkEnableOption "MangoWC compositor";
     scroll.enable = mkEnableOption "Scroll compositor";
+    miraclewm.enable = mkEnableOption "MiracleWM compositor";
+    labwc.enable = mkEnableOption "Labwc compositor";
 
     portal.configFragments = mkOption {
       type = types.listOf types.attrs;
@@ -134,6 +137,20 @@ in
             comment = "Scroll compositor managed by UWSM";
             binPath = mkDefault "/run/current-system/sw/bin/scroll";
           };
+        }) //
+        (optionalAttrs cfg.miraclewm.enable {
+          miraclewm = {
+            prettyName = "MiracleWM";
+            comment = "MiracleWM compositor managed by UWSM";
+            binPath = mkDefault "/run/current-system/sw/bin/miracle-wm";
+          };
+        }) //
+        (optionalAttrs cfg.labwc.enable {
+          labwc = {
+            prettyName = "Labwc";
+            comment = "Labwc compositor managed by UWSM";
+            binPath = mkDefault "/run/current-system/sw/bin/labwc";
+          };
         });
     };
 
@@ -151,9 +168,6 @@ in
 
     # Register session packages with the display manager
     services.displayManager.sessionPackages = unique cfg.sessionPackages;
-
-    # Miracle-WM
-    # programs.wayland.miracle-wm.enable = true;
 
     # Environment Variables - Optimized for all compositors
     environment = {

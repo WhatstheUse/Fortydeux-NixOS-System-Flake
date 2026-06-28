@@ -28,6 +28,8 @@
     ../home-modules/compositor-configs/river-config.nix
     ../home-modules/compositor-configs/mangowc-config.nix
     ../home-modules/compositor-configs/scroll-config.nix
+    ../home-modules/compositor-configs/miraclewm-config.nix
+    ../home-modules/compositor-configs/labwc-config.nix
 
     # Device-specific
     ../home-modules/compositor-configs/highdpi-hyprland.nix
@@ -43,5 +45,7 @@
     wayfire.enable = true;
     mangowc.enable = true;
     scroll.enable = true;
+    miraclewm.enable = false;
+    labwc.enable = false;
   };
 }

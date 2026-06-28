@@ -132,6 +132,20 @@ custom_actions:
     modifiers: []
     key: KEY_BRIGHTNESSDOWN
 
+  # Exit the session cleanly via UWSM (parity with Sway/River/Wayfire)
+  - command: uwsm stop
+    action: down
+    modifiers:
+      - primary
+      - shift
+    key: KEY_E
+
+  # Screenshot (full screen) -> Satty editor
+  - command: "sh -c 'grim -t ppm - | satty -f - --output-filename $HOME/Pictures/Screenshots/satty-$(date +%Y%m%d-%H%M%S).png'"
+    action: down
+    modifiers: []
+    key: KEY_PRINT
+
   # Toggle Waybar
   # - command: pkill waybar || waybar
   #   action: down
@@ -142,9 +156,16 @@ custom_actions:
 
 # Startup applications - using Waybar like your other configs
 startup_apps:
-  - command: waybar
+  # Hand the session off to UWSM: import WAYLAND_DISPLAY into the systemd/D-Bus
+  # activation environment and activate graphical-session.target so the user
+  # services (mako, polkit-agent, etc.) start. Must run first.
+  - command: uwsm finalize
     restart_on_death: false
-  - command: mako
+  # Wallpaper (mirrors swaybg usage in the other compositors)
+  - command: "sh -c 'swaybg -m fill -i $HOME/.config/wallpapers/aurora.jpg'"
+    restart_on_death: true
+  # Waybar, pointed at the MiracleWM-specific config/style
+  - command: "sh -c 'waybar -c $HOME/.config/miracle-wm/waybar/config -s $HOME/.config/miracle-wm/waybar/style.css'"
     restart_on_death: false
   - command: nm-applet --indicator
     restart_on_death: false

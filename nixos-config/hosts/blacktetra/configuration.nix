@@ -29,6 +29,8 @@
     ../../system-modules/compositor-configs/niri-config.nix
     ../../system-modules/compositor-configs/mangowc-config.nix
     ../../system-modules/compositor-configs/scroll-config.nix
+    ../../system-modules/compositor-configs/miraclewm-config.nix
+    ../../system-modules/compositor-configs/labwc-config.nix
 
     # Home-manager
     inputs.home-manager.nixosModules.home-manager
@@ -62,5 +64,7 @@
     wayfire.enable = true;
     mangowc.enable = true;
     scroll.enable = true;
+    miraclewm.enable = true;
+    labwc.enable = true;
   };
 }
