@@ -6,7 +6,7 @@ in
 {
   config = lib.mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
-      mangowc
+      mango
     ];
 
     sessionProfiles.portal = {
@@ -28,7 +28,7 @@ in
     };
 
     sessionProfiles.sessionPackages = [
-      pkgs.mangowc
+      pkgs.mango
     ];
   };
 }
