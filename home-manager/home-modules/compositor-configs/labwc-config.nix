@@ -57,9 +57,14 @@ lib.mkIf sessionEnabled {
             "@key" = "W-q";
             action = { "@name" = "Close"; };
           }
-          # Fullscreen
+          # Maximize
           {
             "@key" = "W-f";
+            action = { "@name" = "ToggleMaximize"; };
+          }
+          # Fullscreen
+          {
+            "@key" = "W-S-f";
             action = { "@name" = "ToggleFullscreen"; };
           }
           # Exit the session cleanly via UWSM (parity with the other compositors)
@@ -164,7 +169,7 @@ lib.mkIf sessionEnabled {
           }
           {
             label = "Launcher";
-            action = { name = "Execute"; command = "anyrun"; };
+            action = { name = "Execute"; command = "fuzzel"; };
           }
           {
             label = "Reconfigure";

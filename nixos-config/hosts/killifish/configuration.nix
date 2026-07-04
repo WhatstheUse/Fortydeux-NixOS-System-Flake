@@ -84,6 +84,6 @@
     mangowc.enable = true;
     scroll.enable = true;
     miraclewm.enable = false;
-    labwc.enable = false;
+    labwc.enable = true;
   };
 }

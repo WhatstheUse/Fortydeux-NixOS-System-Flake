@@ -2,7 +2,7 @@
 outputs:
   - name: eDP-1
     enabled: true
-    scale: 1.0
+    scale: 2.0
     orientation: normal
     position:
       x: 0
