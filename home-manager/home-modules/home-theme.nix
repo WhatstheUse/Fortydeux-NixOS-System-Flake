@@ -62,6 +62,11 @@ in
     };
   };
 
+  # Explicitly enable cursor config generation. Stylix populates
+  # home.pointerCursor.{name,package,size} from stylix.cursor above, but
+  # home-manager no longer auto-enables generation from those values alone.
+  home.pointerCursor.enable = true;
+
   # GTK theming settings
   gtk = {
     enable = true;
