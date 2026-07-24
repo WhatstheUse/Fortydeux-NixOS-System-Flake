@@ -22,6 +22,22 @@ jobs:
   build-surface-kernel:
     runs-on: ubuntu-latest-4-cores
     steps:
+      - name: Free disk space and relocate Nix onto the large /mnt disk
+        run: |
+          echo "Disk before cleanup:"; df -h / /mnt
+          # Reclaim ~30 GB of preinstalled tooling this build doesn't need
+          sudo rm -rf /usr/share/dotnet /opt/ghc /usr/local/lib/android \
+                      /usr/local/share/boost "$AGENT_TOOLSDIRECTORY" || true
+          sudo docker image prune --all --force || true
+          # Back both the Nix store and the build temp dir (where the kernel
+          # .o files land) with the ~70 GB /mnt ephemeral disk. Bind mounts are
+          # installer-agnostic and must happen BEFORE Nix is installed.
+          sudo mkdir -p /mnt/nix /mnt/tmp /nix
+          sudo chmod 1777 /mnt/tmp
+          sudo mount --bind /mnt/nix /nix
+          sudo mount --bind /mnt/tmp /tmp
+          echo "Disk after remap:"; df -h / /mnt
+
       - uses: actions/checkout@v4
         with:
           submodules: true
