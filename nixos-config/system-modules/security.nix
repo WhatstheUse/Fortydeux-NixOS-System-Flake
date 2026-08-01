@@ -29,7 +29,11 @@ in
   # Services - Mullvad VPN
   services.mullvad-vpn = {
     enable = true;
-    package = pkgs.mullvad-vpn;
+    # package = pkgs.mullvad-vpn;
+    gui = {
+      enable = true;
+      # package = pkgs.mullvad-vpn;
+    };
   };
 
   #Services - clamav updater: freshclam

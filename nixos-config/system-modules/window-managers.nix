@@ -204,7 +204,6 @@ in
       adwaita-icon-theme
       hicolor-icon-theme
       papirus-icon-theme
-      gnome-icon-theme
       gdk-pixbuf
       librsvg
       gtk3
