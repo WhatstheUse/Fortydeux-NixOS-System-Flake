@@ -1,6 +1,13 @@
-{ config, pkgs, user, ... }: 
+{ config, pkgs, lib, user, ... }:
 
 { # Display-manager.nix
+
+  # Both programs.niri and services.desktopManager.plasma6 set
+  # services.displayManager.defaultSession with lib.mkDefault, which collide at
+  # equal priority when both are enabled. Pin the session we actually want here
+  # (normal priority beats mkDefault) to break the tie.
+  services.displayManager.defaultSession =
+    lib.mkIf (config.sessionProfiles.niri.enable or false) "plasma";
 
   # Enable Cosmic Greeter / Display Manager
   # services.displayManager.cosmic-greeter.enable = true;
