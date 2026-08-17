@@ -28,9 +28,9 @@
   # which is read-only on NixOS. This declares them properly instead.
   hardware.steam-hardware.enable = true;
 
-  programs.immersed = {
-    enable = true;
-  };
+  # programs.immersed = {
+    # enable = true;
+  # };
 
   # Enable ALVR - wireless PC VR streaming via SteamVR
   programs.alvr = {
