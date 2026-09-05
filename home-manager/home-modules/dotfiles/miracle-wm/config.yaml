@@ -50,31 +50,61 @@ move_modifier:
   - primary
 
 # Default action overrides
-# default_action_overrides:
-#   - name: toggle_stacking
-#   - action: "down"
-#   - modifiers:
-#       - primary
-#       - shift
-#   - key: KEY_S
+#
+# NOTE: each override is ONE list item; only the first field takes the "- ".
+# Prefixing every field with "- " (as an earlier version of this file did)
+# creates a separate list entry per key and silently breaks the block.
+# Keys are XKB keysym names (see the custom_actions note below).
+#
+# `name` must be one of miracle's built-in action names (see
+# default_key_command_strings in the miracle-wm headers), e.g. toggle_stacking,
+# toggle_tabbing, toggle_floating, quit_active_window, quit_compositor,
+# reload_config. Note it is "quit_active_window", NOT "close_window".
+#
+# SHIFTED BINDINGS: miracle compares against the keysym Mir reports, which is
+# the shifted one - Shift+s arrives as "S", not "s". This list is a plain
+# vector of independent entries, so binding both cases for the same action is
+# allowed and makes the binding fire regardless of how the keysym resolves.
+default_action_overrides:
+  # Toggle stacking on Super+Shift+S
+  - name: toggle_stacking
+    action: "down"
+    modifiers:
+      - primary
+      - shift
+    key: S
+
+  - name: toggle_stacking
+    action: "down"
+    modifiers:
+      - primary
+      - shift
+    key: s
 
 #   # Override default quit_compositor with working pkill method
-#   - name: quit_compositor
-#   - action: "down"
-#   - modifiers:
-#       - primary
-#       - shift
-#   - key: KEY_E
-#   - command: pkill miracle-wm
-
-#   # Override close focused window from Super+Shift+Q to Super+Q
-#   - name: close_window
-#   - action: "down"
-#   - modifiers:
-#       - primary
-#   - key: KEY_Q
+  # - name: quit_compositor
+    # action: "down"
+    # modifiers:
+      # - primary
+      # - shift
+    # key: e
+#
+#   # Override quit_active_window from Super+Shift+Q to Super+Q
+  - name: quit_active_window
+    action: "down"
+    modifiers:
+      - primary
+    key: q
 
 # Core custom actions for consistent experience across WMs
+#
+# KEY NAMES: miracle-wm >= 0.10 parses `key:` with xkb_keysym_from_name(), so
+# these must be XKB keysym names, NOT Linux evdev KEY_* codes. Names are
+# case-sensitive; use the canonical spelling (lowercase letters, "space",
+# "Print", "XF86AudioMute", ...). A bad name is a per-binding parse error that
+# makes miracle-wm report "unable to load the full configuration" and drop that
+# binding, while still loading the rest of the file.
+# Reference: https://xkbcommon.org/doc/current/xkbcommon-keysyms_8h.html
 custom_actions:
   # Built-in exit method (buggy - for testing only)
   # - command: miracle-wm --quit-compositor
@@ -82,76 +112,83 @@ custom_actions:
   #   modifiers:
   #     - primary
   #     - shift
-  #   key: KEY_Q
+  #   key: q
 
   # Launcher keybindings - consistent across your configs
   - command: anyrun
     action: down
     modifiers:
       - alt
-    key: KEY_SPACE
-  
+    key: space
+
   - command: fuzzel
     action: down
     modifiers:
       - primary
-    key: KEY_SPACE
+    key: space
 
   # Terminal
   - command: kitty
     action: down
     modifiers:
       - primary
-    key: KEY_S
-
+    key: s
 
   # Volume controls - consistent across your configs
   - command: wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+
     action: down
     modifiers: []
-    key: KEY_VOLUMEUP
+    key: XF86AudioRaiseVolume
 
   - command: wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
     action: down
     modifiers: []
-    key: KEY_VOLUMEDOWN
+    key: XF86AudioLowerVolume
 
   - command: wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
     action: down
     modifiers: []
-    key: KEY_MUTE
+    key: XF86AudioMute
 
   # Brightness controls
   - command: brightnessctl set 5%+
     action: down
     modifiers: []
-    key: KEY_BRIGHTNESSUP
+    key: XF86MonBrightnessUp
 
   - command: brightnessctl set 5%-
     action: down
     modifiers: []
-    key: KEY_BRIGHTNESSDOWN
+    key: XF86MonBrightnessDown
 
   # Exit the session cleanly via UWSM (parity with Sway/River/Wayfire)
+  # Bound for both keysym cases - see the SHIFTED BINDINGS note above.
   - command: uwsm stop
     action: down
     modifiers:
       - primary
       - shift
-    key: KEY_E
+    key: E
+
+  - command: uwsm stop
+    action: down
+    modifiers:
+      - primary
+      - shift
+    key: e
 
   # Screenshot (full screen) -> Satty editor
-  - command: "sh -c 'grim -t ppm - | satty -f - --output-filename $HOME/Pictures/Screenshots/satty-$(date +%Y%m%d-%H%M%S).png'"
+  - command: "sh -c 'mkdir -p $HOME/Pictures/Screenshots && grim -t ppm - | satty -f - --output-filename $HOME/Pictures/Screenshots/satty-$(date +%Y%m%d-%H%M%S).png'"
     action: down
     modifiers: []
-    key: KEY_PRINT
+    key: Print
 
   # Toggle Waybar
-  # - command: pkill waybar || waybar
+  # - command: sh -c 'pkill waybar || waybar'
   #   action: down
   #   modifiers:
   #     - primary
-  #   key: KEY_B
+  #   key: b
 
 
 # Startup applications - using Waybar like your other configs

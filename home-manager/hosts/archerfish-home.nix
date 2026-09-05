@@ -45,7 +45,7 @@
     wayfire.enable = true;
     mangowc.enable = true;
     scroll.enable = true;
-    miraclewm.enable = false;
+    miraclewm.enable = true;
     labwc.enable = false;
   };
 }
