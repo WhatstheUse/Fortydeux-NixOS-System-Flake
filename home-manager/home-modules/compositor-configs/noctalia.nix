@@ -31,9 +31,9 @@ let
   };
 in
 {
-  imports = [
-    inputs.noctalia.homeModules.default
-  ];
+  # imports = [
+  #   inputs.noctalia.homeModules.default
+  # ];
 
   # Noctalia desktop shell - shared across compositors
   programs.noctalia = {

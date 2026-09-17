@@ -37,6 +37,13 @@
       url = "github:noctalia-dev/noctalia-shell";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    # Dank Material Shell (DMS) - Quickshell-based desktop shell, used by MiracleWM
+    # in place of Waybar. Provides homeModules.dank-material-shell (the older
+    # homeModules.dankMaterialShell output is deprecated upstream).
+    dank-material-shell = {
+      url = "github:AvengeMedia/DankMaterialShell";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     # Wooz screen magnifier for Wayland
     wooz.url = "github:negrel/wooz";
     # Hyprland compositor + Plugins

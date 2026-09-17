@@ -28,11 +28,43 @@ input:
     repeat_delay: 300
 
 # Cursor
+#
+# `theme` must be set explicitly. Without it miracle loads Mir's built-in
+# default theme, while GTK/Qt/Electron clients draw their own pointers from
+# XCURSOR_THEME (Stylix sets phinger-cursors-light) - so the pointer changed
+# *shape* every time it crossed into a client surface. Naming the same theme
+# here makes both sides agree. The theme is resolved via XCURSOR_PATH, which
+# uwsm already exports into the session.
+#
+# `scale` multiplies a base cursor that Mir hard-codes at 24x24 - upstream
+# documents this as a known Mir limitation (wiki/docs/configuration/cursor.md:
+# "The cursor size is currently fixed at 24x24 regardless of the `scale`
+# setting"). So this yields a 48px compositor pointer, and it is an upscale of
+# a 24px bitmap rather than a true HiDPI cursor. Clients ignore this value and
+# use XCURSOR_SIZE=32 instead, so some residual *size* variation between the
+# compositor pointer and client pointers is expected until Mir gains real
+# cursor-size support. Lower this to ~1.33 to match clients that draw at 32
+# physical px; raise it toward 2.67 to match scale-aware clients that draw at
+# 64.
 cursor:
-  scale: 2.0
+  # scale: 2.0
   focus_mode: hover
+  theme: phinger-cursors-light
 
 # Window borders
+#
+# NOTE: `size` and `radius` are in PHYSICAL pixels and are NOT multiplied by the
+# output scale. In src/renderer.cpp:draw_border the window rectangle is
+# converted to physical pixels (`clip_area * x_scale`) before being handed to
+# the shader, but `borderWidth`/`borderRadius` are passed through raw from this
+# file. On eDP-1 at scale 2.0 that made `size: 2` render two physical pixels -
+# half the apparent thickness of everything else on screen. Doubling it to 4
+# restores the intended weight.
+#
+# TRADEOFF: this is a single global value, so DisplayPort-1 (scale 1.0 in
+# display.yaml) now gets a border that looks twice as thick. There is no
+# per-output border setting in 0.10.1; pick the value for whichever output you
+# use most.
 border:
   size: 2
   color: 0x505050ff
@@ -114,18 +146,33 @@ custom_actions:
   #     - shift
   #   key: q
 
-  # Launcher keybindings - consistent across your configs
+  # Launcher keybindings - consistent across your configs.
+  # Super+Space opens the shell's own launcher (DMS spotlight here, Noctalia's
+  # `msg panel-toggle launcher` elsewhere); Alt+Space stays on anyrun, matching
+  # Hyprland/River/Scroll/MangoWC.
   - command: anyrun
     action: down
     modifiers:
       - alt
     key: space
 
-  - command: fuzzel
+  # DMS spotlight. `dms ipc call spotlight toggle` is upstream's documented
+  # launcher binding (docs/IPC.md); it talks to the running shell over its IPC
+  # socket, so it is a no-op if DMS is not running rather than starting a copy.
+  - command: dms ipc call spotlight toggle
     action: down
     modifiers:
       - primary
     key: space
+
+  # Fuzzel is still installed as a fallback but no longer bound, since Super+Space
+  # now belongs to DMS. Uncomment to reach it on Super+D (free in miracle - the
+  # defaults use Enter, /, ', R, F, W and S).
+  # - command: fuzzel
+  #   action: down
+  #   modifiers:
+  #     - primary
+  #   key: d
 
   # Terminal
   - command: kitty
@@ -183,12 +230,14 @@ custom_actions:
     modifiers: []
     key: Print
 
-  # Toggle Waybar
-  # - command: sh -c 'pkill waybar || waybar'
-  #   action: down
-  #   modifiers:
-  #     - primary
-  #   key: b
+  # Toggle Waybar. Waybar is no longer autostarted (DMS is the shell now) but is
+  # still installed with its config under waybar/, so this is the fallback if DMS
+  # misbehaves under Mir. Super only, so no shifted-keysym ambiguity.
+  - command: "sh -c 'pkill waybar || waybar -c $HOME/.config/miracle-wm/waybar/config -s $HOME/.config/miracle-wm/waybar/style.css'"
+    action: down
+    modifiers:
+      - primary
+    key: b
 
 
 # Startup applications - using Waybar like your other configs
@@ -201,9 +250,14 @@ startup_apps:
   # Wallpaper (mirrors swaybg usage in the other compositors)
   - command: "sh -c 'swaybg -m fill -i $HOME/.config/wallpapers/aurora.jpg'"
     restart_on_death: true
-  # Waybar, pointed at the MiracleWM-specific config/style
-  - command: "sh -c 'waybar -c $HOME/.config/miracle-wm/waybar/config -s $HOME/.config/miracle-wm/waybar/style.css'"
-    restart_on_death: false
+  # Dank Material Shell (DMS) - replaces Waybar as the bar/shell for MiracleWM.
+  # `dms run` is upstream's own autostart form for compositors (it is what the DMS
+  # Niri deployer writes as spawn-at-startup). The `--session` variant is only for
+  # the Type=dbus systemd unit, which we deliberately don't use - see dms.nix.
+  # DMS wraps its own Qt/QML import paths, so unlike Noctalia it needs no kirigami
+  # QML2_IMPORT_PATH workaround.
+  - command: dms run
+    restart_on_death: true
   - command: nm-applet --indicator
     restart_on_death: false
   - command: blueman-applet

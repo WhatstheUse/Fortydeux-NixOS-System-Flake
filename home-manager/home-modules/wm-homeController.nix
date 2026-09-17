@@ -8,6 +8,7 @@ in
     ./dotfiles/kanshi.nix
     ./compositor-configs/stasis-config.nix
     ./compositor-configs/noctalia.nix
+    ./compositor-configs/dms.nix
   ];
 
   options.sessionProfiles = {
