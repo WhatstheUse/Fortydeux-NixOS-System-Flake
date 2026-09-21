@@ -19,7 +19,8 @@
     # zed-editor #Modern text editor with AI built in 
   ]);
 
-  programs.fabric-ai = {
-    enable = true;
+  programs = {
+    fabric-ai.enable = true;
+    herdr.enable = true;
   };
 }

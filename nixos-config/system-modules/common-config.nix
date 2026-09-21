@@ -19,6 +19,7 @@
 
   ### Shell
   programs.fish.enable = true;
+  programs.mosh.enable = true;
   users.defaultUserShell = pkgs.fish;
 
   ### System settings
