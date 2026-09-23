@@ -25,18 +25,9 @@
     #   url = "github:nix-community/NUR";
     #   inputs.nixpkgs.follows = "nixpkgs";
     # };
-    # Nixpkgs-XR Flake
-    nixpkgs-xr.url = "github:nix-community/nixpkgs-xr";
     # Stylix theming
     # stylix.url = "https://flakehub.com/f/danth/stylix/0.1";
     stylix.url = "github:nix-community/stylix";
-    # Niri compositor
-    niri.url = "github:YaLTeR/niri";
-    # Noctalia desktop shell for Wayland
-    noctalia = {
-      url = "github:noctalia-dev/noctalia-shell";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     # Dank Material Shell (DMS) - Quickshell-based desktop shell, used by MiracleWM
     # in place of Waybar. Provides homeModules.dank-material-shell (the older
     # homeModules.dankMaterialShell output is deprecated upstream).
@@ -44,39 +35,8 @@
       url = "github:AvengeMedia/DankMaterialShell";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    # Wooz screen magnifier for Wayland
-    wooz.url = "github:negrel/wooz";
-    # Hyprland compositor + Plugins
-    hyprland.url = "github:hyprwm/Hyprland";
-    hyprland-plugins = {
-      url = "github:hyprwm/hyprland-plugins";
-      inputs.hyprland.follows = "hyprland";
-    };
-    hyprscroller = {
-      url = "github:cpiber/hyprscroller";
-      inputs.hyprland.follows = "hyprland";
-    };
-    hyprgrass = {
-       url = "github:horriblename/hyprgrass";
-       inputs.hyprland.follows = "hyprland"; # IMPORTANT
-    };  
-    hyprshell = {
-      url = "github:H3rmt/hyprshell?ref=hyprshell-release";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     nixvim = {
       url = "github:nix-community/nixvim";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    anyrun.url = "github:anyrun-org/anyrun";
-    # Atuin shell history
-    atuin = {
-      url = "github:ellie/atuin/ea218c546f325ea408e4e10cefee5f5ac97b35b8";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    # Yazi file manager - using git version for latest fixes
-    yazi = {
-      url = "github:sxyazi/yazi";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     # Scroll compositor (Sway fork with scrolling layout)
@@ -93,7 +53,7 @@
     # };
   };
   
-  outputs = { self, nixpkgs, home-manager, atuin, ... }@inputs:
+  outputs = { self, nixpkgs, home-manager, ... }@inputs:
     let
       username = "fortydeux";  # Change this to your username
 

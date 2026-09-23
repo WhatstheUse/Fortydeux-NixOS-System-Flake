@@ -731,7 +731,6 @@
     yazi = {
       enable = true;
       shellWrapperName = "y";
-      # package = inputs.yazi.packages.${pkgs.stdenv.hostPlatform.system}.default;
       settings = {
         opener = {
           # Org files - Neovim as default, but other editors available

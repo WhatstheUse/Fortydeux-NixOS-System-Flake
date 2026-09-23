@@ -2,11 +2,6 @@
 
 { # Fun-and-games.nix
 
-  # Modules
-  # imports = [
-  #   inputs.nixpkgs-xr.nixosModules.nixpkgs-xr
-  # ]; 
-
   # Graphics Card Control
   services.lact = {
     enable = true;

@@ -37,10 +37,8 @@ in
       swayidle # Idle management daemon used by multiple compositors
       wlopm # Wayland output power management (used by River for screen-off)
       lxqt.lxqt-policykit # Polkit authentication agent for standalone compositors
-    ]) ++ [
-      # Wooz screen magnifier for compositors without built-in zoom (Niri, Sway, River)
-      inputs.wooz.packages.${pkgs.stdenv.hostPlatform.system}.default
-    ];
+      wooz # Screen magnifier for compositors without built-in zoom (Niri, Sway, River)
+    ]);
     
     # Labwc home config lives in compositor-configs/labwc-config.nix (gated on
     # sessionProfiles.labwc.enable), consistent with the other compositors.

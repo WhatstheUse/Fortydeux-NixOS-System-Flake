@@ -83,10 +83,6 @@
     # # the Nix store. Activating the configuration will then make '~/.screenrc' a
     # # symlink to the Nix store copy.
     # ".screenrc".source = dotfiles/screenrc;
-    ".config/dunst" = {
-    	source = ./dotfiles/dunst;
-        recursive = true;
-    };
     ".config/foot" = {
     	source = ./dotfiles/foot;
     	recursive = true;

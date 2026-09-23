@@ -12,7 +12,6 @@
   imports = [
     ./networking.nix
     ./security.nix
-    # ./determinate.nix
     ./system-theme.nix
     inputs.home-manager.nixosModules.home-manager
   ];

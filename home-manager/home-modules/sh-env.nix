@@ -30,12 +30,11 @@
       end
     '';
   };
-  # Atuin shell history - using flake input for latest version
+  # Atuin shell history
   programs.atuin = {
     enable = true;
     enableZshIntegration = true;
     flags = [ "--disable-ctrl-r" ];
-    # package = inputs.atuin.packages.${pkgs.stdenv.hostPlatform.system}.default;
   };
   # Session variables and shell aliases
   home = {

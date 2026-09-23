@@ -9,7 +9,6 @@ in
       enable = true;
       withUWSM = true;
       package = pkgs.hyprland;
-      # package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
     };
 
     environment.systemPackages = with pkgs; [
@@ -43,10 +42,5 @@ in
     sessionProfiles.sessionPackages = [
       pkgs.hyprland
     ];
-
-    nix.settings = {
-      substituters = [ "https://hyprshell.cachix.org" ];
-      trusted-public-keys = [ "hyprshell.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=" ];
-    };
   };
 }

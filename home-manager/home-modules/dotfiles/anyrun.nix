@@ -3,7 +3,6 @@
 {
   programs.anyrun = {
     enable = true;
-    # package = inputs.anyrun.packages.${pkgs.stdenv.hostPlatform.system}.anyrun;
     config = {
       x = { fraction = 0.5; };
       y = { fraction = 0.3; };

@@ -35,7 +35,6 @@ in
     ./waybar-config.nix
     ./hypridle-config.nix
     ./hyprlock-config.nix
-    # inputs.hyprshell.homeModules.hyprshell
   ];
 
   config = mkIf (cfg.enable && sessionEnabled) {
@@ -55,36 +54,17 @@ in
       lib.mkForce [ "WAYLAND_DISPLAY" "HYPRLAND_INSTANCE_SIGNATURE" ];
 
     home.packages = with pkgs; [
-      # inputs.hyprland-qtutils.packages.${pkgs.stdenv.hostPlatform.system}.default
       iio-hyprland # Hyprland tablet layout listener/changer
       wvkbd # On-screen virtual keyboard for wlroots
-      # Add hyprscrolling plugin to system packages
-      # hyprlandPlugins.hyprscrolling
-      # hyprlandPlugins.hyprexpo
-      # hyprlandPlugins.hyprgrass
-      # hyprshell
     ];
     wayland.windowManager.hyprland = {
       enable = true;
       systemd.enable = false; # UWSM manages the session; HM's own systemd integration conflicts with it
       package = pkgs.hyprland;
-      # package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.default;
       configType = "lua";
-      plugins = [
-        # Use system packages instead of flake inputs to avoid NIX_MAIN_PROGRAM conflicts
-        # Hyprgrass plugin
-        # pkgs.hyprlandPlugins.hyprgrass
-        # inputs.hyprgrass.packages.${pkgs.stdenv.hostPlatform.system}.hyprgrass
-        # Hyprscroller plugin - commented out, switching to hyprscrolling
-        # pkgs.hyprlandPlugins.hyprscroller
-        # HyprExpo
-        # pkgs.hyprlandPlugins.hyprexpo
-        # inputs.hyprland-plugins.packages.${pkgs.stdenv.hostPlatform.system}.hyprexpo
-        # inputs.hyprscroller.packages.${pkgs.stdenv.hostPlatform.system}.default
-        # New official hyprscrolling plugin from hyprland-plugins flake input
-        # pkgs.hyprlandPlugins.hyprscrolling
-        # inputs.hyprland-plugins.packages.${pkgs.stdenv.hostPlatform.system}.hyprscrolling
-      ];
+      # No plugins needed: the scrolling layout below is built into Hyprland
+      # core as of 0.55+, not a separate hyprlandPlugins.hyprscrolling plugin.
+      plugins = [ ];
       settings = let
         stylixColors = lib.attrByPath [ "lib" "stylix" "colors" ] {} config;
         stylixGtkTheme = lib.attrByPath [ "stylix" "gtk" "theme" "name" ] null config;
@@ -168,8 +148,7 @@ in
             # ["col.inactive_border"] = "$inactiveBorderColor";
             # allow_session_lock_restore = true;
             # layout = "dwindle";
-            # layout = "scroller";  # Old hyprscroller layout
-            layout = "scrolling"; # New official hyprscrolling layout
+            layout = "scrolling"; # Built-in core scrolling (column) layout
           };
 
           decoration = {

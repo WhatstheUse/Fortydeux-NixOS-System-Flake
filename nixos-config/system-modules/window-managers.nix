@@ -214,7 +214,6 @@ in
       rofi
       bemenu
       mako
-      dunst
       libnotify
       grim
       slurp
