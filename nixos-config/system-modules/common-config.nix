@@ -15,11 +15,18 @@
     # ./determinate.nix
     ./system-theme.nix
     inputs.home-manager.nixosModules.home-manager
+    inputs.openlogi.nixosModules.default
   ];
 
   ### Shell
   programs.fish.enable = true;
   programs.mosh.enable = true;
+
+  ### OpenLogi - Local-first companion for Logitech peripherals (udev rules + agent)
+  programs.openlogi = {
+    enable = true;
+    package = pkgs.openlogi; # Use cached nixpkgs build instead of compiling from upstream source
+  };
   users.defaultUserShell = pkgs.fish;
 
   ### System settings

@@ -84,6 +84,11 @@
       url = "github:AsahiRocks/scroll-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    #OpenLogi - Logitech peripheral manager
+    openlogi = {
+      url = "github:AprilNEA/OpenLogi";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     #MusNix
     musnix.url = "github:musnix/musnix";
     # SOPS secrets management

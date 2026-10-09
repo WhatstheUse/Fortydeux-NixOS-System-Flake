@@ -14,7 +14,6 @@
     claude-code #Agentic coding tool for terminal and codebase
     tenere #Rust-based TUI for interacting with AI LLMs
     warp-terminal #Modern rust-based AI-enabled terminal       
-    waveterm  #Paneled Terminal, File-Manager w/ Preview, AI chat, and Webviewer
     # windsurf #Agentic IDE powered by AI Flow paradigm
     # zed-editor #Modern text editor with AI built in 
   ]);
