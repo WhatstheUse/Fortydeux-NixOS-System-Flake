@@ -13,6 +13,14 @@
     enable = true;
     remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
     dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
+
+    # Desktop streaming (e.g. to the Steam Frame) needs PipeWire screen capture
+    # on Wayland - Steam's X11 capture path does not work there. Without this
+    # flag Steam logs "Desktop capture unavailable, try running Steam with
+    # -pipewire" and the Desktop entry never appears on the headset.
+    # extraArgs feeds the wrapper (exec steam $extraArgs "$@"), so it applies to
+    # every launch path: app launcher, terminal, and steam:// URL handler.
+    package = pkgs.steam.override { extraArgs = "-pipewire"; };
   };
 
   # 32-bit graphics support - required for SteamVR and many Steam games
@@ -23,9 +31,23 @@
   # which is read-only on NixOS. This declares them properly instead.
   hardware.steam-hardware.enable = true;
 
-  # programs.immersed = {
-    # enable = true;
-  # };
+  # Wi-Fi regulatory domain - required for the Steam Frame wireless dongle
+  # (Valve 28de:2432, driven by rtw89_8852cu on kernel >= 7.2).
+  # The dongle links to the headset on 6 GHz only. Under the default world
+  # domain ("00") the kernel marks all 50 of its 6 GHz channels as disabled,
+  # so the dongle enumerates and loads firmware but never sees the headset.
+  # Set the domain that actually matches our location (America/New_York -> US).
+  # Note: only set a domain you are actually located in.
+  boot.extraModprobeConfig = ''
+    options cfg80211 ieee80211_regdom="US"
+  '';
+
+   # Set by networkmanager - should not be necessary
+   # hardware.wirelessRegulatoryDatabase = true;
+
+  programs.immersed = {
+    enable = true;
+  };
 
   # Enable ALVR - wireless PC VR streaming via SteamVR
   programs.alvr = {
@@ -92,7 +114,7 @@
     vitetris # Terminal-based Tetris clone by Victor Nilsson
     android-tools # Android SDK platform tools
     opencomposite # Reimplementation of OpenVR, translating calls to OpenXR Open app store and side-loading tool for Android-based VR devices
-    sidequest # 
+    # sidequest # Now marked as "insecure" - 10/9/26 
     wayvr  # VR on Linux
     wl-mirror # Mirror Wayland outputs into WayVR for desktop-in-VR
   ];
