@@ -1,4 +1,41 @@
-{ config, pkgs, inputs, ... }: 
+{ config, pkgs, inputs, ... }:
+
+let
+  # WayVR wrapped to run inside Steam's FHS environment.
+  #
+  # SteamVR's vrclient.so is an Ubuntu-style binary; as a bare NixOS process its
+  # libGL.so.1 / libEGL.so.1 / libuuid.so.1 deps do not resolve, so WayVR's
+  # OpenVR backend fails with "Context init failed" and never attaches to
+  # SteamVR - --wait just retries forever. Running it under steam-run supplies
+  # those libraries.
+  #
+  # Uses programs.steam.package.run rather than pkgs.steam-run so it reuses the
+  # Steam FHS environment configured below (same graphics libraries) instead of
+  # building a second copy.
+  #
+  # Caveat: steam-run mounts a private tmpfs over /tmp, so `wayvr -l /tmp/...`
+  # logs are destroyed on exit. Write logs under $HOME instead.
+  wayvrSteamRun = pkgs.symlinkJoin {
+    name = "wayvr-steam-run-${pkgs.wayvr.version}";
+    paths = [ pkgs.wayvr ];
+    nativeBuildInputs = [ pkgs.makeWrapper ];
+    inherit (pkgs.wayvr) meta;
+    postBuild = ''
+      # Replace the bare binary with one that re-execs inside the Steam FHS env.
+      rm $out/bin/wayvr
+      makeWrapper ${config.programs.steam.package.run}/bin/steam-run $out/bin/wayvr \
+        --add-flags ${pkgs.wayvr}/bin/wayvr
+
+      # Upstream ships a bare "Exec=wayvr", so launching from an app launcher
+      # fails whenever SteamVR is not already running. --wait holds until the
+      # runtime appears; --show skips the tutorial.
+      rm $out/share/applications/wayvr.desktop
+      substitute ${pkgs.wayvr}/share/applications/wayvr.desktop \
+        $out/share/applications/wayvr.desktop \
+        --replace-fail "Exec=wayvr" "Exec=$out/bin/wayvr --wait --show"
+    '';
+  };
+in
 
 { # Fun-and-games.nix
 
@@ -115,7 +152,7 @@
     android-tools # Android SDK platform tools
     opencomposite # Reimplementation of OpenVR, translating calls to OpenXR Open app store and side-loading tool for Android-based VR devices
     # sidequest # Now marked as "insecure" - 10/9/26 
-    wayvr  # VR on Linux
+    wayvrSteamRun # VR on Linux - wrapped in steam-run, see let block above
     wl-mirror # Mirror Wayland outputs into WayVR for desktop-in-VR
   ];
 
