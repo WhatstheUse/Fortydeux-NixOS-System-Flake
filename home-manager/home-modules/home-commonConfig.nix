@@ -28,24 +28,11 @@
   nixpkgs.config.allowUnfree = true;
   
   # Override packages to fix CMake compatibility issues
-  # NOTE: nixpkgs.overlays here has no effect — flake.nix passes a pre-built
-  # `pkgs` directly into homeManagerConfiguration, which wins over the
-  # default-priority `_pkgs` this module's nixpkgs.nix would otherwise build.
-  # Put overlays in flake.nix's `pkgs` definition instead.
   # nixpkgs.overlays = [
   #   (final: prev: {
   #     ctranslate2 = prev.ctranslate2.overrideAttrs (oldAttrs: {
   #       nativeBuildInputs = (oldAttrs.nativeBuildInputs or []) ++ [ final.cmake ];
   #       cmakeFlags = (oldAttrs.cmakeFlags or []) ++ [ "-DCMAKE_POLICY_VERSION_MINIMUM=3.5" ];
-  #     });
-  #   })
-  # ];
-  # nixpkgs.overlays = [
-  #   (final: prev: {
-  #     typescript-language-server = prev.typescript-language-server.overrideAttrs (old: {
-  #       pnpmDeps = old.pnpmDeps.override {
-  #         hash = "sha256-xR/EF60lVBsITKgH7wCM2wHM46PFQevD51KfCENSUH4=";
-  #       };
   #     });
   #   })
   # ];
@@ -605,13 +592,10 @@
             jsonls.enable = true;
             nil_ls.enable = true;
             bashls.enable = true;
-            ts_ls = {
-              enable = true;
-              # Explicitly pass the package (with its pnpmDeps hash overlay
-              # applied in flake.nix) since nixvim's own default package
-              # resolution for this server doesn't pick up the global overlay.
-              package = pkgs.typescript-language-server;
-            };
+            # Disabled: nixpkgs currently ships a broken pnpmDeps hash for
+            # typescript-language-server 6.0.2, breaking the build. Re-enable
+            # once that's fixed upstream.
+            ts_ls.enable = false;
           };
         };
         # Enable nvim-cmp for CodeCompanion autocomplete
