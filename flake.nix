@@ -80,8 +80,23 @@
       polarity = "dark";  # Theme polarity: "dark" or "light"
       lib = nixpkgs.lib;
       system = "x86_64-linux";
-      pkgs = nixpkgs.legacyPackages.${system};
-    in {    
+
+      # Work around a wrong pnpmDeps hash in nixpkgs for typescript-language-server
+      # 6.0.2 (pulled in via nixvim's LSP config, ts_ls.enable). Upstream bug: the
+      # hash pinned in pkgs/by-name/ty/typescript-language-server/package.nix
+      # doesn't match what fetchPnpmDeps actually produces at this nixpkgs rev.
+      # Remove once nixpkgs fixes the hash upstream.
+      overlays = [
+        (final: prev: {
+          typescript-language-server = prev.typescript-language-server.overrideAttrs (old: {
+            pnpmDeps = old.pnpmDeps.override {
+              hash = "sha256-xR/EF60lVBsITKgH7wCM2wHM46PFQevD51KfCENSUH4=";
+            };
+          });
+        })
+      ];
+      pkgs = import nixpkgs { inherit system overlays; };
+    in {
       nixosConfigurations = {
         #--Archerfish host--#
       	archerfish-nixos = lib.nixosSystem {
