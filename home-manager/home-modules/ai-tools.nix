@@ -12,6 +12,7 @@
     # code-cursor #AI-powered code editor built on vscode
     codex #OpenAI lightweight coding agent that runs in terminal
     claude-code #Agentic coding tool for terminal and codebase
+    opencode #AI coding agent built for the terminal
     tenere #Rust-based TUI for interacting with AI LLMs
     warp-terminal #Modern rust-based AI-enabled terminal       
     # windsurf #Agentic IDE powered by AI Flow paradigm

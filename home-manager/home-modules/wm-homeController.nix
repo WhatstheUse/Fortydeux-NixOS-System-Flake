@@ -9,6 +9,7 @@ in
     ./compositor-configs/stasis-config.nix
     ./compositor-configs/noctalia.nix
     ./compositor-configs/dms.nix
+    ./compositor-configs/konveyor.nix
   ];
 
   options.sessionProfiles = {

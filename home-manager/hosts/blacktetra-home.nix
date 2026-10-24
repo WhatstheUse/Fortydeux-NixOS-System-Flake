@@ -9,6 +9,7 @@
   programs.river = { enable = true; enableStylix = true; };
   programs.mangowc = { enable = true; enableStylix = true; };
   programs.scroll = { enable = true; enableStylix = true; };
+  programs.konveyor.enable = true;
 
   imports = [
     ../home-modules/home-commonConfig.nix
