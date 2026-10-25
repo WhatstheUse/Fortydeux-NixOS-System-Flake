@@ -99,7 +99,7 @@
     # musescore #Music notation and composition software
     nix-melt # A ranger-like flake.lock viewer
     nix-search-cli # CLI for searching packages on search.nixos.org
-    nix-search-tv # Fuzzy search for Nix packages
+    # nix-search-tv # Fuzzy search for Nix packages - switched to programs enable
     nvchecker # New version checker for software
     # obs-studio #Screen recorder       
     pandoc # Conversion between document formats
@@ -112,6 +112,7 @@
     python3 # Python 3
     pyradio # Curses based internet radio
     radio-cli # Simple radio CLI written in rust
+    readest # Modern, feature-rich eBook reader
     reaper # Reaper DAW
     retext # Editor for Markdown and reStructuredText
     satty # Modern Screenshot Annotation tool
@@ -382,6 +383,10 @@
           auto-format = false;
         }];       
       };
+    };
+    nix-search-tv = {
+      enable = true;
+      enableTelevisionIntegration = true;
     };
     nixvim = {
       enable = true;

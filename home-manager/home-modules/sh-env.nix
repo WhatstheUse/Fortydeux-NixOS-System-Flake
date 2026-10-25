@@ -36,6 +36,9 @@
     enableZshIntegration = true;
     flags = [ "--disable-ctrl-r" ];
   };
+  programs.television = {
+    enable = true;
+  };
   # Session variables and shell aliases
   home = {
     sessionPath = [
@@ -56,6 +59,7 @@
       fetch = "fastfetch";
       ff = "cd ~/fortyflake";
       ffy = "cd ~/fortyflake && yazi";
+      ns = "tv nix-search-tv";
       org = "cd ~/Documents/Org-Mode";
       orgy = "cd ~/Documents/Org-Mode && yazi";
       stat = "git status";
