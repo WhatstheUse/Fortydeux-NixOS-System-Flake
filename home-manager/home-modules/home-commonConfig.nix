@@ -130,7 +130,6 @@
     tldr # Simplified and community-driven man pages
     tmux # Terminal multiplexer
     topgrade # Upgrade all the things
-    trayer # Lightweight GTK2-based system tray for unix desktp
     # vault-tasks # TUI Markdown Task manager
     vlc # Cross-platform media player
     vscode # Open source source code editor developed by Microsoft for Windows, Linux and macOS    
@@ -600,7 +599,7 @@
             # Disabled: nixpkgs currently ships a broken pnpmDeps hash for
             # typescript-language-server 6.0.2, breaking the build. Re-enable
             # once that's fixed upstream.
-            ts_ls.enable = false;
+            ts_ls.enable = true;
           };
         };
         # Enable nvim-cmp for CodeCompanion autocomplete
