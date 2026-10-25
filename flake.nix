@@ -46,7 +46,7 @@
     };
     #OpenLogi - Logitech peripheral manager
     openlogi = {
-      url = "github:AprilNEA/OpenLogi";
+      url = "github:AprilNEA/OpenLogi?dir=packaging";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     #MusNix
