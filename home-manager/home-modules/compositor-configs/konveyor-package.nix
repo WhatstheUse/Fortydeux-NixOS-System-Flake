@@ -2,13 +2,13 @@
 
 pkgs.stdenv.mkDerivation {
   pname = "konveyor";
-  version = "0.1.0-unstable-2026-10-21";
+  version = "0.1.0-unstable-2026-10-25";
 
   src = pkgs.fetchFromGitHub {
     owner = "DevL0rd";
     repo = "Konveyor";
-    rev = "63e0037c6fbdbfe27bc8af17c914543b5a779ed0";
-    hash = "sha256-Lte+UOvwyCbmqK9hSS3bRuMDuoyN5hflLO3ZfqKbojg=";
+    rev = "33b3fe1edf7099ab4fb965631ce7873a80b963c2";
+    hash = "sha256-MD8aOsMkFnoKMNZPU+Oz8ZFoLipEvZAOfskbxVCM4jM=";
   };
 
   nativeBuildInputs = with pkgs; [
