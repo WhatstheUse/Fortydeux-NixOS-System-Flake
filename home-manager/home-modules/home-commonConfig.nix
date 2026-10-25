@@ -127,7 +127,7 @@
     # telegram-desktop #Telegram desktop client
     testdisk # Data recovery utilities
     ticktick # A powerful to-do & task management app with seamless cloud synchronization across all your devices
-    tldr # Simplified and community-driven man pages
+    tealdeer # Simplified and community-driven man pages - Very fast implementation of tldr in Rust
     tmux # Terminal multiplexer
     topgrade # Upgrade all the things
     # vault-tasks # TUI Markdown Task manager
