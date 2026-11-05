@@ -77,11 +77,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1793640770,
-        "narHash": "sha256-gdIRbKIgMuprIA2ErdasFLK7kcsMQYCHtgmhN8hZMOU=",
+        "lastModified": 1793739199,
+        "narHash": "sha256-HuQc1LWnU9Sg7BKnlXQAy7u621S78GEp1Q/Ww3Abxog=",
         "owner": "AvengeMedia",
         "repo": "DankMaterialShell",
-        "rev": "0478a61534fe3d0dec327bc709092ec3dc0049d7",
+        "rev": "bcfc3554aa992a848774aebc17c52c42d3fe3eef",
         "type": "github"
       },
       "original": {
@@ -93,11 +93,11 @@
     "dank-qml-common": {
       "flake": false,
       "locked": {
-        "lastModified": 1793637751,
-        "narHash": "sha256-FmRmKutFOblVf8j2sU38qF4BCpOvRmf0txwCX/nLy1U=",
+        "lastModified": 1793720721,
+        "narHash": "sha256-A266EMSFs169/cqH+9elzMX/6N+ycuEBXFw4qXdTD7k=",
         "owner": "duxlabs-dev",
         "repo": "dux-qml-common",
-        "rev": "2e4fef62b026aaa3101f8b0e288ca22113a6210f",
+        "rev": "be3e16ca62866a749b34cfefe1aaed81cfe21e94",
         "type": "github"
       },
       "original": {
@@ -389,11 +389,11 @@
       },
       "locked": {
         "dir": "packaging",
-        "lastModified": 1793635053,
-        "narHash": "sha256-ZHeOUBzmGXORzS6OQbLUb+Qm5oOhK2EXQ46S5aCMEN0=",
+        "lastModified": 1793737195,
+        "narHash": "sha256-lJVX6pUFgv6bWDczIkLGkrx8iYIHuqu4a2Neu5rVVFI=",
         "owner": "AprilNEA",
         "repo": "OpenLogi",
-        "rev": "6d01ac3ab110869d10140e6188541eb567378932",
+        "rev": "a5b507ec8802e0ecb7ef3de61ce7868609c9b533",
         "type": "github"
       },
       "original": {
