@@ -17,6 +17,9 @@
     inputs.openlogi.nixosModules.default
   ];
 
+  # Keep the upstream module, which also starts the OpenLogi agent at login.
+  disabledModules = [ "programs/openlogi.nix" ];
+
   ### Shell
   programs.fish.enable = true;
   programs.mosh.enable = true;

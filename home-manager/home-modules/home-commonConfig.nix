@@ -82,7 +82,7 @@
     impala #TUI for managing Wifi
     jellyfin-tui #TUI for Jellyfin music
     # joplin-desktop #An open source note taking and to-do application with synchronisation capabilities - TEMPORARILY DISABLED: uses EOL electron-36.9.5
-    joshuto #Ranger-like TUI file manager written in Rust
+    # joshuto #Ranger-like TUI file manager written in Rust
     # (kdePackages.kdenlive.overrideAttrs (prevAttrs: {
     #   nativeBuildInputs = (prevAttrs.nativeBuildInputs or [ ]) ++ [ makeBinaryWrapper ];
     #   postInstall = (prevAttrs.postInstall or "") + ''
@@ -93,6 +93,7 @@
  #   logseq #Logseq electron desktop client
     # libinput # Handles input devices in Wayland compositors
     # lan-mouse #Wayland software KVM switch
+    lf # Terminal file manager written in Go and heavily inspired by ranger
     # media-downloader #Media-downloader desktop client
     # mediawriter #USB imaage writer
     # moc # Terminal music player
