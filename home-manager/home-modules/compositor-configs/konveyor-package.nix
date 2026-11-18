@@ -2,13 +2,13 @@
 
 pkgs.stdenv.mkDerivation {
   pname = "konveyor";
-  version = "0.1.0-unstable-2026-10-25";
+  version = "0.1.0-unstable-2026-11-17";
 
   src = pkgs.fetchFromGitHub {
     owner = "DevL0rd";
     repo = "Konveyor";
-    rev = "33b3fe1edf7099ab4fb965631ce7873a80b963c2";
-    hash = "sha256-MD8aOsMkFnoKMNZPU+Oz8ZFoLipEvZAOfskbxVCM4jM=";
+    rev = "178b9f2291401a1bdf644ca1019d0940ae777231";
+    hash = "sha256-pmtElHAur3/FESpevtlJ/zutRjrA1AZik8hb2PnAiEY=";
   };
 
   nativeBuildInputs = with pkgs; [
@@ -24,9 +24,11 @@ pkgs.stdenv.mkDerivation {
     [
       libxcb
       libxkbcommon
+      pipewire
       xcbutilwm
       qt6.qtbase
       qt6.qtdeclarative
+      qt6.qtshadertools
     ]
     ++ (with kdePackages; [
       kcmutils
