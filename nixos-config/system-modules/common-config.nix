@@ -93,17 +93,21 @@
     axel # Console downloading program with some features for parallel connections for faster downloading
     btop # User-friendly TUI resource monitor
     browsh # Modern TUI browser
+    dirstat-rs # Disk usage CLI
     duf # Disk Usage/Free Utility
+    dust # du - but more intuitive
     fd # a simple, fast and user-friendly alternative to find
     fh # Official FlakeHub CLI
     fzf # Command-line fuzzy finder written in go
     firefox # Firefox browser
+    gdu # Disk usage analyzer with console interface written in Go
     git # Git CLI utility
     gparted # Disk/Partition manager
     htop # Human readable CLI top utility
     kitty # A modern, hackable, featureful, OpenGL based terminal emulator - Default Terminal for Hyprland
     mc # File Manager and User Shell for the GNU Project, known as Midnight Commander
     micro # Modern and intuitive terminal-based text editor
+    ncdu # Disk usage analyzer with an Ncurses interface
     neovim # Vim text editor fork focused on extensibility and agility
     nnn # Small ncurses-based file browser forked from noice
     pcloud # Synced cloud file storage service - similar to Dropbox
