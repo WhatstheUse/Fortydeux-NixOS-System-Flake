@@ -78,11 +78,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1795275397,
-        "narHash": "sha256-g/3GMiJA740mI1ZR6OXum5dLEC8bznjh2gZAkws/Z1I=",
+        "lastModified": 1795412872,
+        "narHash": "sha256-kt8BILBMg9edGz/6xPo9yj8Y3NZb5b996hJPdH6yPug=",
         "owner": "AvengeMedia",
         "repo": "DankMaterialShell",
-        "rev": "affea850d83502193697d9dd27f5a0d6683ce6a4",
+        "rev": "ead2e74069f4bd1432710247a6389e5d95621739",
         "type": "github"
       },
       "original": {
@@ -94,11 +94,11 @@
     "dank-qml-common": {
       "flake": false,
       "locked": {
-        "lastModified": 1795211080,
-        "narHash": "sha256-PV5cT7st/9ioV5aHeNP0go7wFfHlKfBYVVRCQ8JkHXg=",
+        "lastModified": 1795408239,
+        "narHash": "sha256-VaVJV0ZYx0nu7+ol44g01otqX3doKDUVzhzad5Ylp0s=",
         "owner": "duxlabs-dev",
         "repo": "dux-qml-common",
-        "rev": "12f5e4457e0ca14b6a5f9a283ab581ce28c92855",
+        "rev": "df51822bc2667904ecbc2179ce0496e229e13a2e",
         "type": "github"
       },
       "original": {
@@ -115,11 +115,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1795274945,
-        "narHash": "sha256-lMWykmeh2WySM84VO/6VGSnCBdaAeSFoSswqNqhI6lo=",
+        "lastModified": 1795337492,
+        "narHash": "sha256-xGJDFNGgtXujSneISCrN2TxKx2IkTMeFBgTmJIISGfs=",
         "owner": "duxlabs-dev",
         "repo": "dux-qt-base",
-        "rev": "87f6830d1bd0e71c06b18c4df8f3370591bc7ba6",
+        "rev": "0ea003e30fc92c51943ab7660b58d883708e25c2",
         "type": "github"
       },
       "original": {
@@ -244,11 +244,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1795268568,
-        "narHash": "sha256-1RJm4DEu7YHJv94sjSY7sjqT+kHx/AUwmtUN4dtFBUo=",
+        "lastModified": 1795366757,
+        "narHash": "sha256-Tp4Kh4R7ID1f2mMCDlb2PiFQ/DZZsnXB2u2juWN+TT4=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "6857c7f7c338ad181729c52071386b0d3afa24bc",
+        "rev": "3b8140d21fa0a70b1b38c2ed29853dfe686234a6",
         "type": "github"
       },
       "original": {
@@ -411,11 +411,11 @@
       },
       "locked": {
         "dir": "packaging",
-        "lastModified": 1794485966,
-        "narHash": "sha256-kXdhOcXaTH/ScAcPVZU+v3EV0RSZ1emTSysiBTp5kZ0=",
+        "lastModified": 1795371840,
+        "narHash": "sha256-6R6uUcnnzHCWWuYSlCc+BhUSAUbwEdwjgzCv3dm7XVk=",
         "owner": "AprilNEA",
         "repo": "OpenLogi",
-        "rev": "9ca7ef0cbd1f4577ffdc338f8288f8c3a410f013",
+        "rev": "da245558a4cafef5271480cc10e633c901f62a82",
         "type": "github"
       },
       "original": {

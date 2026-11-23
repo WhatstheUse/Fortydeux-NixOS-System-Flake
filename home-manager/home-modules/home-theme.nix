@@ -59,6 +59,7 @@ in
     };
     targets = {
       fuzzel.enable = true;
+      wayprompt.enable = false;
     };
   };
 
